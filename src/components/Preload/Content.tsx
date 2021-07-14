@@ -4,7 +4,7 @@ import backgroundImage from "../../assets/images/bg.jpg";
 import Carousel from "react-material-ui-carousel";
 import CarouselItem from "./carouselItem";
 import { useQuery } from "@apollo/client";
-import { DENEME } from "../queries/person";
+import { DENEME } from "../queries/authorize";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
