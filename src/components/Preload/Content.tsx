@@ -3,6 +3,8 @@ import React from "react";
 import backgroundImage from "../../assets/images/bg.jpg";
 import Carousel from "react-material-ui-carousel";
 import CarouselItem from "./carouselItem";
+import { useQuery } from "@apollo/client";
+import { DENEME } from "../queries/person";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -45,8 +47,7 @@ const CARAOUSEL_ITEMS = [
     title: "Blogify ile post paylaşmak çok kolay!",
     description:
       "Blogify ile post paylaşmak çok kolaydır. Hemen üye ol ve paylaşmaya başla! Ya da yeni bir hesap oluştur!",
-    imageUrl:
-      "https://lh3.googleusercontent.com/proxy/kQ4xYdcJ2BiA9EXdpUxmCSfr80tsdHmYPiUM6abSnglWmwgEZHnrQ4qzkjjBbNYdUN4GlTqvxqdW9TEI1X5Ld8MHgUGedJdtdc_Fn_r76MDd80gpWCqhXplC38F_-0vaB7ZkDul6MoY",
+    imageUrl: "https://www.rgsyazilim.com/wp-content/uploads/2020/06/blog.png",
   },
   {
     title: "Blogify ile post paylaşmak çok hızlıdır!",
@@ -64,7 +65,12 @@ const CARAOUSEL_ITEMS = [
 ];
 const Content = () => {
   const classes = useStyles();
+  const { loading, error, data } = useQuery(DENEME);
 
+  console.log("datalar", data);
+  if (loading) {
+    return <p>loading...</p>;
+  }
   return (
     <main className={classes.root}>
       <Grid
@@ -89,6 +95,7 @@ const Content = () => {
               title={item.title}
               description={item.description}
               imageUrl={item.imageUrl}
+              key={item.title}
             />
           ))}
         </Carousel>

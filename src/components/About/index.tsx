@@ -1,37 +1,103 @@
-import { Grid, Typography } from "@material-ui/core";
+import {
+  AccordionSummary,
+  Grid,
+  Typography,
+  Accordion,
+  AccordionDetails,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import React from "react";
+import React, { Fragment } from "react";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
 const useStyles = makeStyles((theme: any) => ({
   root: {
-    background: `url("https://teknoguru.net/wp-content/uploads/2020/02/blog3-1360x765.jpg")`,
-    opacity: 0.9,
-    width: "auto",
-    height: 800,
+    width: "100%",
+    height: `calc(100vh - ${theme.workspace.appBarHeight}px)`,
+  },
+  image: {
+    background: `url("https://jestman.com/wp-content/uploads/2016/07/blog.jpg")`,
+    opacity: 0.6,
+    width: "100%",
+    height: `calc(100vh - ${theme.workspace.appBarHeight}px)`,
     backgroundSize: "cover",
+    position: "fixed",
+    filter: "blur(2px)",
+    transition: "all .5s",
+    "&:hover": {
+      filter: "blur(0px)",
+      opacity: 1,
+      transform: "scale(1.01)",
+    },
   },
   section: {
     width: "80%",
     height: 400,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    border: "4px solid #fff",
+    borderRadius: 15,
+    color: theme.colorPalette.secondary,
+    position: "fixed",
+    transition: "all .4s",
+    "&:hover": {
+      backgroundColor: theme.colorPalette.primary.main,
+    },
+    "&:not(:hover)": {
+      backgroundColor: theme.colorPalette.primary.main,
+      color: "#fff",
+      opacity: 0.2,
+    },
+  },
+  accordion: {
+    backgroundColor: theme.colorPalette.primary.main,
+    color: theme.colorPalette.secondary,
+  },
+  title: {
+    "&:first-letter": {
+      fontSize: 100,
+      color: theme.colorPalette.primary.light,
+    },
   },
 }));
 const About = () => {
   const classes = useStyles();
   return (
-    <Grid
-      container
-      className={classes.root}
-      justifyContent="center"
-      alignItems="center"
-    >
-      <div className={classes.section}>
-        <Typography variant="h2" align="center">
-          Blogify içerik paylaşma ve uygulama platformudur
-        </Typography>
-      </div>
-    </Grid>
+    <Fragment>
+      <div className={classes.image}></div>
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="center"
+        className={classes.root}
+      >
+        <Grid
+          container
+          className={classes.section}
+          alignItems="center"
+          justifyContent="center"
+        >
+          {/* <Accordion className={classes.accordion}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography variant="h4">Accordion 1</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget.
+              </Typography>
+            </AccordionDetails>
+          </Accordion> */}
+          <Typography variant="h5" align="center" className={classes.title}>
+            Blogify bir blog paylaşma platformudur. Hemen hesap oluşturarak yeni
+            bir hesap oluşturabilir, arkadaşlarınla blog'larını
+            paylaşaabilirsin.
+          </Typography>
+        </Grid>
+      </Grid>
+    </Fragment>
   );
 };
 

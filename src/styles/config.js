@@ -11,6 +11,9 @@ export const theme = createTheme({
             light: "#91a2ce"
         },
         secondary: "#F6B8B8"
+    },
+    workspace: {
+        appBarHeight: 60
     }
 })
 

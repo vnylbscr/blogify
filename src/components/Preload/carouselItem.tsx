@@ -119,13 +119,13 @@ const CarouselItem: FC<ICarouselItemProps> = (props) => {
             />
           </Grid>
           <CardContent>
-            <Grid xs={6} sm={12} container>
+            <Grid xs={6} sm={12} container direction="column">
               <Typography variant="h6" color="textPrimary">
                 {description}
               </Typography>
               <Link onClick={() => console.log("cukura")}>Hesap Oluştur</Link>
             </Grid>
-          </CardContent>
+          </CardContent>*
         </Card>
       </Grid>
     </Paper>

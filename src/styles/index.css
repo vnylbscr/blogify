@@ -23,18 +23,25 @@
     background-size: cover;
 }
 
-.preload-title{
+.preload-title {
     font-size: 4rem;
     font-weight: medium;
     text-align: center;
     color: rebeccapurple;
     transition: all .7s ease;
-
 }
 
 .preload-title:hover {
     cursor: pointer;
     color: cadetblue;
     transform: scale(1.1);
-    
+}
+
+.about-container {
+    height: calc(100vh - 60px);
+    width: auto;
+    overflow: hidden;
+    opacity: inherit;
+    background: url("https://jestman.com/wp-content/uploads/2016/07/blog.jpg");
+    background-size: cover;
 }
