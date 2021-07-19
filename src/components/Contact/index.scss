@@ -1,0 +1,77 @@
+$main: #3c5186;
+$dark: #1e2842;
+$light: #91a2ce;
+$MontSerrat: "Montserrat", sans-serif;
+.contact-container {
+  height: calc(100vh - 60px);
+  width: auto;
+  overflow: auto;
+  .contact-top-section {
+    background: url("https://www.publicdomainpictures.net/pictures/250000/velka/clouds-background-005.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: all 0.6s;
+    text-transform: uppercase;
+    opacity: 0.9;
+    .contact-title-container {
+      display: flex;
+      flex-direction: row;
+      p {
+        font-size: 60px;
+        font-weight: bold;
+        font-style: italic;
+        color: $dark;
+        margin-right: 20px;
+        text-transform: none;
+      }
+    }
+    p {
+      font-size: 60px;
+      color: rebeccapurple;
+      transition: transform 0.4s;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    &:hover {
+      transform: scaleY(1.1);
+      opacity: 1;
+    }
+  }
+  .contact-bottom-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+    font-family: $MontSerrat;
+    .contact-title {
+      p {
+        font-size: 80px;
+        span {
+          text-decoration: line-through;
+        }
+      }
+    }
+    .contact-section {
+      margin-top: 30px;
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      span {
+        font-size: 20px;
+        word-wrap: break-word;
+        color: lightslategrey;
+        // font-weight: bold;
+        font-family: $MontSerrat;
+      }
+    }
+  }
+}

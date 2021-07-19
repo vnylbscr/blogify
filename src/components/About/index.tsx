@@ -74,22 +74,6 @@ const About = () => {
           alignItems="center"
           justifyContent="center"
         >
-          {/* <Accordion className={classes.accordion}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography variant="h4">Accordion 1</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
-              </Typography>
-            </AccordionDetails>
-          </Accordion> */}
           <Typography variant="h5" align="center" className={classes.title}>
             Blogify bir blog paylaşma platformudur. Hemen hesap oluşturarak yeni
             bir hesap oluşturabilir, arkadaşlarınla blog'larını

@@ -2,9 +2,13 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     border: 0;
     list-style: none;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 .bg-image {
@@ -28,7 +32,7 @@
     font-weight: medium;
     text-align: center;
     color: rebeccapurple;
-    transition: all .7s ease;
+    transition: all 0.7s ease;
 }
 
 .preload-title:hover {
@@ -45,3 +49,5 @@
     background: url("https://jestman.com/wp-content/uploads/2016/07/blog.jpg");
     background-size: cover;
 }
+
+/*# sourceMappingURL=index.css.map */

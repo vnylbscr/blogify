@@ -4,7 +4,7 @@ import backgroundImage from "../../assets/images/bg.jpg";
 import Carousel from "react-material-ui-carousel";
 import CarouselItem from "./carouselItem";
 import { useQuery } from "@apollo/client";
-import { DENEME } from "../../queries/authorize";
+import Footer from "../Footer";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: any) => ({
     maxWidth: 1100,
     maxHeight: 1100,
     [theme.breakpoints.down("sm")]: {
-      width: 400,
+      width: 300,
       height: 500,
     },
   },
@@ -65,12 +65,7 @@ const CARAOUSEL_ITEMS = [
 ];
 const Content = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(DENEME);
 
-  console.log("datalar", data);
-  if (loading) {
-    return <p>loading...</p>;
-  }
   return (
     <main className={classes.root}>
       <Grid
@@ -99,33 +94,6 @@ const Content = () => {
             />
           ))}
         </Carousel>
-
-        {/* <Grid
-          direction="row"
-          container
-          xs={12}
-          justify="center"
-          alignItems="center"
-        >
-          <Grid container item xs={6} className={classes.leftSpace}>
-            <h1>Blogify</h1>
-          </Grid>
-          <Grid
-            container
-            item
-            xs={6}
-            direction="column"
-            className={classes.rightSpace}
-            alignItems="center"
-            justifyContent="center"
-          >
-            <div className="preload-title">Blogify</div>
-            <div className={classes.section}>
-              <span style={{ color: "rebeccapurple" }}>Blogify</span> blog
-              oluşturmana ve arkadaşlarınla paylaşmanı sağlar.
-            </div>
-          </Grid>
-        </Grid> */}
       </Grid>
     </main>
   );

@@ -8,7 +8,20 @@ import {
   Grid,
   Button,
   TextField,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  Divider,
+  Hidden,
+  Theme,
+  useMediaQuery,
+  Drawer,
+  Box,
+  FormControlLabel,
+  Switch,
 } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
 import CreateIcon from "@material-ui/icons/Create";
 import HeaderItem from "./Item";
 import { useHistory } from "react-router-dom";
@@ -17,6 +30,8 @@ import InfoIcon from "@material-ui/icons/Info";
 import ContactSupportIcon from "@material-ui/icons/ContactSupport";
 import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
 import Modal from "../BaseComponents/Dialog";
+import MenuIcon from "@material-ui/icons/Menu";
+
 const useStyles = makeStyles((theme?: any) => ({
   root: {
     fontSize: "1.2rem",
@@ -24,6 +39,10 @@ const useStyles = makeStyles((theme?: any) => ({
     height: 60,
     // color: "#C6B4CE",
     background: theme.colorPalette.primary.main,
+  },
+  paper: {
+    backgroundColor: theme.colorPalette.primary.main,
+    color: theme.colorPalette.secondary,
   },
   title: {
     flexGrow: 3,
@@ -37,6 +56,21 @@ const useStyles = makeStyles((theme?: any) => ({
     fontSize: "1.5rem",
     color: "#C6B4CE",
   },
+  createIcon: {
+    fontSize: "1.3rem",
+    color: "#fff",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  drawer: {},
+  MenuButton: {
+    fontSize: "1.3rem",
+    color: "#fff",
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
+  },
   headerTitle: {},
   subtitle: {},
   titleContainer: {
@@ -45,6 +79,17 @@ const useStyles = makeStyles((theme?: any) => ({
       color: theme.colorPalette.secondary,
       transform: "scale(1.04)",
       cursor: "pointer",
+    },
+  },
+  loginButton: {
+    fontSize: "1rem",
+    color: "#fff",
+    marginRight: 5,
+    backgroundColor: theme.colorPalette.primary.main,
+    border: "1px solid" + theme.colorPalette.primary.light,
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: theme.colorPalette.secondary,
     },
   },
 }));
@@ -83,6 +128,10 @@ type ModalConfig = {
 
 // Return
 const AppBar: FC<AppBarProps> = ({ position }) => {
+  // useTheme
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   const classes = useStyles();
   const history = useHistory();
   const initialState = {
@@ -90,7 +139,7 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
     open: false,
   };
   const [modalConfig, setModalConfig] = useState<ModalConfig>(initialState);
-
+  const [openDrawer, setOpenDrawer] = useState<boolean>();
   const handleClickItem = (url: string) => {
     history.push(url);
   };
@@ -111,10 +160,57 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
   const handleCloseDialog = () => {
     setModalConfig(initialState);
   };
+  const handleChangeDrawer = () => {
+    setOpenDrawer(!openDrawer);
+  };
+
+  // drawer for mobile
+  const myDrawer = (
+    <Grid
+      container
+      direction="column"
+      justifyContent="space-between"
+      style={{ height: "100%" }}
+    >
+      <Grid container item direction="column">
+        <Typography variant="h6" align="center" style={{ paddingTop: 10 }}>
+          Blogify
+        </Typography>
+      </Grid>
+      <Divider style={{ width: "100%", color: "#fff" }} />
+      <Grid container item xs={9}>
+        <List>
+          {APP_BAR_ITEMS.map((item) => (
+            <ListItem
+              button
+              onClick={() => {
+                handleClickItem(item.url);
+                // * when change route, close the drawer
+                handleChangeDrawer();
+              }}
+            >
+              <ListItemIcon className={classes.icon}>{item.icon}</ListItemIcon>
+              <ListItemText>{item.title}</ListItemText>
+            </ListItem>
+          ))}
+        </List>
+      </Grid>
+      <Grid item container alignItems="center" direction="column">
+        <FormControlLabel
+          control={<Switch name="checkedA" color="secondary" />}
+          label="Koyu Tema"
+          color="Primary"
+        />
+        <Typography style={{ marginTop: 10 }} variant="caption">
+          Mert Genç 2021
+        </Typography>
+      </Grid>
+    </Grid>
+  );
 
   return (
     <MaterialAppBar position="static" className={classes.root}>
-      <Toolbar>
+      <Toolbar variant="dense">
         <Grid
           container
           xs={12}
@@ -127,10 +223,16 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
             container
             item
             className={classes.title}
-            xs={3}
+            xs={isSmallScreen ? 7 : 3}
           >
-            <IconButton>
+            <IconButton className={classes.createIcon}>
               <CreateIcon className={classes.icon} />
+            </IconButton>
+            <IconButton
+              className={classes.MenuButton}
+              onClick={handleChangeDrawer}
+            >
+              <MenuIcon />
             </IconButton>
             <Grid item direction="column" className={classes.titleContainer}>
               <Typography variant="h6" className={classes.headerTitle}>
@@ -141,92 +243,76 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
               </Typography>
             </Grid>
           </Grid>
-          <Grid
-            direction="row"
-            alignItems="center"
-            container
-            justifyContent="center"
-            item
-            className={classes.title}
-            xs={6}
+          <Drawer
+            open={openDrawer}
+            variant="temporary"
+            onClose={handleChangeDrawer}
+            ModalProps={{
+              keepMounted: true,
+            }}
+            className={classes.drawer}
+            classes={{
+              paper: classes.paper,
+            }}
           >
-            {APP_BAR_ITEMS.map((item) => (
-              <HeaderItem
-                title={item.title}
-                onClick={() => handleClickItem(item.url)}
-                style={{ marginRight: 15 }}
-                icon={item.icon}
-                disableRipple
-              />
-            ))}
-          </Grid>
-          <Grid
-            direction="row"
-            alignItems="center"
-            container
-            className={classes.rightPanelContainer}
-            justifyContent="flex-end"
-            xs={3}
-          >
-            <Button
-              variant="outlined"
-              color="default"
-              style={{ fontSize: "1rem", color: "lightgrey", marginRight: 5 }}
-              onClick={openLoginDialog}
-            >
-              Login
-            </Button>
+            {myDrawer}
+          </Drawer>
+          <Hidden xsDown smDown>
+            <Fragment>
+              <Grid
+                direction="row"
+                alignItems="center"
+                container
+                justifyContent="center"
+                item
+                className={classes.title}
+                xs={6}
+              >
+                {APP_BAR_ITEMS.map((item) => (
+                  <HeaderItem
+                    title={item.title}
+                    onClick={() => handleClickItem(item.url)}
+                    style={{ marginRight: 15 }}
+                    icon={item.icon}
+                    disableRipple
+                  />
+                ))}
+              </Grid>
+              <Grid
+                direction="row"
+                alignItems="center"
+                container
+                className={classes.rightPanelContainer}
+                justifyContent="flex-end"
+                xs={3}
+              >
+                <Button
+                  variant="text"
+                  onClick={openLoginDialog}
+                  className={classes.loginButton}
+                >
+                  Giriş Yap
+                </Button>
 
-            <Typography variant="subtitle2">or</Typography>
-            <Button
-              variant="outlined"
-              color="default"
-              style={{ fontSize: "1rem", color: "lightgrey", marginLeft: 5 }}
-              onClick={openRegisterDialog}
-            >
-              Register
-            </Button>
-            <Modal
-              open={modalConfig.open}
-              onClose={handleCloseDialog}
-              dialogTitle={
-                modalConfig.mode === "LOGIN" ? "Giriş Yap" : "Üye OL"
-              }
-            >
-              {modalConfig.mode === "LOGIN" ? (
-                <Fragment>
-                  <TextField variant="outlined" label="E-mail" fullWidth />
-                  <TextField
-                    variant="outlined"
-                    label="Şifre"
-                    type="password"
-                    fullWidth
-                  />
-
-                  <Button variant="contained" color="secondary">
-                    Giriş Yap
-                  </Button>
-                </Fragment>
-              ) : (
-                <Fragment>
-                  <TextField
-                    variant="outlined"
-                    label="E-mail"
-                    style={{ paddingLeft: 10, paddingRight: 20 }}
-                    fullWidth
-                  />
-                  <TextField variant="outlined" label="İsim" fullWidth />
-                  <TextField
-                    variant="outlined"
-                    label="Şifre"
-                    type="password"
-                    fullWidth
-                  />
-                  <Button variant="contained">Üye OL</Button>
-                </Fragment>
-              )}
-            </Modal>
-          </Grid>
+                <Typography variant="subtitle2">or</Typography>
+                <Button
+                  variant="text"
+                  style={{ marginLeft: 5 }}
+                  className={classes.loginButton}
+                  onClick={openRegisterDialog}
+                >
+                  Kayıt Ol
+                </Button>
+                <Modal
+                  open={modalConfig.open}
+                  onClose={handleCloseDialog}
+                  dialogTitle={
+                    modalConfig.mode === "LOGIN" ? "Giriş Yap" : "Üye OL"
+                  }
+                ></Modal>
+              </Grid>
+            </Fragment>
+          </Hidden>
         </Grid>
       </Toolbar>
     </MaterialAppBar>

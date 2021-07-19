@@ -1,6 +1,5 @@
 import { Grid, ThemeProvider, Typography } from "@material-ui/core";
 import React, { FC, useState } from "react";
-import "./App.css";
 import { makeStyles } from "@material-ui/core";
 import { theme } from "../src/styles/config";
 import AppBar from "./components/Header";
@@ -9,6 +8,7 @@ import Content from "./components/Preload/Content";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Contributors from "./components/Contributors";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -22,6 +22,7 @@ const App = () => {
           <Route exact path="/contributors" component={Contributors} />
         </Switch>
       </Router>
+      <Footer />
     </ThemeProvider>
   );
 };

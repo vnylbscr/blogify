@@ -11,10 +11,11 @@ import { makeStyles } from "@material-ui/styles";
 
 interface IModalProps {
   open: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   style?: object;
   dialogTitle?: string;
   dialogContentTitle?: string;
+  className?: string;
 }
 
 const useStyles = makeStyles((theme: any) => ({
@@ -24,9 +25,9 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 const Modal: FC<IModalProps> = (props) => {
-  const { open, onClose, style, dialogTitle } = props;
+  const { open, onClose, style, dialogTitle, className } = props;
   return (
-    <Dialog open={open} onClose={onClose} style={style}>
+    <Dialog open={open} onClose={onClose} style={style} className={className}>
       <DialogTitle>{dialogTitle}</DialogTitle>
       <DialogContent>{props.children}</DialogContent>
     </Dialog>
