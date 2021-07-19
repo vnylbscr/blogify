@@ -111,7 +111,7 @@ const CarouselItem: FC<ICarouselItemProps> = (props) => {
             title="Blogify"
             subheader={title}
           />
-          <Grid container xs={8} md={12} justify="center">
+          <Grid container xs={8} md={12} justifyContent="center">
             <CardMedia
               image={imageUrl}
               title="Resim"
@@ -125,7 +125,8 @@ const CarouselItem: FC<ICarouselItemProps> = (props) => {
               </Typography>
               <Link onClick={() => console.log("cukura")}>Hesap Oluştur</Link>
             </Grid>
-          </CardContent>*
+          </CardContent>
+          *
         </Card>
       </Grid>
     </Paper>
