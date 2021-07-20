@@ -18,6 +18,7 @@ interface IModalProps {
   className?: string;
   fullWidth?: boolean;
   width?: number;
+  height?: number;
 }
 
 const useStyles = makeStyles((theme: any) => ({
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme: any) => ({
   },
   paper: {
     width: (props: IModalProps) => props.width || 400,
+    height: (props: IModalProps) => props.height || "",
     // background: theme.colorPalette.primary.main,
   },
 }));

@@ -7,11 +7,15 @@ import EmailIcon from "@material-ui/icons/Email";
 import LockIcon from "@material-ui/icons/Lock";
 import { classicNameResolver } from "typescript";
 import { makeStyles } from "@material-ui/styles";
+import { useMutation } from "@apollo/client";
+import { USER_REGISTER_MUTATION } from "../../queries/authorize";
+import { Backdrop, Button, CircularProgress, Grid } from "@material-ui/core";
+import { MyTheme } from "../../styles/config";
 
 // Form Props
 interface FormValues {
-  email: string;
   username: string;
+  email: string;
   password: string;
 }
 // Component Props
@@ -20,49 +24,114 @@ interface Props {
   onCloseModal: () => void;
 }
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles((theme: MyTheme) => ({
   modal: {},
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
 }));
 const RegisterModal = (props: Props) => {
   const { open, onCloseModal } = props;
+  const [register, { data, error, loading }] = useMutation(
+    USER_REGISTER_MUTATION
+  );
   const classes = useStyles();
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValues>();
   const onSubmit = (data: FormValues) => {
     // TODO run register mutation
-    console.log(data);
+    register({
+      variables: {
+        ...data,
+      },
+    })
+      .then((data) => console.log(data.data))
+      .catch((error) => console.log({ error }));
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Modal
-        open={props.open}
-        dialogTitle="Kayıt Ol"
-        dialogContentTitle="Blogify'a kayıt ol ve bütün özelliklerden faydalan"
-        className={classes.modal}
-        width={900}
-        onClose={onCloseModal}
-      >
-        <Input
-          name="email"
-          error={errors.email}
-          fullWidth
-          startIcon={<EmailIcon />}
-          label="E-mail"
-          control={control}
-        />
-        <Input
-          name="email"
-          error={errors.email}
-          fullWidth
-          startIcon={<EmailIcon />}
-          label="E-mail"
-          control={control}
-        />
-      </Modal>
-    </form>
+    <Modal
+      open={open}
+      dialogTitle="Kayıt Ol"
+      dialogContentTitle="Blogify'a kayıt ol ve bütün özelliklerden faydalan"
+      className={classes.modal}
+      width={500}
+      // height={600}
+      onClose={() => {
+        // reset();
+        onCloseModal();
+      }}
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid xs={12} container>
+          <Input
+            name="username"
+            error={errors.username}
+            fullWidth
+            startIcon={<AccountCircleIcon />}
+            label="Kullanıcı Adı"
+            control={control}
+            rules={{
+              required: "Bu alan gereklidir",
+              minLength: {
+                value: 5,
+                message: "Kullanıcı adınız en 5 karakterden oluşmalıdır",
+              },
+            }}
+          />
+          <Input
+            name="email"
+            error={errors.email}
+            fullWidth
+            startIcon={<EmailIcon />}
+            label="E-mail"
+            control={control}
+            rules={{
+              required: "Bu alan gereklidir",
+              // pattern: {
+              //   value:
+              //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              //   message: "Lütfen geçerli bir e-mail giriniz",
+              // },
+            }}
+          />
+          <Input
+            name="password"
+            error={errors.password}
+            fullWidth
+            startIcon={<LockIcon />}
+            label="Şifre"
+            control={control}
+            rules={{
+              required: "Bu alan gereklidir",
+              minLength: {
+                value: 6,
+                message: "Şifreniz en az 6 karakterden oluşmalıdır",
+              },
+            }}
+            type="password"
+          />
+          <Button
+            variant="contained"
+            type="submit"
+            fullWidth
+            color="secondary"
+            style={{ marginTop: 30 }}
+            disabled={loading}
+          >
+            {loading ? "Gönderiliyor..." : "Kayıt Ol"}
+          </Button>
+          {error && <p style={{ color: "red" }}>{error.message}</p>}
+          <Backdrop className={classes.backdrop} open={loading}>
+            <CircularProgress size={60} color="secondary" />
+          </Backdrop>
+        </Grid>
+      </form>
+    </Modal>
   );
 };
 

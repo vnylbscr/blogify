@@ -26,6 +26,7 @@ interface IProps<T> extends RequireField<UseControllerProps<T>, "control"> {
   isMultiline?: boolean;
   type?: "text" | "password";
   placeholder?: string;
+  autoFocus?: boolean;
 }
 
 const useStyles = makeStyles((theme: MyTheme) => ({
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme: MyTheme) => ({
     marginTop: 10,
   },
   labelColor: {
-    color: "#fdsfsd",
+    // color: "#fdsfsd",
     fontSize: "15px",
   },
   inputRoot: {
@@ -42,14 +43,14 @@ const useStyles = makeStyles((theme: MyTheme) => ({
   },
   labelStyle: {
     fontSize: "1.2rem",
-    color: theme.colorPalette.primary.dark,
+    // color: theme.colorPalette.primary.dark,
   },
   icon: {
     color: theme.colorPalette.secondary,
   },
   focused: {
-    backgroundColor: theme.colorPalette.primary.dark,
-    color: theme.colorPalette.secondary,
+    // backgroundColor: theme.colorPalette.primary.dark,
+    // color: theme.colorPalette.secondary,
   },
 }));
 
@@ -81,7 +82,7 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
             className={classes.root}
             helperText={error ? error?.message : helperText}
             error={Boolean(error)}
-            variant="outlined"
+            variant="standard"
             InputProps={{
               classes: {
                 root: classes.inputRoot,
@@ -98,11 +99,11 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
                 </InputAdornment>
               ),
             }}
-            InputLabelProps={{
-              classes: {
-                root: classes.labelStyle,
-              },
-            }}
+            // InputLabelProps={{
+            //   classes: {
+            //     root: classes.labelStyle,
+            //   },
+            // }}
             placeholder={placeholder}
             fullWidth={fullWidth}
             type={type}
