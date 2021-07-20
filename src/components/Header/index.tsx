@@ -31,8 +31,11 @@ import ContactSupportIcon from "@material-ui/icons/ContactSupport";
 import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
 import Modal from "../BaseComponents/Dialog";
 import MenuIcon from "@material-ui/icons/Menu";
+import RegisterModal from "./registerModal";
+import { MyTheme } from "../../styles/config";
+import LoginModal from "./loginModal";
 
-const useStyles = makeStyles((theme?: any) => ({
+const useStyles = makeStyles((theme: MyTheme) => ({
   root: {
     fontSize: "1.2rem",
     flexGrow: 1,
@@ -126,12 +129,18 @@ type ModalConfig = {
   open: boolean;
 };
 
+interface LoginFormValues {
+  email: string;
+  password: string;
+}
+
 // Return
 const AppBar: FC<AppBarProps> = ({ position }) => {
   // useTheme
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
+  console.log("bu tema", theme);
   const classes = useStyles();
   const history = useHistory();
   const initialState = {
@@ -209,7 +218,7 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
   );
 
   return (
-    <MaterialAppBar position="static" className={classes.root}>
+    <MaterialAppBar position="sticky" className={classes.root}>
       <Toolbar variant="dense">
         <Grid
           container
@@ -293,6 +302,10 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
                 >
                   Giriş Yap
                 </Button>
+                <LoginModal
+                  open={modalConfig.mode === "LOGIN"}
+                  onCloseModal={handleCloseDialog}
+                />
 
                 <Typography variant="subtitle2">or</Typography>
                 <Button
@@ -303,13 +316,10 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
                 >
                   Kayıt Ol
                 </Button>
-                <Modal
-                  open={modalConfig.open}
-                  onClose={handleCloseDialog}
-                  dialogTitle={
-                    modalConfig.mode === "LOGIN" ? "Giriş Yap" : "Üye OL"
-                  }
-                ></Modal>
+                <RegisterModal
+                  open={modalConfig.mode === "REGISTER"}
+                  onCloseModal={handleCloseDialog}
+                />
               </Grid>
             </Fragment>
           </Hidden>

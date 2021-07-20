@@ -76,7 +76,6 @@ const Contact = () => {
             </Fragment>
           ))}
         </div>
-        <Footer />
       </main>
     </Fragment>
   );

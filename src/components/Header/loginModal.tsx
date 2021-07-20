@@ -2,30 +2,19 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Modal from "../BaseComponents/Dialog";
 import Input from "../BaseComponents/Input/Input/Input";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import EmailIcon from "@material-ui/icons/Email";
 import LockIcon from "@material-ui/icons/Lock";
-import { classicNameResolver } from "typescript";
-import { makeStyles } from "@material-ui/styles";
 
-// Form Props
 interface FormValues {
   email: string;
-  username: string;
   password: string;
 }
-// Component Props
 interface Props {
   open: boolean;
   onCloseModal: () => void;
 }
-
-const useStyles = makeStyles((theme: any) => ({
-  modal: {},
-}));
-const RegisterModal = (props: Props) => {
+const LoginModal = (props: Props) => {
   const { open, onCloseModal } = props;
-  const classes = useStyles();
   const {
     control,
     handleSubmit,
@@ -38,10 +27,10 @@ const RegisterModal = (props: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Modal
-        open={props.open}
-        dialogTitle="Kayıt Ol"
+        open={open}
+        dialogTitle="Blogify'a Giriş Yap"
         dialogContentTitle="Blogify'a kayıt ol ve bütün özelliklerden faydalan"
-        className={classes.modal}
+        // className={classes.modal}
         width={900}
         onClose={onCloseModal}
       >
@@ -57,7 +46,7 @@ const RegisterModal = (props: Props) => {
           name="email"
           error={errors.email}
           fullWidth
-          startIcon={<EmailIcon />}
+          startIcon={<LockIcon />}
           label="E-mail"
           control={control}
         />
@@ -66,4 +55,4 @@ const RegisterModal = (props: Props) => {
   );
 };
 
-export default RegisterModal;
+export default LoginModal;

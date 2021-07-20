@@ -16,6 +16,8 @@ interface IModalProps {
   dialogTitle?: string;
   dialogContentTitle?: string;
   className?: string;
+  fullWidth?: boolean;
+  width?: number;
 }
 
 const useStyles = makeStyles((theme: any) => ({
@@ -23,11 +25,26 @@ const useStyles = makeStyles((theme: any) => ({
     padding: 20,
     backgroundColor: "transparent",
   },
+  paper: {
+    width: (props: IModalProps) => props.width || 400,
+    // background: theme.colorPalette.primary.main,
+  },
 }));
 const Modal: FC<IModalProps> = (props) => {
-  const { open, onClose, style, dialogTitle, className } = props;
+  const { open, onClose, style, dialogTitle, className, fullWidth } = props;
+  const classes = useStyles(props);
   return (
-    <Dialog open={open} onClose={onClose} style={style} className={className}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      style={style}
+      maxWidth="md"
+      fullWidth={fullWidth}
+      classes={{
+        paper: classes.paper,
+        root: classes.root,
+      }}
+    >
       <DialogTitle>{dialogTitle}</DialogTitle>
       <DialogContent>{props.children}</DialogContent>
     </Dialog>

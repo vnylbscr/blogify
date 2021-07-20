@@ -3,9 +3,8 @@ $dark: #1e2842;
 $light: #91a2ce;
 $MontSerrat: "Montserrat", sans-serif;
 .contact-container {
-  height: calc(100vh - 60px);
-  width: auto;
-  overflow: auto;
+  width: 100%;
+  height: auto;
   .contact-top-section {
     background: url("https://www.publicdomainpictures.net/pictures/250000/velka/clouds-background-005.jpg");
     background-size: cover;

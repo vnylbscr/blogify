@@ -1,4 +1,4 @@
-import { Grid, makeStyles } from "@material-ui/core";
+import { Grid, makeStyles, Theme } from "@material-ui/core";
 import React from "react";
 import backgroundImage from "../../assets/images/bg.jpg";
 import Carousel from "react-material-ui-carousel";
@@ -6,7 +6,7 @@ import CarouselItem from "./carouselItem";
 import { useQuery } from "@apollo/client";
 import Footer from "../Footer";
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(2),
     position: "absolute",
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: any) => ({
     width: "100%",
     backgroundImage: `url("https://images5.alphacoders.com/394/thumb-1920-394862.jpg")`,
     backgroundSize: "cover",
-    height: "calc(100% - 60px)",
+    // height: "calc(100% - 60px)",
     // filter: "blur(1px)",
   },
   leftSpace: {

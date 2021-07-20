@@ -1,4 +1,10 @@
-import { Grid, InputAdornment, InputLabel, TextField } from "@material-ui/core";
+import {
+  Grid,
+  InputAdornment,
+  InputLabel,
+  TextField,
+  Theme,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React, { FC } from "react";
 import {
@@ -7,6 +13,7 @@ import {
   UseControllerProps,
   Controller,
 } from "react-hook-form";
+import { MyTheme } from "../../../../styles/config";
 import { RequireField } from "../../../../util/helperTypes";
 
 interface IProps<T> extends RequireField<UseControllerProps<T>, "control"> {
@@ -21,7 +28,7 @@ interface IProps<T> extends RequireField<UseControllerProps<T>, "control"> {
   placeholder?: string;
 }
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles((theme: MyTheme) => ({
   root: {
     marginTop: 10,
   },
@@ -35,13 +42,14 @@ const useStyles = makeStyles((theme: any) => ({
   },
   labelStyle: {
     fontSize: "1.2rem",
-    color: "#fff",
+    color: theme.colorPalette.primary.dark,
   },
   icon: {
     color: theme.colorPalette.secondary,
   },
   focused: {
-    color: "#fff",
+    backgroundColor: theme.colorPalette.primary.dark,
+    color: theme.colorPalette.secondary,
   },
 }));
 

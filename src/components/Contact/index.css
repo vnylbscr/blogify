@@ -1,7 +1,6 @@
 .contact-container {
-  height: calc(100vh - 60px);
-  width: auto;
-  overflow: auto;
+  width: 100%;
+  height: auto;
 }
 .contact-container .contact-top-section {
   background: url("https://www.publicdomainpictures.net/pictures/250000/velka/clouds-background-005.jpg");

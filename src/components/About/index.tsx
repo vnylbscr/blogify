@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme: any) => ({
   root: {
     width: "100%",
     height: `calc(100vh - ${theme.workspace.appBarHeight}px)`,
+    overflow: "auto",
   },
   image: {
     background: `url("https://jestman.com/wp-content/uploads/2016/07/blog.jpg")`,
