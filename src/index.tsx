@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./styles/index.css";
 import { Provider } from "react-redux";
-import { applyMiddleware, createStore } from "redux";
+import { applyMiddleware, compose, createStore } from "redux";
 import {
   ApolloClient,
   InMemoryCache,
@@ -15,7 +15,15 @@ import { onError } from "@apollo/client/link/error";
 import { API_URL } from "./config";
 import reducers from "./reducers";
 
-const store = createStore(reducers);
+// Extension for Redux
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(reducers, composeEnhancers());
 
 // Error Handling for GRAPH QL
 const errorLink = onError(({ graphQLErrors, networkError }) => {

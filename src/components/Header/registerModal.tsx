@@ -11,6 +11,8 @@ import { useMutation } from "@apollo/client";
 import { USER_REGISTER_MUTATION } from "../../queries/authorize";
 import { Backdrop, Button, CircularProgress, Grid } from "@material-ui/core";
 import { MyTheme } from "../../styles/config";
+import { REGISTER } from "../../actions/user";
+import { useDispatch } from "react-redux";
 
 // Form Props
 interface FormValues {
@@ -33,6 +35,7 @@ const useStyles = makeStyles((theme: MyTheme) => ({
 }));
 const RegisterModal = (props: Props) => {
   const { open, onCloseModal } = props;
+  const dispatch = useDispatch();
   const [register, { data, error, loading }] = useMutation(
     USER_REGISTER_MUTATION
   );
@@ -50,7 +53,7 @@ const RegisterModal = (props: Props) => {
         ...data,
       },
     })
-      .then((data) => console.log(data.data))
+      .then((data) => dispatch({ type: REGISTER, payload: data.data.register }))
       .catch((error) => console.log({ error }));
   };
   return (
@@ -60,9 +63,9 @@ const RegisterModal = (props: Props) => {
       dialogContentTitle="Blogify'a kayıt ol ve bütün özelliklerden faydalan"
       className={classes.modal}
       width={500}
-      // height={600}
+      height={600}
       onClose={() => {
-        // reset();
+        reset();
         onCloseModal();
       }}
     >
@@ -92,11 +95,11 @@ const RegisterModal = (props: Props) => {
             control={control}
             rules={{
               required: "Bu alan gereklidir",
-              // pattern: {
-              //   value:
-              //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              //   message: "Lütfen geçerli bir e-mail giriniz",
-              // },
+              pattern: {
+                value:
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: "Lütfen geçerli bir e-mail giriniz",
+              },
             }}
           />
           <Input

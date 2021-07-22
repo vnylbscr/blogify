@@ -9,13 +9,10 @@ import Footer from "../Footer";
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(2),
-    position: "absolute",
-    // flexGrow: 1,
-    width: "100%",
+    width: "auto",
     backgroundImage: `url("https://images5.alphacoders.com/394/thumb-1920-394862.jpg")`,
     backgroundSize: "cover",
-    // height: "calc(100% - 60px)",
-    // filter: "blur(1px)",
+    height: "100%",
   },
   leftSpace: {
     // height: 600,
