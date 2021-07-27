@@ -40,10 +40,15 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 // HTTP Link GRAPH QL
 const httpLink = new HttpLink({
   uri: API_URL,
+  credentials:'same'
+  
 });
 const client = new ApolloClient({
   link: from([errorLink, httpLink]),
   cache: new InMemoryCache(),
+  headers:{
+
+  }
 });
 ReactDOM.render(
   <React.StrictMode>
