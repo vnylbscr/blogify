@@ -13,6 +13,7 @@ import { Backdrop, Button, CircularProgress, Grid } from "@material-ui/core";
 import { MyTheme } from "../../styles/config";
 import { REGISTER } from "../../actions/user";
 import { useDispatch } from "react-redux";
+import { useSnackbar } from "notistack";
 
 // Form Props
 interface FormValues {
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme: MyTheme) => ({
 const RegisterModal = (props: Props) => {
   const { open, onCloseModal } = props;
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const [register, { data, error, loading }] = useMutation(
     USER_REGISTER_MUTATION
   );
@@ -44,7 +46,7 @@ const RegisterModal = (props: Props) => {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<FormValues>();
   const onSubmit = (data: FormValues) => {
     // TODO run register mutation
@@ -53,7 +55,12 @@ const RegisterModal = (props: Props) => {
         ...data,
       },
     })
-      .then((data) => dispatch({ type: REGISTER, payload: data.data.register }))
+      .then(({ data: { register } }) => {
+        enqueueSnackbar("Giriş Yaptınız", {
+          variant: "success",
+        });
+        dispatch({ type: REGISTER, payload: register });
+      })
       .catch((error) => console.log({ error }));
   };
   return (

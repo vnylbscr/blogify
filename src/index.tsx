@@ -14,7 +14,7 @@ import {
 import { onError } from "@apollo/client/link/error";
 import { API_URL } from "./config";
 import reducers from "./reducers";
-
+import { SnackbarProvider } from "notistack";
 // Extension for Redux
 declare global {
   interface Window {
