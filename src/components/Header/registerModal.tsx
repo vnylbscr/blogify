@@ -67,7 +67,7 @@ const RegisterModal = (props: Props) => {
          dialogTitle='Kayıt Ol'
          dialogContentTitle="Blogify'a kayıt ol ve bütün özelliklerden faydalan"
          className={classes.modal}
-         width={500}
+         width={600}
          height={600}
          onClose={() => {
             reset();
