@@ -8,19 +8,16 @@ import LockIcon from '@material-ui/icons/Lock';
 import { classicNameResolver } from 'typescript';
 import { makeStyles } from '@material-ui/styles';
 import { useMutation } from '@apollo/client';
-import { USER_REGISTER_MUTATION } from '../../queries/authorize';
+// import { USER_REGISTER_MUTATION } from '../../queries/authorize';
 import { Backdrop, Button, CircularProgress, Grid } from '@material-ui/core';
 import { MyTheme } from '../../styles/config';
 import { REGISTER } from '../../actions/user';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
+import { RegisterVariables } from '../../queries/__generated__/Register';
 
 // Form Props
-interface FormValues {
-   username: string;
-   email: string;
-   password: string;
-}
+
 // Component Props
 interface Props {
    open: boolean;
@@ -38,28 +35,28 @@ const RegisterModal = (props: Props) => {
    const { open, onCloseModal } = props;
    const dispatch = useDispatch();
    const { enqueueSnackbar } = useSnackbar();
-   const [register, { data, error, loading }] = useMutation(USER_REGISTER_MUTATION);
+   // const [register, { data, error, loading }] = useMutation(USER_REGISTER_MUTATION);
    const classes = useStyles();
    const {
       control,
       handleSubmit,
       reset,
       formState: { errors, isValid },
-   } = useForm<FormValues>();
-   const onSubmit = (data: FormValues) => {
+   } = useForm<RegisterVariables>();
+   const onSubmit = (data: RegisterVariables) => {
       // TODO run register mutation
-      register({
-         variables: {
-            ...data,
-         },
-      })
-         .then(({ data: { register } }) => {
-            enqueueSnackbar('Giriş Yaptınız', {
-               variant: 'success',
-            });
-            dispatch({ type: REGISTER, payload: register });
-         })
-         .catch((error) => console.log({ error }));
+      // register({
+      //    variables: {
+      //       ...data,
+      //    },
+      // })
+      //    .then(({ data: { register } }) => {
+      //       enqueueSnackbar('Giriş Yaptınız', {
+      //          variant: 'success',
+      //       });
+      //       dispatch({ type: REGISTER, payload: register });
+      //    })
+      //    .catch((error) => console.log({ error }));
    };
    return (
       <Modal
@@ -128,14 +125,14 @@ const RegisterModal = (props: Props) => {
                   fullWidth
                   color='secondary'
                   style={{ marginTop: 30 }}
-                  disabled={loading}
+                  // disabled={loading}
                >
-                  {loading ? 'Gönderiliyor...' : 'Kayıt Ol'}
+                  {/* {loading ? 'Gönderiliyor...' : 'Kayıt Ol'} */}
                </Button>
-               {error && <p style={{ color: 'red' }}>{error.message}</p>}
-               <Backdrop className={classes.backdrop} open={loading}>
+               {/* {error && <p style={{ color: 'red' }}>{error.message}</p>} */}
+               {/* <Backdrop className={classes.backdrop} open={loading}>
                   <CircularProgress size={60} color='secondary' />
-               </Backdrop>
+               </Backdrop> */}
             </Grid>
          </form>
       </Modal>
