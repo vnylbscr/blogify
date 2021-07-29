@@ -35,13 +35,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "eject": "react-scripts eject",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
   "babel": {
     "presets": [
@@ -67,6 +62,10 @@
   },
   "devDependencies": {
     "@types/graphql": "^14.5.0",
-    "apollo": "^2.33.4"
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "apollo": "^2.33.4",
+    "eslint": "^7.31.0",
+    "eslint-plugin-react": "^7.24.0"
   }
 }

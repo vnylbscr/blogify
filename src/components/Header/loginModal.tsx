@@ -17,7 +17,7 @@ interface Props {
 }
 const LoginModal = (props: Props) => {
    const { open, onCloseModal } = props;
-   const [login, { data }] = useMutation<Login_login>(USER_LOGIN_MUTATION);
+   const [login, { data, error, loading }] = useMutation<Login_login>(USER_LOGIN_MUTATION);
    const dispatch = useDispatch();
    const {
       control,
@@ -87,6 +87,7 @@ const LoginModal = (props: Props) => {
             <Button variant='contained' fullWidth type='submit' color='primary'>
                Giriş Yap
             </Button>
+            {error && <p style={{ color: 'red' }}>{error.message}</p>}
          </form>
       </Modal>
    );
