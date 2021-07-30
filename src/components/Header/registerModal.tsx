@@ -8,14 +8,14 @@ import LockIcon from '@material-ui/icons/Lock';
 import { classicNameResolver } from 'typescript';
 import { makeStyles } from '@material-ui/styles';
 import { useMutation } from '@apollo/client';
-import { Backdrop, Button, CircularProgress, Grid } from '@material-ui/core';
+import { Backdrop, Button, CircularProgress, Grid, Typography } from '@material-ui/core';
 import { MyTheme } from '../../styles/config';
 import { REGISTER } from '../../actions/user';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { RegisterVariables, Register_register } from '../../queries/__generated__/Register';
 import { USER_REGISTER_MUTATION } from '../../queries/register';
-
+import { Link } from 'react-router-dom';
 // Form Props
 
 // Component Props
@@ -119,17 +119,30 @@ const RegisterModal = (props: Props) => {
                   }}
                   type='password'
                />
+               <Grid
+                  container
+                  xs={12}
+                  spacing={2}
+                  justifyContent='center'
+                  alignItems='center'
+                  style={{ padding: 10, marginTop: 20 }}
+               >
+                  <Typography>Hesabın mı yok?</Typography>
+                  <Link to='/' style={{ marginLeft: 10 }}>
+                     Oluştur
+                  </Link>
+               </Grid>
                <Button
                   variant='contained'
                   type='submit'
                   fullWidth
-                  color='secondary'
-                  style={{ marginTop: 30 }}
-                  // disabled={loading}
+                  color='primary'
+                  style={{ marginTop: 40 }}
+                  disabled={loading}
                >
                   {loading ? 'Gönderiliyor...' : 'Kayıt Ol'}
                </Button>
-               {error && <p style={{ color: 'red' }}>{error.message}</p>}
+               {error && <Typography style={{ color: 'red', marginTop: 10 }}>{error.message}</Typography>}
                <Backdrop className={classes.backdrop} open={loading}>
                   <CircularProgress size={60} color='secondary' />
                </Backdrop>

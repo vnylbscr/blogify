@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       width: 'auto',
       backgroundImage: `url("https://images5.alphacoders.com/394/thumb-1920-394862.jpg")`,
       backgroundSize: 'cover',
-      height: '100%',
+      height: 'calc(100vh - 60px)',
    },
    leftSpace: {
       // height: 600,
@@ -85,7 +85,6 @@ const Content = () => {
                   />
                ))}
             </Carousel>
-            <TextField variant='outlined' label='mert' />
          </Grid>
       </main>
    );

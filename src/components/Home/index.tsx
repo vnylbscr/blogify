@@ -3,9 +3,7 @@ import { useSelector } from 'react-redux';
 
 const Home = (props: any) => {
    const user = useSelector((state: any) => state.userReducer.user);
-   useEffect(() => {
-      console.log(props.user);
-   }, [props.user]);
+
    return (
       <div>
          <h1>{user.email}</h1>
