@@ -4,12 +4,14 @@ import Modal from '../BaseComponents/Dialog';
 import Input from '../BaseComponents/Input/Input/Input';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
-import { Button } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 import { USER_LOGIN_MUTATION } from '../../queries/authorize';
 import { LoginVariables, Login_login } from '../../queries/__generated__/Login';
 import { useDispatch } from 'react-redux';
 import { LOGIN } from '../../actions/user';
+import { CircularProgress } from '@material-ui/core';
+import { Popover } from 'material-ui';
 
 interface Props {
    open: boolean;
@@ -27,17 +29,12 @@ const LoginModal = (props: Props) => {
    } = useForm<LoginVariables>({
       mode: 'all',
    });
-   const onSubmit = (data: LoginVariables) => {
+   const onSubmit = async (data: LoginVariables) => {
       // TODO run register mutation
       console.log(data);
-      login({ variables: { ...data } })
-         .then(({ data }) =>
-            dispatch({
-               type: LOGIN,
-               payload: data,
-            })
-         )
-         .catch((error) => console.log(error));
+      const { data: responseData } = await login({ variables: { ...data } });
+
+      localStorage.setItem('token', JSON.stringify(responseData?.token));
    };
    return (
       <Modal
@@ -84,10 +81,20 @@ const LoginModal = (props: Props) => {
                }}
                type='password'
             />
-            <Button variant='contained' fullWidth type='submit' color='primary'>
+            <Button
+               variant='contained'
+               fullWidth
+               type='submit'
+               color='primary'
+               endIcon={loading && <CircularProgress color='primary' size={24} />}
+            >
                Giriş Yap
             </Button>
-            {error && <p style={{ color: 'red' }}>{error.message}</p>}
+            {error && (
+               <Typography style={{ color: 'red', marginTop: 10, textAlign: 'center' }} variant='h6'>
+                  {error.message}
+               </Typography>
+            )}
          </form>
       </Modal>
    );

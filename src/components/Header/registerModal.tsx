@@ -5,7 +5,7 @@ import Input from '../BaseComponents/Input/Input/Input';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
-import { classicNameResolver } from 'typescript';
+import { classicNameResolver, tokenToString } from 'typescript';
 import { makeStyles } from '@material-ui/styles';
 import { useMutation } from '@apollo/client';
 import { Backdrop, Button, CircularProgress, Grid, Typography } from '@material-ui/core';
@@ -51,9 +51,8 @@ const RegisterModal = (props: Props) => {
          },
       })
          .then(({ data }) => {
-            enqueueSnackbar('Giriş Yaptınız', {
-               variant: 'success',
-            });
+            console.log('token', data?.token);
+            localStorage.setItem('token', data?.token || '');
             dispatch({ type: REGISTER, payload: data });
          })
          .catch((error) => console.log({ error }));

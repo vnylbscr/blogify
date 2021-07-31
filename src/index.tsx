@@ -8,6 +8,8 @@ import { ApolloClient, InMemoryCache, ApolloProvider, from, HttpLink } from '@ap
 import { onError } from '@apollo/client/link/error';
 import { API_URL } from './config';
 import reducers from './reducers';
+import { setContext } from '@apollo/client/link/context';
+
 import { SnackbarProvider } from 'notistack';
 // Extension for Redux
 declare global {
@@ -29,12 +31,22 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
    if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
+const authLink = setContext((_, { headers }) => {
+   // get the authentication token from local storage if it exists
+   const token = localStorage.getItem('token');
+   return {
+      headers: {
+         ...headers,
+         authorization: token ? `Bearer ${token}` : '',
+      },
+   };
+});
 // HTTP Link GRAPH QL
 const httpLink = new HttpLink({
    uri: API_URL,
 });
 const client = new ApolloClient({
-   link: from([errorLink, httpLink]),
+   link: from([errorLink, httpLink, authLink]),
    cache: new InMemoryCache(),
 });
 ReactDOM.render(
