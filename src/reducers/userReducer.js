@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, REGISTER } from '../actions/user';
+import { LOGIN, LOGOUT, REGISTER, SET_USER } from '../actions/user';
 
 const token = localStorage.getItem('token');
 const INITIAL_STATE = {
@@ -9,6 +9,11 @@ const INITIAL_STATE = {
 export const userReducer = (state = INITIAL_STATE, action) => {
    const { type, payload } = action;
    switch (type) {
+      case SET_USER:
+         return {
+            ...state,
+            user: payload,
+         };
       case LOGIN:
          return {
             ...state,

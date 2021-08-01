@@ -59,7 +59,7 @@ const CARAOUSEL_ITEMS = [
       imageUrl: 'https://sinanhan.com/wp-content/uploads/2019/01/blog-gorsel.jpg',
    },
 ];
-const Content = () => {
+const Preload = () => {
    const classes = useStyles();
 
    return (
@@ -90,4 +90,4 @@ const Content = () => {
    );
 };
 
-export default Content;
+export default Preload;

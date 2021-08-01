@@ -52,10 +52,12 @@ const RegisterModal = (props: Props) => {
             ...data,
          },
       })
-         .then(({ data: user }) => {
-            localStorage.setItem('token', user?.register.token || '');
-            dispatch({ type: REGISTER, payload: user?.register });
-            history.push('/');
+         .then(({ data }) => {
+            if (data?.register) {
+               localStorage.setItem('token', data?.register.token || '');
+               dispatch({ type: REGISTER, payload: data?.register });
+               history.push('/');
+            }
          })
          .catch((error) => console.log({ error }));
    };

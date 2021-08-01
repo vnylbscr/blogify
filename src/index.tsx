@@ -21,9 +21,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(reducers, composeEnhancers());
 // HTTP Link GRAPH QL
-const httpLink = new HttpLink({
-   uri: API_URL,
-});
+
 // Error Handling for GRAPH QL
 const errorLink = onError(({ graphQLErrors, networkError }) => {
    if (graphQLErrors)
@@ -37,10 +35,6 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 const authLink = setContext((_, { headers }) => {
    // get the authentication token from local storage if it exists
    const token = localStorage.getItem('token');
-   console.log('MERTULLAH', token);
-   if (!token) {
-      return null;
-   }
    return {
       headers: {
          ...headers,
@@ -48,14 +42,14 @@ const authLink = setContext((_, { headers }) => {
       },
    };
 });
-
+const httpLink = new HttpLink({
+   uri: API_URL,
+});
 // const links = [httpLink, authLink, errorLink];
 const client = new ApolloClient({
-   link: httpLink.concat(errorLink),
+   // link: authLink.concat(httpLink),
+   link: from([authLink, httpLink, errorLink]),
    cache: new InMemoryCache(),
-   headers: {
-      authorization: localStorage.getItem('token') || '',
-   },
 });
 ReactDOM.render(
    <ApolloProvider client={client}>

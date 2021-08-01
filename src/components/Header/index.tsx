@@ -168,7 +168,7 @@ const AppBar: FC<AppBarProps> = ({ position, authorized }) => {
    const handleChangeDrawer = () => {
       setOpenDrawer(!openDrawer);
    };
-
+   console.log('function', handleChangeDrawer);
    // drawer for mobile
    const myDrawer = (
       <Grid container direction='column' justifyContent='space-between' style={{ height: '100%' }}>
