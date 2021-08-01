@@ -7,11 +7,12 @@ import LockIcon from '@material-ui/icons/Lock';
 import { Button, Grid, Typography } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 import { USER_LOGIN_MUTATION } from '../../queries/authorize';
-import { LoginVariables, Login_login } from '../../queries/__generated__/Login';
 import { useDispatch } from 'react-redux';
 import { LOGIN } from '../../actions/user';
 import { CircularProgress } from '@material-ui/core';
 import { Popover } from 'material-ui';
+import { LoginMutation, LoginMutationVariables } from '../../queries/__generated__/LoginMutation';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
    open: boolean;
@@ -19,22 +20,35 @@ interface Props {
 }
 const LoginModal = (props: Props) => {
    const { open, onCloseModal } = props;
-   const [login, { data, error, loading }] = useMutation<Login_login>(USER_LOGIN_MUTATION);
+   const [login, { data, error, loading }] = useMutation<LoginMutation>(USER_LOGIN_MUTATION, {
+      // onError: (error) => console.log('ULAAA  NOLİY', error),
+   });
    const dispatch = useDispatch();
+   const history = useHistory();
    const {
       control,
       handleSubmit,
       reset,
       formState: { errors },
-   } = useForm<LoginVariables>({
+   } = useForm<LoginMutationVariables>({
       mode: 'all',
    });
-   const onSubmit = async (data: LoginVariables) => {
+   const onSubmit = async (data: LoginMutationVariables) => {
       // TODO run register mutation
-      console.log(data);
-      const { data: responseData } = await login({ variables: { ...data } });
-
-      localStorage.setItem('token', JSON.stringify(responseData?.token));
+      login({ variables: { ...data } })
+         .then(({ data }) => {
+            if (data?.login) {
+               localStorage.setItem('token', data?.login.token || '');
+               dispatch({
+                  type: LOGIN,
+                  payload: data?.login,
+               });
+               history.push('/');
+            }
+         })
+         .catch((e) => {
+            console.log(e);
+         });
    };
    return (
       <Modal
@@ -43,6 +57,7 @@ const LoginModal = (props: Props) => {
          dialogContentTitle="Blogify'a kayıt ol ve bütün özelliklerden faydalan"
          // className={classes.modal}
          width={500}
+         height={500}
          onClose={() => {
             // Reset Form
             reset();

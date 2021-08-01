@@ -1,6 +1,10 @@
+$main: #3c5186;
+$dark: #1e2842;
+$light: #91a2ce;
+
 .footer-container {
    height: auto;
-   background-color: azure;
+   background-color: $light;
    width: 100%;
    padding: 20px 30px 20px 30px;
 
@@ -31,7 +35,7 @@
             font-style: italic;
             transition: all 0.5s;
             padding-bottom: 20px;
-            color: grey;
+            color: lightgrey;
             .black {
                font-weight: bold;
                font-size: 20px;

@@ -123,6 +123,7 @@ const APP_BAR_ITEMS = [
 // Types
 interface AppBarProps {
    position?: string;
+   authorized?: boolean;
 }
 type ModalConfig = {
    mode: string;
@@ -130,7 +131,7 @@ type ModalConfig = {
 };
 
 // Return
-const AppBar: FC<AppBarProps> = ({ position }) => {
+const AppBar: FC<AppBarProps> = ({ position, authorized }) => {
    // useTheme
    const theme = useTheme();
    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -254,10 +255,10 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
                         direction='row'
                         alignItems='center'
                         container
-                        justifyContent='center'
+                        justifyContent={authorized ? 'flex-end' : 'center'}
                         item
                         className={classes.title}
-                        xs={6}
+                        xs={authorized ? 9 : 6}
                      >
                         {APP_BAR_ITEMS.map((item) => (
                            <HeaderItem
@@ -269,30 +270,32 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
                            />
                         ))}
                      </Grid>
-                     <Grid
-                        direction='row'
-                        alignItems='center'
-                        container
-                        className={classes.rightPanelContainer}
-                        justifyContent='flex-end'
-                        xs={3}
-                     >
-                        <Button variant='text' onClick={openLoginDialog} className={classes.loginButton}>
-                           Giriş Yap
-                        </Button>
-                        <LoginModal open={modalConfig.mode === 'LOGIN'} onCloseModal={handleCloseDialog} />
-
-                        <Typography variant='subtitle2'>or</Typography>
-                        <Button
-                           variant='text'
-                           style={{ marginLeft: 5 }}
-                           className={classes.loginButton}
-                           onClick={openRegisterDialog}
+                     {!authorized && (
+                        <Grid
+                           direction='row'
+                           alignItems='center'
+                           container
+                           className={classes.rightPanelContainer}
+                           justifyContent='flex-end'
+                           xs={3}
                         >
-                           Kayıt Ol
-                        </Button>
-                        <RegisterModal open={modalConfig.mode === 'REGISTER'} onCloseModal={handleCloseDialog} />
-                     </Grid>
+                           <Button variant='text' onClick={openLoginDialog} className={classes.loginButton}>
+                              Giriş Yap
+                           </Button>
+                           <LoginModal open={modalConfig.mode === 'LOGIN'} onCloseModal={handleCloseDialog} />
+
+                           <Typography variant='subtitle2'>or</Typography>
+                           <Button
+                              variant='text'
+                              style={{ marginLeft: 5 }}
+                              className={classes.loginButton}
+                              onClick={openRegisterDialog}
+                           >
+                              Kayıt Ol
+                           </Button>
+                           <RegisterModal open={modalConfig.mode === 'REGISTER'} onCloseModal={handleCloseDialog} />
+                        </Grid>
+                     )}
                   </Fragment>
                </Hidden>
             </Grid>

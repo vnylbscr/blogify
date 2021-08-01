@@ -13,6 +13,7 @@ interface IProps<T> extends RequireField<UseControllerProps<T>, 'control'> {
    startIcon?: React.ReactNode;
    endIcon?: React.ReactNode;
    isMultiline?: boolean;
+   maxRows?: number;
    type?: 'text' | 'password';
    placeholder?: string;
    autoFocus?: boolean;
@@ -48,7 +49,21 @@ const useStyles = makeStyles((theme: MyTheme) => ({
 }));
 
 const Input = <T extends FieldValues>(props: IProps<T>) => {
-   const { name, control, error, label, fullWidth, helperText, endIcon, startIcon, rules, type, placeholder } = props;
+   const {
+      name,
+      control,
+      error,
+      label,
+      fullWidth,
+      helperText,
+      endIcon,
+      startIcon,
+      rules,
+      type,
+      placeholder,
+      isMultiline,
+      maxRows,
+   } = props;
    const classes = useStyles(props);
    return (
       <Grid xs={12} container>
@@ -64,6 +79,8 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
                   helperText={error ? error?.message : helperText}
                   error={Boolean(error)}
                   variant='outlined'
+                  multiline={isMultiline}
+                  maxRows={maxRows}
                   InputProps={{
                      classes: {
                         root: classes.inputRoot,

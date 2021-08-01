@@ -13,9 +13,9 @@ import { MyTheme } from '../../styles/config';
 import { REGISTER } from '../../actions/user';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import { RegisterVariables, Register_register } from '../../queries/__generated__/Register';
 import { USER_REGISTER_MUTATION } from '../../queries/register';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { RegisterMutation, RegisterMutationVariables } from '../../queries/__generated__/RegisterMutation';
 // Form Props
 
 // Component Props
@@ -35,25 +35,27 @@ const RegisterModal = (props: Props) => {
    const { open, onCloseModal } = props;
    const dispatch = useDispatch();
    const { enqueueSnackbar } = useSnackbar();
-   const [register, { data, error, loading }] = useMutation<Register_register>(USER_REGISTER_MUTATION);
+   const history = useHistory();
+   const [register, { error, loading }] = useMutation<RegisterMutation>(USER_REGISTER_MUTATION);
    const classes = useStyles();
    const {
       control,
       handleSubmit,
       reset,
       formState: { errors, isValid },
-   } = useForm<RegisterVariables>();
-   const onSubmit = (data: RegisterVariables) => {
+   } = useForm<RegisterMutationVariables>();
+
+   const onSubmit = (data: RegisterMutationVariables) => {
       // TODO run register mutation
       register({
          variables: {
             ...data,
          },
       })
-         .then(({ data }) => {
-            console.log('token', data?.token);
-            localStorage.setItem('token', data?.token || '');
-            dispatch({ type: REGISTER, payload: data });
+         .then(({ data: user }) => {
+            localStorage.setItem('token', user?.register.token || '');
+            dispatch({ type: REGISTER, payload: user?.register });
+            history.push('/');
          })
          .catch((error) => console.log({ error }));
    };

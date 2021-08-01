@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_ALL_POSTS_QUERY = gql`
-   query Query {
+   query GetAllPosts {
       getAllPosts {
          id
          title

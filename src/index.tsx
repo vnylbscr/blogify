@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './styles/index.css';
+import './styles/index.scss';
 import { Provider } from 'react-redux';
 import { applyMiddleware, compose, createStore } from 'redux';
-import { ApolloClient, InMemoryCache, ApolloProvider, from, HttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, from, HttpLink, ApolloLink } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { API_URL } from './config';
 import reducers from './reducers';
@@ -20,7 +20,10 @@ declare global {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(reducers, composeEnhancers());
-
+// HTTP Link GRAPH QL
+const httpLink = new HttpLink({
+   uri: API_URL,
+});
 // Error Handling for GRAPH QL
 const errorLink = onError(({ graphQLErrors, networkError }) => {
    if (graphQLErrors)
@@ -28,12 +31,16 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
          console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
       );
 
-   if (networkError) console.log(`[Network error]: ${networkError}`);
+   if (networkError) console.log(`[Network error]: ${networkError} sdsdsdsd`);
 });
 
 const authLink = setContext((_, { headers }) => {
    // get the authentication token from local storage if it exists
    const token = localStorage.getItem('token');
+   console.log('MERTULLAH', token);
+   if (!token) {
+      return null;
+   }
    return {
       headers: {
          ...headers,
@@ -41,21 +48,20 @@ const authLink = setContext((_, { headers }) => {
       },
    };
 });
-// HTTP Link GRAPH QL
-const httpLink = new HttpLink({
-   uri: API_URL,
-});
+
+// const links = [httpLink, authLink, errorLink];
 const client = new ApolloClient({
-   link: from([errorLink, httpLink, authLink]),
+   link: httpLink.concat(errorLink),
    cache: new InMemoryCache(),
+   headers: {
+      authorization: localStorage.getItem('token') || '',
+   },
 });
 ReactDOM.render(
-   <React.StrictMode>
+   <ApolloProvider client={client}>
       <Provider store={store}>
-         <ApolloProvider client={client}>
-            <App />
-         </ApolloProvider>
+         <App />
       </Provider>
-   </React.StrictMode>,
+   </ApolloProvider>,
    document.getElementById('root')
 );

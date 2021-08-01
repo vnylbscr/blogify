@@ -17,7 +17,7 @@ export const theme = createTheme({
    },
    colorPalette: {
       primary: {
-         main: '#3C5186',
+         main: '#3c5186',
          dark: '#1e2842',
          light: '#91a2ce',
       },
