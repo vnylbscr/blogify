@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_ME_WITH_TOKEN = gql`
-   query getMe($getMeWithTokenToken: String!) {
+   query GetMe($getMeWithTokenToken: String!) {
       getMeWithToken(token: $getMeWithTokenToken) {
          id
          name

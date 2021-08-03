@@ -4,7 +4,7 @@ import Modal from '../BaseComponents/Dialog';
 import Input from '../BaseComponents/Input/Input/Input';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Link, Typography } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 import { USER_LOGIN_MUTATION } from '../../queries/authorize';
 import { useDispatch } from 'react-redux';
@@ -13,7 +13,18 @@ import { CircularProgress } from '@material-ui/core';
 import { Popover } from 'material-ui';
 import { LoginMutation, LoginMutationVariables } from '../../queries/__generated__/LoginMutation';
 import { useHistory } from 'react-router-dom';
+import { styled } from '@material-ui/styles';
 
+const StyledButton = styled(({ color, ...props }) => <Button classes={{ label: 'label', root: 'root' }} {...props} />)(
+   () => ({
+      root: {
+         backgroundColor: 'orange',
+      },
+      '& .label': {
+         color: 'red',
+      },
+   })
+);
 interface Props {
    open: boolean;
    onCloseModal: () => void;
@@ -96,12 +107,17 @@ const LoginModal = (props: Props) => {
                }}
                type='password'
             />
+            <Grid container justifyContent='center' alignItems='center' style={{ padding: 20 }}>
+               <Typography>Henüz hesabın yok mu?</Typography>
+               <Link style={{ marginLeft: 10 }}>Hemen oluştur</Link>
+            </Grid>
             <Button
                variant='contained'
                fullWidth
                type='submit'
                color='primary'
                endIcon={loading && <CircularProgress color='primary' size={24} />}
+               style={{ marginTop: 20 }}
             >
                Giriş Yap
             </Button>
