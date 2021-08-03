@@ -8,9 +8,6 @@ $smallDevices: 600px;
    height: auto;
    @media screen and (max-width: 600px) {
       padding: 20px;
-      .contact-top-section {
-         max-width: min-content;
-      }
    }
    .contact-top-section {
       background: url('https://www.publicdomainpictures.net/pictures/250000/velka/clouds-background-005.jpg');
@@ -66,6 +63,7 @@ $smallDevices: 600px;
       .contact-title {
          p {
             font-size: 80px;
+            padding: 10px;
             span {
                text-decoration: line-through;
             }

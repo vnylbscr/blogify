@@ -34,7 +34,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import RegisterModal from './registerModal';
 import { MyTheme } from '../../styles/config';
 import LoginModal from './loginModal';
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { useDispatch } from 'react-redux';
+import { LOGOUT } from '../../actions/user';
 const useStyles = makeStyles((theme: MyTheme) => ({
    root: {
       fontSize: '1.2rem',
@@ -135,7 +137,7 @@ const AppBar: FC<AppBarProps> = ({ position, authorized }) => {
    // useTheme
    const theme = useTheme();
    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
+   const dispatch = useDispatch();
    console.log('bu tema', theme);
    const classes = useStyles();
    const history = useHistory();
@@ -168,6 +170,14 @@ const AppBar: FC<AppBarProps> = ({ position, authorized }) => {
    const handleChangeDrawer = () => {
       setOpenDrawer(!openDrawer);
    };
+   const handleLogoutUser = () => {
+      localStorage.removeItem('token');
+      dispatch({
+         type: LOGOUT,
+         payload: {},
+      });
+      history.push('/');
+   };
    console.log('function', handleChangeDrawer);
    // drawer for mobile
    const myDrawer = (
@@ -195,12 +205,27 @@ const AppBar: FC<AppBarProps> = ({ position, authorized }) => {
                ))}
             </List>
          </Grid>
+
          <Grid item container alignItems='center' direction='column'>
             <FormControlLabel
                control={<Switch name='checkedA' color='secondary' />}
                label='Koyu Tema'
                color='Primary'
             />
+            {authorized && (
+               <Grid container alignItems='center' style={{ marginBottom: 10, marginTop: 10, padding: 10 }}>
+                  <Button
+                     variant='contained'
+                     startIcon={<ExitToAppIcon fontSize='medium' />}
+                     fullWidth
+                     color='secondary'
+                     style={{ marginRight: 20 }}
+                     onClick={handleLogoutUser}
+                  >
+                     Çıkış Yap
+                  </Button>
+               </Grid>
+            )}
             <Typography style={{ marginTop: 10 }} variant='caption'>
                Mert Genç 2021
             </Typography>

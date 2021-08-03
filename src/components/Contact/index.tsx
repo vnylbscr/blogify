@@ -25,7 +25,7 @@ const MOCKS_MENU = [
       description: DESCRIPTION,
    },
    {
-      title: 'Ne yapıyoruz?',
+      title: 'What we do?',
       description: DESCRIPTION,
    },
    {

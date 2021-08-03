@@ -24,15 +24,15 @@ const Home = (props: any) => {
          dispatch({ type: SET_USER, payload: data.getMeWithToken });
       },
    });
+   const { loading: allPostsLoading, data } = useQuery<GetAllPosts>(GET_ALL_POSTS_QUERY);
+
    const user = useSelector((state: any) => state.userReducer.user);
 
    const classes = useStyles();
-   const [getAllPosts, { loading: allPostsLoading, data }] = useLazyQuery<GetAllPosts>(GET_ALL_POSTS_QUERY);
    return (
       <main className={classes.root}>
          <Grid xs={12} alignItems='center' justifyContent='center' container style={{ height: '100%' }}>
             <h1>selam kızlar</h1>
-            <MyButton onClick={() => getAllPosts()} fullWidth label='Merto' />
          </Grid>
       </main>
    );

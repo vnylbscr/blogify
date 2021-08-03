@@ -21,10 +21,12 @@ const App = () => {
    const user = useSelector((state: any) => state.userReducer.user);
    const dispatch = useDispatch();
    const [loggedIn, setLoggedIn] = useState<boolean>();
-   
+
    useLayoutEffect(() => {
-      if (user) {
+      if (user?.token) {
          setLoggedIn(true);
+      } else {
+         setLoggedIn(false);
       }
    }, [user]);
    return (
