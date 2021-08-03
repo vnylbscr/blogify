@@ -14,6 +14,7 @@ const Index = (props: IProps) => {
       <Grid xs={12}>
          <Typography variant='h6'>{item.title}</Typography>
          <Typography variant='subtitle1'>{item.subtitle}</Typography>
+         <Typography variant='subtitle1'>{item.content}</Typography>
       </Grid>
    );
 };
