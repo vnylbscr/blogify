@@ -17,8 +17,15 @@ import { MoreVert } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import React, { FC, Fragment, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
-const useStyles = makeStyles<Theme, ICarouselItemProps>((theme: any) => ({
+import { MyTheme } from '../../styles/config';
+interface ICarouselItemProps {
+   title: string;
+   description: string;
+   imageUrl: string;
+   width?: number;
+   height?: number;
+}
+const useStyles = makeStyles<MyTheme, ICarouselItemProps>((theme) => ({
    root: {
       width: (props) => props.width || 200,
       height: (props) => props.height || 200,
@@ -54,11 +61,6 @@ const useStyles = makeStyles<Theme, ICarouselItemProps>((theme: any) => ({
    },
 }));
 
-interface ICarouselItemProps {
-   title: string;
-   description: string;
-   imageUrl: string;
-}
 const CarouselItem: FC<ICarouselItemProps> = (props) => {
    const classes = useStyles(props);
    const history = useHistory();
