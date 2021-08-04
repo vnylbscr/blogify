@@ -1,25 +1,42 @@
-import { Grid, makeStyles, TextField, Theme } from '@material-ui/core';
 import React from 'react';
 import backgroundImage from '../../assets/images/bg.jpg';
 import Carousel from 'react-material-ui-carousel';
+import { Button, Grid, Link, makeStyles, TextField, Theme, Typography } from '@material-ui/core';
 import CarouselItem from './carouselItem';
 import { useQuery } from '@apollo/client';
 import Footer from '../Footer';
-
-const useStyles = makeStyles((theme: Theme) => ({
+import { MyTheme } from '../../styles/config';
+import { Animate, AnimateGroup } from 'react-simple-animate';
+import { useHistory } from 'react-router-dom';
+const useStyles = makeStyles((theme: MyTheme) => ({
    root: {
-      padding: theme.spacing(2),
+      // padding: theme.spacing(2),
       width: 'auto',
-      backgroundImage: `url("https://images5.alphacoders.com/394/thumb-1920-394862.jpg")`,
-      backgroundSize: 'cover',
       height: 'calc(100vh - 60px)',
    },
-   leftSpace: {
-      // height: 600,
+   image: {
+      backgroundImage: `url("https://source.unsplash.com/user/erondu/1600x900")`,
+      backgroundSize: 'cover',
+      width: '100%',
    },
    rightSpace: {
-      // height: 600,
+      height: '100%',
+      width: '100%',
+      backgroundColor: theme.colorPalette.primary.light,
    },
+   getStartedButton: {
+      height: 80,
+      borderRadius: 36,
+      fontSize: '2.4rem',
+      textTransform: 'none',
+      backgroundColor: theme.colorPalette.primary.main,
+      color: '#fff',
+      transition: 'all .6s',
+      '&:hover': {
+         backgroundColor: theme.colorPalette.secondary,
+      },
+   },
+
    iconTitle: {
       width: '100%',
       fontSize: '4rem',
@@ -59,12 +76,16 @@ const CARAOUSEL_ITEMS = [
       imageUrl: 'https://sinanhan.com/wp-content/uploads/2019/01/blog-gorsel.jpg',
    },
 ];
+
 const Preload = () => {
    const classes = useStyles();
-
+   const history = useHistory();
+   const handleClick = () => {
+      history.push('/contact');
+   };
    return (
       <main className={classes.root}>
-         <Grid container direction='column' alignItems='center' justifyContent='center'>
+         {/* <Grid container direction='column' alignItems='center' justifyContent='center'>
             <Carousel
                animation='slide'
                timeout={500}
@@ -85,6 +106,45 @@ const Preload = () => {
                   />
                ))}
             </Carousel>
+         </Grid> */}
+         <Grid container style={{ height: '100%' }}>
+            <Grid item container xs={false} sm={7} className={classes.image} />
+            <Grid
+               item
+               container
+               xs={12}
+               sm={5}
+               alignItems='center'
+               justifyContent='center'
+               className={classes.rightSpace}
+            >
+               <Grid container item direction='column' justifyContent='center' xs={7}>
+                  <Typography align='center' className={`home-title`} variant='h4'>
+                     Blogify
+                  </Typography>
+                  <Typography
+                     color='textSecondary'
+                     variant='subtitle1'
+                     style={{ marginTop: 28 }}
+                     className='home-subtitle'
+                  >
+                     Blog paylaşmak hiç bu kadar kolay olmamıştı.
+                  </Typography>
+               </Grid>
+               <Grid item xs={9} spacing={3}>
+                  <Button fullWidth variant='contained' onClick={handleClick} className={classes.getStartedButton}>
+                     Başlarken
+                  </Button>
+               </Grid>
+
+               <Grid item xs={12}>
+                  <Link href='https://github.com/vnylbscr'>
+                     <Typography align='center' color='textSecondary'>
+                        Mert Genç 2021
+                     </Typography>
+                  </Link>
+               </Grid>
+            </Grid>
          </Grid>
       </main>
    );

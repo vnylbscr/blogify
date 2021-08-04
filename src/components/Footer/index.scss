@@ -7,6 +7,10 @@ $light: #91a2ce;
    background-color: azure;
    width: 100%;
    padding: 20px 30px 20px 30px;
+   animation-name: slidein;
+   animation-delay: 1s;
+   animation-duration: 1s;
+   // animation-direction: alternate;
    .footer-items-container {
       display: flex;
       align-items: center;
@@ -133,8 +137,21 @@ $light: #91a2ce;
       padding-top: 10px;
       margin-top: 20px;
       transition: all 1s;
+
       &:hover {
          text-decoration: underline;
       }
+   }
+}
+
+@keyframes slidein {
+   from {
+      margin-left: 100%;
+      width: 300%;
+   }
+
+   to {
+      margin-left: 0%;
+      width: 100%;
    }
 }
