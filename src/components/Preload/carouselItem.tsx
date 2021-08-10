@@ -30,7 +30,7 @@ const useStyles = makeStyles<MyTheme, ICarouselItemProps>((theme) => ({
       width: (props) => props.width || 200,
       height: (props) => props.height || 200,
       maxWidth: 700,
-      height: '100%',
+      // height: '100%',
       borderRadius: 20,
       [theme.breakpoints.down('sm')]: {
          width: 600,

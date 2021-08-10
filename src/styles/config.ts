@@ -1,5 +1,5 @@
 import createTheme, { Theme } from '@material-ui/core/styles/createTheme';
-import { ModuleTheme } from './ModuleTheme';
+import { ModuleTheme } from './module.theme';
 
 declare module '@material-ui/styles' {
    interface DefaultTheme extends MyTheme {}

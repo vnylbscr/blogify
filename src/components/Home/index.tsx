@@ -12,6 +12,7 @@ import { SET_USER } from '../../actions/user';
 import { GetMe, GetMeVariables, GetMe_getMeWithToken } from '../../queries/__generated__/GetMe';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import Post from '../Post';
+import { useWindowSize } from '../../hooks/useWindowSize';
 
 interface IProps {
    children?: React.ReactNode;
@@ -32,7 +33,7 @@ const Home = (props: IProps) => {
    });
    const { loading: allPostsLoading, data } = useQuery<GetAllPosts>(GET_ALL_POSTS_QUERY);
    const user = useSelector((state: any) => state.userReducer.user);
-
+   const { width, height } = useWindowSize();
    const classes = useStyles();
    return (
       <main className={classes.root}>
