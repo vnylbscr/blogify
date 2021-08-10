@@ -35,7 +35,8 @@ import RegisterModal from './registerModal';
 import { MyTheme } from '../../styles/config';
 import LoginModal from './loginModal';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { useDispatch } from 'react-redux';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT } from '../../actions/user';
 const useStyles = makeStyles((theme: MyTheme) => ({
    root: {
@@ -122,6 +123,19 @@ const APP_BAR_ITEMS = [
    },
 ];
 
+const AUTHORIZED_APP_BAR_ITEMS = [
+   {
+      title: 'Profile',
+      url: '/profile',
+      icon: <AccountCircleIcon />,
+   },
+   {
+      title: 'Add New Post',
+      url: '/add-new-post',
+      icon: <AccountCircleIcon />,
+   },
+];
+
 // Types
 interface AppBarProps {
    position?: string;
@@ -133,11 +147,12 @@ type ModalConfig = {
 };
 
 // Return
-const AppBar: FC<AppBarProps> = ({ position, authorized }) => {
+const AppBar: FC<AppBarProps> = ({ position }) => {
    // useTheme
    const theme = useTheme();
    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
    const dispatch = useDispatch();
+   const authorized = useSelector((state: any) => state.userReducer.token);
    console.log('bu tema', theme);
    const classes = useStyles();
    const history = useHistory();
@@ -198,6 +213,7 @@ const AppBar: FC<AppBarProps> = ({ position, authorized }) => {
                         // * when change route, close the drawer
                         handleChangeDrawer();
                      }}
+                     key={item.url}
                   >
                      <ListItemIcon className={classes.icon}>{item.icon}</ListItemIcon>
                      <ListItemText>{item.title}</ListItemText>
@@ -285,15 +301,25 @@ const AppBar: FC<AppBarProps> = ({ position, authorized }) => {
                         className={classes.title}
                         xs={authorized ? 9 : 6}
                      >
-                        {APP_BAR_ITEMS.map((item) => (
-                           <HeaderItem
-                              title={item.title}
-                              onClick={() => handleClickItem(item.url)}
-                              style={{ marginRight: 15 }}
-                              icon={item.icon}
-                              disableRipple
-                           />
-                        ))}
+                        {authorized
+                           ? AUTHORIZED_APP_BAR_ITEMS.map((item) => (
+                                <HeaderItem
+                                   title={item.title}
+                                   onClick={() => handleClickItem(item.url)}
+                                   style={{ marginRight: 15 }}
+                                   icon={item.icon}
+                                   disableRipple
+                                />
+                             ))
+                           : APP_BAR_ITEMS.map((item) => (
+                                <HeaderItem
+                                   title={item.title}
+                                   onClick={() => handleClickItem(item.url)}
+                                   style={{ marginRight: 15 }}
+                                   icon={item.icon}
+                                   disableRipple
+                                />
+                             ))}
                      </Grid>
                      {!authorized && (
                         <Grid
