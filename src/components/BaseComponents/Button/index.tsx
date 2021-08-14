@@ -13,6 +13,7 @@ interface IProps {
    [x: string]: any;
 }
 
+// deneme
 const useStyles = makeStyles<MyTheme, IProps>((theme: MyTheme) => ({
    root: {
       color: theme.colorPalette.secondary,
