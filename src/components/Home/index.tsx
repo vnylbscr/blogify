@@ -8,7 +8,7 @@ import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { GetAllPosts, GetAllPosts_getAllPosts } from '../../queries/__generated__/GetAllPosts';
 import { GET_ALL_POSTS_QUERY } from '../../queries/post';
 import { GET_ME_WITH_TOKEN } from '../../queries/getUser';
-import { SET_USER } from '../../actions/user';
+import { SET_USER } from '../../redux/actions/user';
 import { GetMe, GetMeVariables, GetMe_getMeWithToken } from '../../queries/__generated__/GetMe';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import Post from '../Post';

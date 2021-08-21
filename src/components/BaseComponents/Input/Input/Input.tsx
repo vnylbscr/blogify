@@ -5,6 +5,7 @@ import { FieldError, FieldValues, UseControllerProps, Controller } from 'react-h
 import { MyTheme } from '../../../../styles/config';
 import { RequireField } from '../../../../types/helperTypes';
 
+export type InputTextType = 'text' | 'password' | 'file';
 interface IProps<T> extends RequireField<UseControllerProps<T>, 'control'> {
    label: string;
    helperText?: string;
@@ -14,7 +15,7 @@ interface IProps<T> extends RequireField<UseControllerProps<T>, 'control'> {
    endIcon?: React.ReactNode;
    isMultiline?: boolean;
    maxRows?: number;
-   type?: 'text' | 'password';
+   type?: InputTextType;
    placeholder?: string;
    autoFocus?: boolean;
 }
@@ -104,7 +105,7 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
                   //   },
                   // }}
                   placeholder={placeholder}
-                  fullWidth={fullWidth}
+                  fullWidth={fullWidth || true}
                   type={type}
                />
             )}
@@ -112,5 +113,5 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
       </Grid>
    );
 };
-
+Input.defaultProps = {};
 export default Input;

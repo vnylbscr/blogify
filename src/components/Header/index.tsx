@@ -37,7 +37,7 @@ import LoginModal from './loginModal';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useDispatch, useSelector } from 'react-redux';
-import { LOGOUT } from '../../actions/user';
+import { LOGOUT } from '../../redux/actions/user';
 const useStyles = makeStyles((theme: MyTheme) => ({
    root: {
       fontSize: '1.2rem',

@@ -1,4 +1,4 @@
-import { Grid, ThemeProvider, Typography } from '@material-ui/core';
+import { Grid, responsiveFontSizes, ThemeProvider, Typography } from '@material-ui/core';
 import React, { FC, useEffect, useLayoutEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { theme } from '../src/styles/config';
@@ -15,13 +15,14 @@ import Preload from './components/Preload/Content';
 import MyProfile from './components/MyProfile';
 import { useQuery } from '@apollo/client';
 import { GET_ME_WITH_TOKEN } from './queries/getUser';
-import { SET_USER } from './actions/user';
+import { SET_USER } from './redux/actions/user';
+import AddNewPost from './components/AddNewPost';
 const App = () => {
    const userToken = localStorage.getItem('token');
    const user = useSelector((state: any) => state.userReducer.user);
    const dispatch = useDispatch();
    const [loggedIn, setLoggedIn] = useState<boolean>();
-
+   const myTheme = responsiveFontSizes(theme);
    useLayoutEffect(() => {
       if (user?.token) {
          setLoggedIn(true);
@@ -30,8 +31,8 @@ const App = () => {
       }
    }, [user]);
    return (
-      <SnackbarProvider maxSnack={5}>
-         <ThemeProvider theme={theme}>
+      <SnackbarProvider maxSnack={4} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
+         <ThemeProvider theme={myTheme}>
             {userToken || loggedIn ? (
                <Router>
                   <AppBar authorized />
@@ -41,6 +42,7 @@ const App = () => {
                      <Route exact path='/about' component={About} />
                      <Route exact path='/contact' component={Contact} />
                      <Route exact path='/contributors' component={Contributors} />
+                     <Route exact path='/add-new-post' component={AddNewPost} />
                   </Switch>
                </Router>
             ) : (

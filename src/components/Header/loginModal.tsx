@@ -8,12 +8,13 @@ import { Button, Grid, Link, Typography } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 import { USER_LOGIN_MUTATION } from '../../queries/authorize';
 import { useDispatch } from 'react-redux';
-import { LOGIN } from '../../actions/user';
+import { LOGIN } from '../../redux/actions/user';
 import { CircularProgress } from '@material-ui/core';
 import { Popover } from 'material-ui';
 import { LoginMutation, LoginMutationVariables } from '../../queries/__generated__/LoginMutation';
 import { useHistory } from 'react-router-dom';
 import { styled } from '@material-ui/styles';
+import { EMAIL_REGEX, REQUIRED_FIELD } from '../../lib/constants';
 
 const StyledButton = styled(({ color, ...props }) => <Button classes={{ label: 'label', root: 'root' }} {...props} />)(
    () => ({
@@ -84,9 +85,9 @@ const LoginModal = (props: Props) => {
                label='E-mail'
                control={control}
                rules={{
-                  required: 'Bu alan gereklidir',
+                  required: REQUIRED_FIELD,
                   pattern: {
-                     value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                     value: EMAIL_REGEX,
                      message: 'Lütfen geçerli bir e-mail giriniz',
                   },
                }}
@@ -99,7 +100,7 @@ const LoginModal = (props: Props) => {
                label='Şifre'
                control={control}
                rules={{
-                  required: 'Bu alan gereklidir',
+                  required: REQUIRED_FIELD,
                   minLength: {
                      value: 6,
                      message: 'Şifreniz en az 6 karakterden oluşmalıdır',

@@ -1,25 +1,13 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './styles/index.scss';
 import { Provider } from 'react-redux';
-import { applyMiddleware, compose, createStore } from 'redux';
 import { ApolloClient, InMemoryCache, ApolloProvider, from, HttpLink, ApolloLink } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { API_URL } from './config';
-import reducers from './reducers';
 import { setContext } from '@apollo/client/link/context';
+import store from './redux/store';
 
-import { SnackbarProvider } from 'notistack';
-// Extension for Redux
-declare global {
-   interface Window {
-      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-   }
-}
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(reducers, composeEnhancers());
 // HTTP Link GRAPH QL
 
 // Error Handling for GRAPH QL
@@ -29,7 +17,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
          console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
       );
 
-   if (networkError) console.log(`[Network error]: ${networkError} sdsdsdsd`);
+   if (networkError) console.log(`[Network error]: ${networkError} `);
 });
 
 const authLink = setContext((_, { headers }) => {

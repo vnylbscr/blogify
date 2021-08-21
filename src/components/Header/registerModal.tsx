@@ -5,17 +5,17 @@ import Input from '../BaseComponents/Input/Input/Input';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
-import { classicNameResolver, tokenToString } from 'typescript';
 import { makeStyles } from '@material-ui/styles';
 import { useMutation } from '@apollo/client';
 import { Backdrop, Button, CircularProgress, Grid, Typography } from '@material-ui/core';
 import { MyTheme } from '../../styles/config';
-import { REGISTER } from '../../actions/user';
+import { REGISTER } from '../../redux/actions/user';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { USER_REGISTER_MUTATION } from '../../queries/register';
 import { Link, useHistory } from 'react-router-dom';
 import { RegisterMutation, RegisterMutationVariables } from '../../queries/__generated__/RegisterMutation';
+import { EMAIL_REGEX } from '../../lib/constants';
 // Form Props
 
 // Component Props
@@ -101,7 +101,7 @@ const RegisterModal = (props: Props) => {
                   rules={{
                      required: 'Bu alan gereklidir',
                      pattern: {
-                        value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                        value: EMAIL_REGEX,
                         message: 'Lütfen geçerli bir e-mail giriniz',
                      },
                   }}
