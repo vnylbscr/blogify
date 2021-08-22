@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { Size } from '../types/helperTypes';
 
-type Size = {
-   width: number;
-   height: number;
-};
 export const useWindowSize = () => {
-   const [width, setWidth] = useState<number>();
-   const [height, setHeight] = useState<number>();
+   const [size, setSize] = useState<Size>();
 
    const resizeWidth = () => {
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
+      setSize({
+         width: window.innerWidth,
+         height: window.innerHeight,
+      });
    };
    useEffect(() => {
       document.addEventListener('resize', resizeWidth);
       return () => document.removeEventListener('resize', resizeWidth);
    }, [window.innerWidth, window.innerHeight]);
 
-   return { width, height };
+   return {
+      ...size,
+   };
 };

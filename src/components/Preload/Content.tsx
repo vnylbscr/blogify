@@ -140,7 +140,7 @@ const Preload = () => {
                <Grid item xs={12}>
                   <Link href='https://github.com/vnylbscr'>
                      <Typography align='center' color='textSecondary'>
-                        Mert Genç 2021
+                        Blogify(c) 2021
                      </Typography>
                   </Link>
                </Grid>

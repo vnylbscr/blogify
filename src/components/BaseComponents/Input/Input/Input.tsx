@@ -18,6 +18,7 @@ interface IProps<T> extends RequireField<UseControllerProps<T>, 'control'> {
    type?: InputTextType;
    placeholder?: string;
    autoFocus?: boolean;
+   minRows?: number;
 }
 
 const useStyles = makeStyles((theme: MyTheme) => ({
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme: MyTheme) => ({
       fontSize: '15px',
    },
    inputRoot: {
-      height: 70,
+      height: 'auto',
       borderRadius: 15,
       // border: "1px solid yellow",
    },
@@ -64,6 +65,7 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
       placeholder,
       isMultiline,
       maxRows,
+      minRows,
    } = props;
    const classes = useStyles(props);
    return (
@@ -82,6 +84,7 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
                   variant='outlined'
                   multiline={isMultiline}
                   maxRows={maxRows}
+                  minRows={minRows}
                   InputProps={{
                      classes: {
                         root: classes.inputRoot,

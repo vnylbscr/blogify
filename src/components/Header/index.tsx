@@ -7,19 +7,19 @@ import {
    makeStyles,
    Grid,
    Button,
-   TextField,
    List,
    ListItem,
    ListItemText,
    ListItemIcon,
    Divider,
    Hidden,
-   Theme,
    useMediaQuery,
    Drawer,
    Box,
    FormControlLabel,
    Switch,
+   MenuItem,
+   Menu,
 } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import CreateIcon from '@material-ui/icons/Create';
@@ -38,6 +38,10 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT } from '../../redux/actions/user';
+import PersonIcon from '@material-ui/icons/Person';
+import StyledMenuItem from '../BaseComponents/MenuItem';
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+
 const useStyles = makeStyles((theme: MyTheme) => ({
    root: {
       fontSize: '1.2rem',
@@ -125,11 +129,6 @@ const APP_BAR_ITEMS = [
 
 const AUTHORIZED_APP_BAR_ITEMS = [
    {
-      title: 'Profile',
-      url: '/profile',
-      icon: <AccountCircleIcon />,
-   },
-   {
       title: 'Add New Post',
       url: '/add-new-post',
       icon: <AccountCircleIcon />,
@@ -160,10 +159,14 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
       mode: '',
       open: false,
    };
+   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
    const [modalConfig, setModalConfig] = useState<ModalConfig>(initialState);
    const [openDrawer, setOpenDrawer] = useState<boolean>();
    const handleClickItem = (url: string) => {
       history.push(url);
+   };
+   const handleProfileMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(e.currentTarget);
    };
 
    const openLoginDialog = () => {
@@ -192,8 +195,8 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
          payload: {},
       });
       history.push('/');
+      window.location.reload();
    };
-   console.log('function', handleChangeDrawer);
    // drawer for mobile
    const myDrawer = (
       <Grid container direction='column' justifyContent='space-between' style={{ height: '100%' }}>
@@ -303,22 +306,52 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
                      >
                         {authorized
                            ? AUTHORIZED_APP_BAR_ITEMS.map((item) => (
-                                <HeaderItem
-                                   title={item.title}
-                                   onClick={() => handleClickItem(item.url)}
-                                   style={{ marginRight: 15 }}
-                                   icon={item.icon}
-                                   disableRipple
-                                />
+                                <Fragment>
+                                   <HeaderItem
+                                      title={item.title}
+                                      onClick={() => handleClickItem(item.url)}
+                                      style={{ marginRight: 15 }}
+                                      icon={item.icon}
+                                      disableRipple
+                                   />
+                                   <IconButton onClick={handleProfileMenu}>
+                                      <PersonIcon fontSize='large' style={{ color: '#fff' }} />
+                                   </IconButton>
+                                   <Menu
+                                      id='simple-menu'
+                                      anchorEl={anchorEl}
+                                      keepMounted
+                                      open={Boolean(anchorEl)}
+                                      onClose={() => setAnchorEl(null)}
+                                   >
+                                      <StyledMenuItem
+                                         onClick={() => {
+                                            handleClickItem('/profile');
+                                            setAnchorEl(null);
+                                         }}
+                                         icon={() => <PermIdentityIcon />}
+                                         label='Profilim'
+                                         variant='first'
+                                      />
+                                      <StyledMenuItem
+                                         onClick={handleLogoutUser}
+                                         variant='first'
+                                         label='Çıkış Yap'
+                                         icon={() => <ExitToAppIcon />}
+                                      />
+                                   </Menu>
+                                </Fragment>
                              ))
                            : APP_BAR_ITEMS.map((item) => (
-                                <HeaderItem
-                                   title={item.title}
-                                   onClick={() => handleClickItem(item.url)}
-                                   style={{ marginRight: 15 }}
-                                   icon={item.icon}
-                                   disableRipple
-                                />
+                                <Fragment>
+                                   <HeaderItem
+                                      title={item.title}
+                                      onClick={() => handleClickItem(item.url)}
+                                      style={{ marginRight: 15 }}
+                                      icon={item.icon}
+                                      disableRipple
+                                   />
+                                </Fragment>
                              ))}
                      </Grid>
                      {!authorized && (

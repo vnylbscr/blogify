@@ -21,9 +21,14 @@ export const theme = createTheme({
          dark: '#1e2842',
          light: '#91a2ce',
       },
-      secondary: '#F6B8B8',
+      secondary: '#F6A9A9',
    },
    workspace: {
       appBarHeight: 60,
+      borderRadius: {
+         small: 8,
+         medium: 15,
+         large: 28,
+      },
    },
 });
