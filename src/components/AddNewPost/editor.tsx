@@ -41,7 +41,7 @@ const AddPostEditor: FC<Props> = (props) => {
          }}
       >
          <Slate value={value} onChange={(value) => setValue(value)} editor={editor}>
-            <Toolbar>
+            <Toolbar variant='dense'>
                <ToggleButtonGroup value={formats} onChange={handleFormat} aria-label='text formatting'>
                   <ToggleButton value='bold' aria-label='bold'>
                      <FormatBoldIcon />
