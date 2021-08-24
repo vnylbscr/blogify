@@ -1,10 +1,10 @@
 // @refresh reset
 import { Container, Toolbar } from '@material-ui/core';
 import React, { FC, useCallback, useMemo, useState } from 'react';
-import { createEditor, Descendant } from 'slate';
-import { Editable, RenderElementProps, RenderLeafProps, Slate, withReact, useSlate } from 'slate-react';
+import { createEditor, Descendant, Editor, BaseEditor, Transforms, Element as SlateElement } from 'slate';
+import { Editable, RenderElementProps, RenderLeafProps, Slate, withReact, useSlate, ReactEditor } from 'slate-react';
 import { initialValue } from '../../lib/editorInitialValue';
-import { CustomElement, CustomFontStyle } from '../../types/editor.config';
+import { CustomElement, CustomFontStyle, CustomText } from '../../types/editor.config';
 import FormatBoldIcon from '@material-ui/icons/FormatBold';
 import FormatItalicIcon from '@material-ui/icons/FormatItalic';
 import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
@@ -13,7 +13,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 interface Props {}
-
+const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 const AddPostEditor: FC<Props> = (props) => {
    const editor = useMemo(() => withReact(createEditor()), []);
    //    const initialValue: CustomElement = [];
@@ -25,10 +25,10 @@ const AddPostEditor: FC<Props> = (props) => {
    }, []);
    const [formats, setFormats] = useState<string[]>();
    const [value, setValue] = useState<Descendant[]>(initialValue);
-
    const handleFormat = (event: React.MouseEvent<HTMLElement>, newFormats: string[]) => {
       setFormats(newFormats);
    };
+   console.log(value);
    return (
       <Container
          style={{
@@ -37,13 +37,22 @@ const AddPostEditor: FC<Props> = (props) => {
             height: '700px',
             marginTop: 20,
             overflow: 'auto',
+            marginBottom: '20px',
             padding: 20,
          }}
       >
          <Slate value={value} onChange={(value) => setValue(value)} editor={editor}>
             <Toolbar variant='dense'>
                <ToggleButtonGroup value={formats} onChange={handleFormat} aria-label='text formatting'>
-                  <ToggleButton value='bold' aria-label='bold'>
+                  <ToggleButton
+                     value='bold'
+                     onClick={(e) => {
+                        e.preventDefault();
+                        toggleBlock(editor, 'italic');
+                        console.log('caaa');
+                     }}
+                     aria-label='bold'
+                  >
                      <FormatBoldIcon />
                   </ToggleButton>
                   <ToggleButton value='italic' aria-label='italic'>
@@ -65,7 +74,58 @@ const AddPostEditor: FC<Props> = (props) => {
       </Container>
    );
 };
+const toggleBlock = (editor: any, format: any) => {
+   const isActive = isBlockActive(editor, format);
+   const isList = LIST_TYPES.includes(format);
+   console.log('format is here', format);
+   Transforms.unwrapNodes(editor, {
+      match: (n: any) =>
+         LIST_TYPES.includes((!Editor.isEditor(n) && SlateElement.isElement(n) && n.type).valueOf().toString()),
+      split: true,
+   });
+   const newProperties: Partial<SlateElement> = {
+      type: isActive ? 'paragraph' : isList ? 'list-item' : format,
+   };
+   Transforms.setNodes(editor, newProperties);
 
+   if (!isActive && isList) {
+      const block = { type: format, children: [] };
+      Transforms.wrapNodes(editor, block);
+   }
+};
+
+const toggleMark = (editor: any, format: any) => {
+   const isActive = isMarkActive(editor, format);
+   if (isActive) {
+      Editor.removeMark(editor, format);
+   } else {
+      Editor.addMark(editor, format, true);
+   }
+};
+const isMarkActive = (editor: any, format: any) => {
+   const marks: any = Editor.marks(editor);
+   return marks ? marks[format] === true : false;
+};
+const isBlockActive = (editor: any, format: any) => {
+   const [match] = Editor.nodes(editor, {
+      match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === format,
+   });
+   return !!match;
+};
+
+type ToggleProps = {
+   value: string;
+   icon?: React.ReactNode;
+   format: any;
+};
+const MyToggleButton = ({ value, format, icon }: ToggleProps) => {
+   const editor = useSlate();
+   return (
+      <ToggleButton value={value} selected={isBlockActive(editor, format)}>
+         {icon}
+      </ToggleButton>
+   );
+};
 const Element = (props: RenderElementProps) => {
    const { attributes, children, element } = props;
    switch (element.type) {

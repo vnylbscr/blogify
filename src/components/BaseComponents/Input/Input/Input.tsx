@@ -56,7 +56,7 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
       control,
       error,
       label,
-      fullWidth,
+      fullWidth = true,
       helperText,
       endIcon,
       startIcon,
@@ -67,6 +67,7 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
       maxRows,
       minRows,
    } = props;
+
    const classes = useStyles(props);
    return (
       <Grid xs={12} container>
@@ -108,7 +109,7 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
                   //   },
                   // }}
                   placeholder={placeholder}
-                  fullWidth={fullWidth || true}
+                  fullWidth={fullWidth}
                   type={type}
                />
             )}
@@ -116,5 +117,5 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
       </Grid>
    );
 };
-Input.defaultProps = {};
+// Input.defaultProps = {};
 export default Input;
