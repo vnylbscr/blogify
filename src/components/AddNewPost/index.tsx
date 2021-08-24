@@ -8,6 +8,8 @@ import blogBgImage from '../../assets/images/post-background.jpeg';
 import { useMutation } from '@apollo/client';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import AddPostEditor from './editor';
+import MyEditor from './draftEditor';
+import RichEditor from './draftEditor';
 interface Props {}
 
 const useStyles = makeStyles((theme: MyTheme) => ({
@@ -27,6 +29,17 @@ const useStyles = makeStyles((theme: MyTheme) => ({
       height: 'auto',
       borderRadius: 15,
    },
+   title: {
+      color: '#301934',
+      '&:hover': {
+         transform: 'scale(1.1)',
+         color: 'rebeccapurple',
+         transition: 'all 1s',
+      },
+   },
+   subtitle: {
+      color: 'black',
+   },
 }));
 const AddNewPost: FC<Props> = (props) => {
    const classes = useStyles(props);
@@ -41,15 +54,15 @@ const AddNewPost: FC<Props> = (props) => {
             </Grid>
             <Grid container xs={12} sm={6} className={classes.rightSection} justifyContent='center' alignItems='center'>
                <Grid container justifyContent='center' direction='column'>
-                  <Typography variant='h2' align='center' color='textPrimary'>
+                  <Typography variant='h2' align='center' color='textPrimary' className={classes.title}>
                      Yeni Post Oluştur
                   </Typography>
-                  <Typography variant='h6' align='center' color='textSecondary'>
+                  <Typography variant='h6' align='center' color='textSecondary' className={classes.subtitle}>
                      Yeni bir post paylaşmak için formu doldur
                   </Typography>
                </Grid>
                <Grid container>
-                  <AddPostEditor />
+                  <RichEditor />
                </Grid>
             </Grid>
          </Grid>
