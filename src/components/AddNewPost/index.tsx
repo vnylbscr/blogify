@@ -45,7 +45,10 @@ const AddNewPost: FC<Props> = (props) => {
    const classes = useStyles(props);
    // const [addPostMutation, {loading}] = useMutation()
    const onAccept = (data: any) => console.log(data);
+
    const { width, height } = useWindowSize();
+   // console.log('asdasd');
+
    return (
       <main className={classes.root}>
          <Grid container xs={12} direction='row' style={{ height: '100%' }}>
