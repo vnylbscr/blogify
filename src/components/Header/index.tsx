@@ -140,6 +140,7 @@ interface AppBarProps {
    position?: string;
    authorized?: boolean;
 }
+
 type ModalConfig = {
    mode: string;
    open: boolean;
@@ -366,8 +367,16 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
                            <Button variant='text' onClick={openLoginDialog} className={classes.loginButton}>
                               Giriş Yap
                            </Button>
-                           <LoginModal open={modalConfig.mode === 'LOGIN'} onCloseModal={handleCloseDialog} />
-
+                           <LoginModal
+                              open={modalConfig.mode === 'LOGIN'}
+                              handleChangeModal={() => {
+                                 setModalConfig((prevState) => ({
+                                    ...prevState,
+                                    mode: 'REGISTER',
+                                 }));
+                              }}
+                              onCloseModal={handleCloseDialog}
+                           />
                            <Typography variant='subtitle2'>or</Typography>
                            <Button
                               variant='text'
@@ -377,7 +386,16 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
                            >
                               Kayıt Ol
                            </Button>
-                           <RegisterModal open={modalConfig.mode === 'REGISTER'} onCloseModal={handleCloseDialog} />
+                           <RegisterModal
+                              open={modalConfig.mode === 'REGISTER'}
+                              handleChangeModal={() => {
+                                 setModalConfig((prevState) => ({
+                                    ...prevState,
+                                    mode: 'LOGIN',
+                                 }));
+                              }}
+                              onCloseModal={handleCloseDialog}
+                           />
                         </Grid>
                      )}
                   </Fragment>

@@ -4,7 +4,7 @@ import Modal from '../BaseComponents/Dialog';
 import Input from '../BaseComponents/Input/Input/Input';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
-import { Button, Grid, Link, Typography } from '@material-ui/core';
+import { Button, Grid, Link, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 import { USER_LOGIN_MUTATION } from '../../queries/authorize';
 import { useDispatch } from 'react-redux';
@@ -29,12 +29,15 @@ const StyledButton = styled(({ color, ...props }) => <Button classes={{ label: '
 interface Props {
    open: boolean;
    onCloseModal: () => void;
+   handleChangeModal: () => void;
 }
 const LoginModal = (props: Props) => {
-   const { open, onCloseModal } = props;
+   const { open, onCloseModal, handleChangeModal } = props;
    const [login, { data, error, loading }] = useMutation<LoginMutation>(USER_LOGIN_MUTATION, {
       // onError: (error) => console.log('ULAAA  NOLİY', error),
    });
+   const theme = useTheme();
+   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
    const dispatch = useDispatch();
    const history = useHistory();
    const {
@@ -75,6 +78,7 @@ const LoginModal = (props: Props) => {
             reset();
             onCloseModal();
          }}
+         fullScreen={fullScreen}
       >
          <form onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -110,7 +114,9 @@ const LoginModal = (props: Props) => {
             />
             <Grid container justifyContent='center' alignItems='center' style={{ padding: 20 }}>
                <Typography>Henüz hesabın yok mu?</Typography>
-               <Link style={{ marginLeft: 10 }}>Hemen oluştur</Link>
+               <Link style={{ marginLeft: 10 }} onClick={handleChangeModal}>
+                  Hemen oluştur
+               </Link>
             </Grid>
             <Button
                variant='contained'

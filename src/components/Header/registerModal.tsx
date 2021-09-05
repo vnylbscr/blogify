@@ -7,7 +7,7 @@ import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import { makeStyles } from '@material-ui/styles';
 import { useMutation } from '@apollo/client';
-import { Backdrop, Button, CircularProgress, Grid, Typography } from '@material-ui/core';
+import { Backdrop, Button, CircularProgress, Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 import { MyTheme } from '../../styles/config';
 import { REGISTER } from '../../redux/actions/user';
 import { useDispatch } from 'react-redux';
@@ -22,6 +22,7 @@ import { EMAIL_REGEX } from '../../lib/constants';
 interface Props {
    open: boolean;
    onCloseModal: () => void;
+   handleChangeModal: () => void;
 }
 
 const useStyles = makeStyles((theme: MyTheme) => ({
@@ -32,17 +33,18 @@ const useStyles = makeStyles((theme: MyTheme) => ({
    },
 }));
 const RegisterModal = (props: Props) => {
-   const { open, onCloseModal } = props;
+   const { open, onCloseModal, handleChangeModal } = props;
    const dispatch = useDispatch();
-   const { enqueueSnackbar } = useSnackbar();
    const history = useHistory();
+   const theme = useTheme();
+   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
    const [register, { error, loading }] = useMutation<RegisterMutation>(USER_REGISTER_MUTATION);
    const classes = useStyles();
    const {
       control,
       handleSubmit,
       reset,
-      formState: { errors, isValid },
+      formState: { errors },
    } = useForm<RegisterMutationVariables>();
 
    const onSubmit = (data: RegisterMutationVariables) => {
@@ -67,12 +69,13 @@ const RegisterModal = (props: Props) => {
          dialogTitle='Kayıt Ol'
          dialogContentTitle="Blogify'a kayıt ol ve bütün özelliklerden faydalan"
          className={classes.modal}
-         width={600}
-         height={600}
+         // width={600}
+         // height={600}
          onClose={() => {
             reset();
             onCloseModal();
          }}
+         fullScreen={true}
       >
          <form onSubmit={handleSubmit(onSubmit)}>
             <Grid xs={12} container>
@@ -131,7 +134,7 @@ const RegisterModal = (props: Props) => {
                   style={{ padding: 10, marginTop: 20 }}
                >
                   <Typography>Hesabın mı yok?</Typography>
-                  <Link to='/' style={{ marginLeft: 10 }}>
+                  <Link to='/' style={{ marginLeft: 10 }} onClick={handleChangeModal}>
                      Oluştur
                   </Link>
                </Grid>
