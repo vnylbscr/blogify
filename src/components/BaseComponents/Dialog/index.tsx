@@ -49,4 +49,7 @@ const Modal: FC<IModalProps> = (props) => {
    );
 };
 
+// Testing squashing commit 1
+// Testing squashing commit 2
+// Testing squashing commit 3
 export default Modal;
