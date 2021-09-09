@@ -1,6 +1,6 @@
 import React from 'react';
 import { FC } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 interface IModalProps {
@@ -35,7 +35,6 @@ const Modal: FC<IModalProps> = (props) => {
          open={open}
          onClose={onClose}
          style={style}
-         // maxWidth='md'
          fullWidth={fullWidth}
          classes={{
             paper: classes.paper,
