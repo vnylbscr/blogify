@@ -26,7 +26,9 @@ interface Props {
 }
 
 const useStyles = makeStyles((theme: MyTheme) => ({
-   modal: {},
+   modal: {
+      
+   },
    backdrop: {
       zIndex: theme.zIndex.drawer + 1,
       color: '#fff',
@@ -69,13 +71,10 @@ const RegisterModal = (props: Props) => {
          dialogTitle='Kayıt Ol'
          dialogContentTitle="Blogify'a kayıt ol ve bütün özelliklerden faydalan"
          className={classes.modal}
-         // width={600}
-         // height={600}
          onClose={() => {
             reset();
             onCloseModal();
          }}
-         fullScreen={true}
       >
          <form onSubmit={handleSubmit(onSubmit)}>
             <Grid xs={12} container>

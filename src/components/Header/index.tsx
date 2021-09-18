@@ -156,10 +156,12 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
    console.log('bu tema', theme);
    const classes = useStyles();
    const history = useHistory();
-   const initialState = {
+   const initialState: ModalConfig = {
       mode: '',
       open: false,
    };
+   console.log(authorized, 'issss');
+
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
    const [modalConfig, setModalConfig] = useState<ModalConfig>(initialState);
    const [openDrawer, setOpenDrawer] = useState<boolean>();

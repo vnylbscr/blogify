@@ -1,10 +1,8 @@
-import { Box, Button, Grid, makeStyles, TextField } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import { makeStyles } from '@material-ui/core';
+import React, { Fragment, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './index.scss';
-import Input from '../BaseComponents/Input/Input/Input';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import Footer from '../Footer';
+
 const useStyles = makeStyles((theme: any) => ({
    root: {
       flexGrow: 1,
@@ -38,6 +36,7 @@ type FormValues = {
    content: string;
 };
 const Contact = () => {
+   const [state, setState] = useState(false);
    const {
       handleSubmit,
       watch,
@@ -47,7 +46,6 @@ const Contact = () => {
       mode: 'all',
    });
    // console.log(watch());
-
    console.log(watch().email);
    console.log('isValid ?', isValid);
    const classes = useStyles();
