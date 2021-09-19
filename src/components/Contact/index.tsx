@@ -63,8 +63,8 @@ const Contact = () => {
                </div>
             </div>
             <div className='contact-bottom-section'>
-               {MOCKS_MENU.map((item) => (
-                  <Fragment>
+               {MOCKS_MENU.map((item, index) => (
+                  <Fragment key={item.title + index}>
                      <div className='contact-title'>
                         <p>{item.title}</p>
                      </div>
