@@ -1,44 +1,45 @@
 import { makeStyles } from '@material-ui/styles';
-import React, { FC } from 'react';
+import React from 'react';
 import { MyTheme } from '../../../styles/config';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 interface IProps {
    fullWidth?: boolean;
-   style?: object;
-   onClick: () => void;
+   overrideStyles?: React.CSSProperties;
+   onClick?: () => void;
    label?: string;
    width?: number;
    startIcon?: React.ReactNode;
    endIcon?: React.ReactNode;
+   children?: React.ReactNode;
+   capitalize?: boolean | undefined;
    [x: string]: any;
 }
 
-// deneme
 const useStyles = makeStyles<MyTheme, IProps>((theme: MyTheme) => ({
    root: {
-      color: theme.colorPalette.secondary,
-      backgroundColor: theme.colorPalette.primary.main,
-      borderRadius: 10,
+      color: '#fff',
       textTransform: 'none',
       width: (props) => (props.width ? props.width : ''),
    },
+   '&:hover': {},
 }));
 
-const MyButton = (props: IProps) => {
-   const { label, onClick, style, fullWidth, ...rest } = props;
+const ButtonSuccess = (props: IProps) => {
+   const { label, onClick, overrideStyles, children, fullWidth, capitalize, ...rest } = props;
    const classes = useStyles(props);
    return (
       <Button
          className={classes.root}
-         variant='outlined'
-         style={style}
+         variant='contained'
+         style={overrideStyles}
          onClick={onClick}
          fullWidth={fullWidth}
+         color='primary'
          {...rest}
       >
-         {label}
+         <Typography variant={capitalize ? 'body1' : 'button'}>{label || children}</Typography>
       </Button>
    );
 };
 
-export default MyButton;
+export default ButtonSuccess;

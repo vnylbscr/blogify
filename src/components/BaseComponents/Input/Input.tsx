@@ -1,10 +1,11 @@
-import { Grid, InputAdornment, InputLabel, TextField, Theme } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Grid, IconButton, InputAdornment, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import React, { FC } from 'react';
 import { FieldError, FieldValues, UseControllerProps, Controller } from 'react-hook-form';
-import { MyTheme } from '../../../../styles/config';
-import { RequireField } from '../../../../types/helperTypes';
-
+import { MyTheme } from '../../../styles/config';
+import { RequireField } from '../../../types/helperTypes';
+import VisibilityOn from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 export type InputTextType = 'text' | 'password' | 'file';
 interface IProps<T> extends RequireField<UseControllerProps<T>, 'control'> {
    label: string;
@@ -26,28 +27,22 @@ const useStyles = makeStyles((theme: MyTheme) => ({
       marginTop: 20,
    },
    labelColor: {
-      // color: "#fdsfsd",
       fontSize: '15px',
    },
    inputRoot: {
       height: 'auto',
       borderRadius: 15,
-      // border: "1px solid yellow",
    },
    labelStyle: {
       fontSize: '1.2rem',
-      // color: theme.colorPalette.primary.dark,
    },
    icon: {
       color: theme.colorPalette.secondary,
    },
    focused: {
-      // backgroundColor: theme.colorPalette.primary.dark,
-      // color: theme.colorPalette.secondary,
+      transition: 'all .5s',
+      transform: 'scale(1.01)',
    },
-   //  input: {
-   //     height: 40,
-   //  },
 }));
 
 const Input = <T extends FieldValues>(props: IProps<T>) => {
@@ -69,6 +64,7 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
    } = props;
 
    const classes = useStyles(props);
+   const [showPassword, setShowPassword] = useState(false);
    return (
       <Grid xs={12} container>
          <Controller
@@ -90,11 +86,16 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
                      classes: {
                         root: classes.inputRoot,
                         focused: classes.focused,
-                        // input: classes.input,
                      },
                      endAdornment: (
                         <InputAdornment position='end' className={classes.icon}>
-                           {endIcon}
+                           {type === 'password' ? (
+                              <IconButton onClick={() => setShowPassword((p) => !p)}>
+                                 {showPassword ? <VisibilityOn /> : <VisibilityOff />}
+                              </IconButton>
+                           ) : (
+                              endIcon
+                           )}
                         </InputAdornment>
                      ),
                      startAdornment: (
@@ -103,14 +104,9 @@ const Input = <T extends FieldValues>(props: IProps<T>) => {
                         </InputAdornment>
                      ),
                   }}
-                  // InputLabelProps={{
-                  //   classes: {
-                  //     root: classes.labelStyle,
-                  //   },
-                  // }}
                   placeholder={placeholder}
                   fullWidth={fullWidth}
-                  type={type}
+                  type={showPassword ? 'text' : type}
                />
             )}
          />

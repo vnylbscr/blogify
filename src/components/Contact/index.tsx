@@ -1,10 +1,8 @@
-import { Box, Button, Grid, makeStyles, TextField } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import { makeStyles } from '@material-ui/core';
+import React, { Fragment, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './index.scss';
-import Input from '../BaseComponents/Input/Input/Input';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import Footer from '../Footer';
+
 const useStyles = makeStyles((theme: any) => ({
    root: {
       flexGrow: 1,
@@ -16,21 +14,20 @@ const useStyles = makeStyles((theme: any) => ({
    },
 }));
 
-const DESCRIPTION =
-   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+const DESC_WHO_WE_ARE =
+   'Blogify ile blog yazılarını paylaşabilir, diğer insanların, arkadaşlarının görmesini sağlayabilirsin. Blog yazılarını düzenleyebilir ve daha binlerce şey yapabilirsin.';
+
+const DESC_WHAT_WE_DO =
+   'Blogify ekibi olarak birinci önceliğimiz, her türlü sorun için bir blog oluşturmak. Sizler için elimizden gelenin en iyisini yapacağız.';
 
 const MOCKS_MENU = [
    {
       title: 'Biz kimiz?',
-      description: DESCRIPTION,
+      description: DESC_WHO_WE_ARE,
    },
    {
-      title: 'What we do?',
-      description: DESCRIPTION,
-   },
-   {
-      title: 'İmkansız Görev',
-      description: DESCRIPTION,
+      title: 'Ne yapıyoruz?',
+      description: DESC_WHAT_WE_DO,
    },
 ];
 type FormValues = {
@@ -38,22 +35,6 @@ type FormValues = {
    content: string;
 };
 const Contact = () => {
-   const {
-      handleSubmit,
-      watch,
-      control,
-      formState: { errors, isValid },
-   } = useForm<FormValues>({
-      mode: 'all',
-   });
-   // console.log(watch());
-
-   console.log(watch().email);
-   console.log('isValid ?', isValid);
-   const classes = useStyles();
-   const onSubmit = (data: FormValues) => {
-      console.log(data);
-   };
    return (
       <Fragment>
          <main className='contact-container'>
@@ -65,8 +46,8 @@ const Contact = () => {
                </div>
             </div>
             <div className='contact-bottom-section'>
-               {MOCKS_MENU.map((item) => (
-                  <Fragment>
+               {MOCKS_MENU.map((item, index) => (
+                  <Fragment key={item.title + index}>
                      <div className='contact-title'>
                         <p>{item.title}</p>
                      </div>

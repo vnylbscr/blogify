@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { MyTheme } from '../../styles/config';
-import MyButton from '../BaseComponents/Button';
+import MyButton from '../BaseComponents/Button/ButtonSuccess';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { GetAllPosts, GetAllPosts_getAllPosts } from '../../queries/__generated__/GetAllPosts';
 import { GET_ALL_POSTS_QUERY } from '../../queries/post';

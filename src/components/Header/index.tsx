@@ -31,9 +31,7 @@ import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import Modal from '../BaseComponents/Dialog';
 import MenuIcon from '@material-ui/icons/Menu';
-import RegisterModal from './registerModal';
 import { MyTheme } from '../../styles/config';
-import LoginModal from './loginModal';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useDispatch, useSelector } from 'react-redux';
@@ -140,6 +138,7 @@ interface AppBarProps {
    position?: string;
    authorized?: boolean;
 }
+
 type ModalConfig = {
    mode: string;
    open: boolean;
@@ -149,16 +148,19 @@ type ModalConfig = {
 const AppBar: FC<AppBarProps> = ({ position }) => {
    // useTheme
    const theme = useTheme();
+
    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
    const dispatch = useDispatch();
    const authorized = useSelector((state: any) => state.userReducer.token);
    console.log('bu tema', theme);
    const classes = useStyles();
    const history = useHistory();
-   const initialState = {
+   const initialState: ModalConfig = {
       mode: '',
       open: false,
    };
+   console.log(authorized, 'issss');
+
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
    const [modalConfig, setModalConfig] = useState<ModalConfig>(initialState);
    const [openDrawer, setOpenDrawer] = useState<boolean>();
@@ -170,16 +172,10 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
    };
 
    const openLoginDialog = () => {
-      setModalConfig({
-         mode: 'LOGIN',
-         open: true,
-      });
+      history.push('/sign-in');
    };
    const openRegisterDialog = () => {
-      setModalConfig({
-         mode: 'REGISTER',
-         open: true,
-      });
+      history.push('/sign-up');
    };
 
    const handleCloseDialog = () => {
@@ -366,7 +362,6 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
                            <Button variant='text' onClick={openLoginDialog} className={classes.loginButton}>
                               Giriş Yap
                            </Button>
-                           <LoginModal open={modalConfig.mode === 'LOGIN'} onCloseModal={handleCloseDialog} />
 
                            <Typography variant='subtitle2'>or</Typography>
                            <Button
@@ -377,7 +372,6 @@ const AppBar: FC<AppBarProps> = ({ position }) => {
                            >
                               Kayıt Ol
                            </Button>
-                           <RegisterModal open={modalConfig.mode === 'REGISTER'} onCloseModal={handleCloseDialog} />
                         </Grid>
                      )}
                   </Fragment>

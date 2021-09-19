@@ -3,7 +3,7 @@ import { Button, Grid, makeStyles, Typography } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { MyTheme } from '../../styles/config';
 import TitleIcon from '@material-ui/icons/Title';
-import Input from '../BaseComponents/Input/Input/Input';
+import Input from '../BaseComponents/Input/Input';
 import { REQUIRED_FIELD } from '../../lib/constants';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import clsx from 'clsx';

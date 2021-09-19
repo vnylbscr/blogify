@@ -1,3 +1,4 @@
+import { indigo, purple } from '@material-ui/core/colors';
 import createTheme, { Theme } from '@material-ui/core/styles/createTheme';
 import { ModuleTheme } from './module.theme';
 
@@ -11,9 +12,13 @@ declare module '@material-ui/core/styles/createTheme' {
 
 export interface MyTheme extends ModuleTheme.RootObject, Theme {}
 
-export const theme = createTheme({
+export const theme: any = createTheme({
    typography: {
       fontFamily: ['Open Sans', 'MontSerrat', 'sans-serif'].join(','),
+   },
+   palette: {
+      primary: indigo,
+      secondary: purple,
    },
    colorPalette: {
       primary: {
