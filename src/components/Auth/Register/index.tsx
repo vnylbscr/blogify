@@ -1,5 +1,5 @@
 import React from 'react';
-import { Backdrop, Grid, Typography, CircularProgress, Hidden, Fade, Link as MaterialLink } from '@material-ui/core';
+import { Backdrop, Grid, Typography, CircularProgress, Hidden, Fade } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import Input from '../../BaseComponents/Input/Input';
 import { useMutation } from '@apollo/client';
@@ -7,7 +7,7 @@ import { USER_REGISTER_MUTATION } from '../../../queries/register';
 import { RegisterMutation, RegisterMutationVariables } from '../../../queries/__generated__/RegisterMutation';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { EMAIL_REGEX } from '../../../lib/constants';
+import { EMAIL_REGEX, PASSWORD_MUST_BE_6_CHARACTERS } from '../../../lib/constants';
 import { useForm } from 'react-hook-form';
 import { REGISTER } from '../../../redux/actions/user';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
       color: '#fff',
    },
 }));
+
 const RegisterPage = (props: Props) => {
    const classes = useStyles();
    const dispatch = useDispatch();
@@ -120,7 +121,7 @@ const RegisterPage = (props: Props) => {
                            required: 'Bu alan gereklidir',
                            minLength: {
                               value: 6,
-                              message: 'Şifreniz en az 6 karakterden oluşmalıdır',
+                              message: PASSWORD_MUST_BE_6_CHARACTERS,
                            },
                         }}
                         type='password'
