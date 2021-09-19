@@ -3,7 +3,7 @@ import { Grid, IconButton, InputAdornment, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { FieldError, FieldValues, UseControllerProps, Controller } from 'react-hook-form';
 import { MyTheme } from '../../../styles/config';
-import { RequireField } from '../../../types/helperTypes';
+import { RequireField } from '../../../types/utils';
 import VisibilityOn from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 export type InputTextType = 'text' | 'password' | 'file';

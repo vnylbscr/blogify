@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Fn } from '../../../types/helperTypes';
+import { Fn } from '../../../types/utils';
 import { MyTheme } from '../../../styles/config';
 type Variant = 'first' | 'second';
 interface IProps {

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Avatar } from 'material-ui';
 import { MyTheme } from '../../../styles/config';
-import { ColorsKey, VariantSize } from '../../../types/helperTypes';
+import { ColorsKey, VariantSize } from '../../../types/utils';
 
 interface IProps {
    size?: number | VariantSize | undefined;
