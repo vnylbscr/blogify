@@ -8,8 +8,6 @@ import { API_URL } from './config';
 import { setContext } from '@apollo/client/link/context';
 import store from './redux/store';
 
-// HTTP Link GRAPH QL
-
 // Error Handling for GRAPH QL
 const errorLink = onError(({ graphQLErrors, networkError }) => {
    if (graphQLErrors)

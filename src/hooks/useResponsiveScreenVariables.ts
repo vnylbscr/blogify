@@ -1,4 +1,3 @@
-import React from 'react';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 
 const useResponsiveScreenVariables = () => {

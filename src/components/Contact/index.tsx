@@ -1,18 +1,17 @@
 import { makeStyles } from '@material-ui/core';
-import React, { Fragment, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { Fragment } from 'react';
 import './index.scss';
 
-const useStyles = makeStyles((theme: any) => ({
-   root: {
-      flexGrow: 1,
-      height: 'calc(100vh - 60px)',
-      background: theme.colorPalette.primary.light,
-   },
-   section: {
-      height: '100%',
-   },
-}));
+// const useStyles = makeStyles((theme: any) => ({
+//    root: {
+//       flexGrow: 1,
+//       height: 'calc(100vh - 60px)',
+//       background: theme.colorPalette.primary.light,
+//    },
+//    section: {
+//       height: '100%',
+//    },
+// }));
 
 const DESC_WHO_WE_ARE =
    'Blogify ile blog yazılarını paylaşabilir, diğer insanların, arkadaşlarının görmesini sağlayabilirsin. Blog yazılarını düzenleyebilir ve daha binlerce şey yapabilirsin.';
@@ -30,10 +29,7 @@ const MOCKS_MENU = [
       description: DESC_WHAT_WE_DO,
    },
 ];
-type FormValues = {
-   email: string;
-   content: string;
-};
+
 const Contact = () => {
    return (
       <Fragment>
