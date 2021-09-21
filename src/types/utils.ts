@@ -16,4 +16,14 @@ export type Fn = () => void;
 
 export type VariantSize = 'small' | 'medium' | 'big' | 'huge';
 
+type Type1<T> = T extends infer S ? S : 'never';
+
+type GetTypeFromArray<T> = T extends Type1<infer U> ? U : T;
+
+type IsString = GetTypeFromArray<string>;
+
+type Merto = Type1<string>;
+
 export type ColorsKey = 'purple' | 'orange' | 'pink' | 'red' | 'blue';
+
+export type ColorsWithKey = Record<ColorsKey, any>;

@@ -32,7 +32,7 @@ const App = () => {
          <ThemeProvider theme={myTheme}>
             {userToken || loggedIn ? (
                <Router>
-                  <AppBar authorized />
+                  <AppBar />
                   <Switch>
                      <Route exact path='/' component={Home} />
                      <Route path='/profile' component={MyProfile} />
