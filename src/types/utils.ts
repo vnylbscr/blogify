@@ -16,7 +16,7 @@ export type Fn = () => void;
 
 export type VariantSize = 'small' | 'medium' | 'big' | 'huge';
 
-type Type1<T> = T extends infer S ? S : 'never';
+type Type1<T> = T extends string ? T : 'never';
 
 type GetTypeFromArray<T> = T extends Type1<infer U> ? U : T;
 
