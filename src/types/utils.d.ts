@@ -1,11 +1,14 @@
-/*
 
-*/
+/**
+ * Make require field in T
+ */
 export type RequireField<T, K extends keyof T> = T & Required<Pick<T, K>>;
 
 //*
 
 export type Maybe<T> = T | null;
+
+export type Await<T> = T extends Promise<infer U> ? U : T;
 
 export type Size = {
    width: number;
@@ -14,16 +17,8 @@ export type Size = {
 
 export type Fn = () => void;
 
+type Merto = Await<Promise<string>>;
 export type VariantSize = 'small' | 'medium' | 'big' | 'huge';
-
-type Type1<T> = T extends string ? T : 'never';
-
-type GetTypeFromArray<T> = T extends Type1<infer U> ? U : T;
-
-type IsString = GetTypeFromArray<string>;
-
-type Merto = Type1<string>;
-
 export type ColorsKey = 'purple' | 'orange' | 'pink' | 'red' | 'blue';
 
 export type ColorsWithKey = Record<ColorsKey, any>;
