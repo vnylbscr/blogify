@@ -15,13 +15,12 @@ import {
    Hidden,
    useMediaQuery,
    Drawer,
-   Box,
    FormControlLabel,
    Switch,
-   MenuItem,
    Menu,
    useScrollTrigger,
    CssBaseline,
+   Slide,
 } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import CreateIcon from '@material-ui/icons/Create';
@@ -151,21 +150,16 @@ interface Props {
    children?: React.ReactElement;
 }
 
-// function ElevationScroll(props: Props) {
-//    const { children, window } = props;
-//    // Note that you normally won't need to set the window ref as useScrollTrigger
-//    // will default to window.
-//    // This is only being set here because the demo is in an iframe.
-//    const trigger = useScrollTrigger({
-//       disableHysteresis: true,
-//       threshold: 0,
-//       target: window ? window() : undefined,
-//    });
+function HideOnScroll(props: Props) {
+   const { children, window } = props;
+   const trigger = useScrollTrigger({ target: window ? window() : undefined });
 
-//    return React.cloneElement(children, {
-//       elevation: trigger ? 4 : 0,
-//    });
-// }
+   return (
+      <Slide appear={false} direction='down' in={!trigger}>
+         {children}
+      </Slide>
+   );
+}
 // Return
 const AppBar = (props: Props) => {
    // useTheme
@@ -272,136 +266,138 @@ const AppBar = (props: Props) => {
    return (
       <Fragment>
          <CssBaseline />
-         <MaterialAppBar position='sticky' className={classes.root}>
-            <Toolbar variant='dense'>
-               <Grid container xs={12} justifyContent='space-between' alignItems='center'>
-                  <Grid
-                     direction='row'
-                     alignItems='center'
-                     container
-                     item
-                     className={classes.title}
-                     xs={isSmallScreen ? 7 : 3}
-                  >
-                     <IconButton className={classes.createIcon}>
-                        <CreateIcon className={classes.icon} />
-                     </IconButton>
-                     <IconButton className={classes.MenuButton} onClick={handleChangeDrawer}>
-                        <MenuIcon />
-                     </IconButton>
-                     <Grid item direction='column' className={classes.titleContainer}>
-                        <Typography variant='h6' className={classes.headerTitle}>
-                           Blogify
-                        </Typography>
-                        <Typography variant='subtitle2' className={classes.subtitle}>
-                           Blog yaz ve paylaş
-                        </Typography>
-                     </Grid>
-                  </Grid>
-                  <Drawer
-                     open={openDrawer}
-                     variant='temporary'
-                     onClose={handleChangeDrawer}
-                     ModalProps={{
-                        keepMounted: true,
-                     }}
-                     className={classes.drawer}
-                     classes={{
-                        paper: classes.paper,
-                     }}
-                  >
-                     {myDrawer}
-                  </Drawer>
-                  <Hidden xsDown smDown>
-                     <Fragment>
-                        <Grid
-                           direction='row'
-                           alignItems='center'
-                           container
-                           justifyContent={authorized ? 'flex-end' : 'center'}
-                           item
-                           className={classes.title}
-                           xs={authorized ? 9 : 6}
-                        >
-                           {authorized
-                              ? AUTHORIZED_APP_BAR_ITEMS.map((item) => (
-                                   <Fragment>
-                                      <HeaderItem
-                                         title={item.title}
-                                         onClick={() => handleClickItem(item.url)}
-                                         style={{ marginRight: 15 }}
-                                         icon={item.icon}
-                                         disableRipple
-                                      />
-                                      <IconButton onClick={handleProfileMenu}>
-                                         <PersonIcon fontSize='large' style={{ color: '#fff' }} />
-                                      </IconButton>
-                                      <Menu
-                                         id='simple-menu'
-                                         anchorEl={anchorEl}
-                                         keepMounted
-                                         open={Boolean(anchorEl)}
-                                         onClose={() => setAnchorEl(null)}
-                                      >
-                                         <StyledMenuItem
-                                            onClick={() => {
-                                               handleClickItem('/profile');
-                                               setAnchorEl(null);
-                                            }}
-                                            icon={() => <PermIdentityIcon />}
-                                            label='Profilim'
-                                            variant='first'
-                                         />
-                                         <StyledMenuItem
-                                            onClick={handleLogoutUser}
-                                            variant='first'
-                                            label='Çıkış Yap'
-                                            icon={() => <ExitToAppIcon />}
-                                         />
-                                      </Menu>
-                                   </Fragment>
-                                ))
-                              : APP_BAR_ITEMS.map((item) => (
-                                   <Fragment>
-                                      <HeaderItem
-                                         title={item.title}
-                                         onClick={() => handleClickItem(item.url)}
-                                         style={{ marginRight: 15 }}
-                                         icon={item.icon}
-                                         disableRipple
-                                      />
-                                   </Fragment>
-                                ))}
+         <HideOnScroll {...props}>
+            <MaterialAppBar position='sticky' className={classes.root}>
+               <Toolbar variant='dense'>
+                  <Grid container xs={12} justifyContent='space-between' alignItems='center'>
+                     <Grid
+                        direction='row'
+                        alignItems='center'
+                        container
+                        item
+                        className={classes.title}
+                        xs={isSmallScreen ? 7 : 3}
+                     >
+                        <IconButton className={classes.createIcon}>
+                           <CreateIcon className={classes.icon} />
+                        </IconButton>
+                        <IconButton className={classes.MenuButton} onClick={handleChangeDrawer}>
+                           <MenuIcon />
+                        </IconButton>
+                        <Grid item direction='column' className={classes.titleContainer}>
+                           <Typography variant='h6' className={classes.headerTitle}>
+                              Blogify
+                           </Typography>
+                           <Typography variant='subtitle2' className={classes.subtitle}>
+                              Blog yaz ve paylaş
+                           </Typography>
                         </Grid>
-                        {!authorized && (
+                     </Grid>
+                     <Drawer
+                        open={openDrawer}
+                        variant='temporary'
+                        onClose={handleChangeDrawer}
+                        ModalProps={{
+                           keepMounted: true,
+                        }}
+                        className={classes.drawer}
+                        classes={{
+                           paper: classes.paper,
+                        }}
+                     >
+                        {myDrawer}
+                     </Drawer>
+                     <Hidden xsDown smDown>
+                        <Fragment>
                            <Grid
                               direction='row'
                               alignItems='center'
                               container
-                              className={classes.rightPanelContainer}
-                              justifyContent='flex-end'
-                              xs={3}
+                              justifyContent={authorized ? 'flex-end' : 'center'}
+                              item
+                              className={classes.title}
+                              xs={authorized ? 9 : 6}
                            >
-                              <Button variant='text' onClick={openLoginDialog} className={classes.loginButton}>
-                                 Giriş Yap
-                              </Button>
-
-                              <Typography variant='subtitle2'>or</Typography>
-                              <Button
-                                 variant='text'
-                                 style={{ marginLeft: 5 }}
-                                 className={classes.loginButton}
-                                 onClick={openRegisterDialog}
-                              >
-                                 Kayıt Ol
-                              </Button>
+                              {authorized
+                                 ? AUTHORIZED_APP_BAR_ITEMS.map((item) => (
+                                      <Fragment>
+                                         <HeaderItem
+                                            title={item.title}
+                                            onClick={() => handleClickItem(item.url)}
+                                            style={{ marginRight: 15 }}
+                                            icon={item.icon}
+                                            disableRipple
+                                         />
+                                         <IconButton onClick={handleProfileMenu}>
+                                            <PersonIcon fontSize='large' style={{ color: '#fff' }} />
+                                         </IconButton>
+                                         <Menu
+                                            id='simple-menu'
+                                            anchorEl={anchorEl}
+                                            keepMounted
+                                            open={Boolean(anchorEl)}
+                                            onClose={() => setAnchorEl(null)}
+                                         >
+                                            <StyledMenuItem
+                                               onClick={() => {
+                                                  handleClickItem('/profile');
+                                                  setAnchorEl(null);
+                                               }}
+                                               icon={() => <PermIdentityIcon />}
+                                               label='Profilim'
+                                               variant='first'
+                                            />
+                                            <StyledMenuItem
+                                               onClick={handleLogoutUser}
+                                               variant='first'
+                                               label='Çıkış Yap'
+                                               icon={() => <ExitToAppIcon />}
+                                            />
+                                         </Menu>
+                                      </Fragment>
+                                   ))
+                                 : APP_BAR_ITEMS.map((item) => (
+                                      <Fragment>
+                                         <HeaderItem
+                                            title={item.title}
+                                            onClick={() => handleClickItem(item.url)}
+                                            style={{ marginRight: 15 }}
+                                            icon={item.icon}
+                                            disableRipple
+                                         />
+                                      </Fragment>
+                                   ))}
                            </Grid>
-                        )}
-                     </Fragment>
-                  </Hidden>
-               </Grid>
-            </Toolbar>
-         </MaterialAppBar>
+                           {!authorized && (
+                              <Grid
+                                 direction='row'
+                                 alignItems='center'
+                                 container
+                                 className={classes.rightPanelContainer}
+                                 justifyContent='flex-end'
+                                 xs={3}
+                              >
+                                 <Button variant='text' onClick={openLoginDialog} className={classes.loginButton}>
+                                    Giriş Yap
+                                 </Button>
+
+                                 <Typography variant='subtitle2'>or</Typography>
+                                 <Button
+                                    variant='text'
+                                    style={{ marginLeft: 5 }}
+                                    className={classes.loginButton}
+                                    onClick={openRegisterDialog}
+                                 >
+                                    Kayıt Ol
+                                 </Button>
+                              </Grid>
+                           )}
+                        </Fragment>
+                     </Hidden>
+                  </Grid>
+               </Toolbar>
+            </MaterialAppBar>
+         </HideOnScroll>
       </Fragment>
    );
 };

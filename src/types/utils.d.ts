@@ -1,10 +1,9 @@
-
 /**
  * Make require field in T
  */
 export type RequireField<T, K extends keyof T> = T & Required<Pick<T, K>>;
 
-//*
+export type WithUndefined<T> = T | undefined;
 
 export type Maybe<T> = T | null;
 
@@ -17,8 +16,8 @@ export type Size = {
 
 export type Fn = () => void;
 
-type Merto = Await<Promise<string>>;
 export type VariantSize = 'small' | 'medium' | 'big' | 'huge';
+
 export type ColorsKey = 'purple' | 'orange' | 'pink' | 'red' | 'blue';
 
 export type ColorsWithKey = Record<ColorsKey, any>;
