@@ -1,21 +1,21 @@
 import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { FC } from 'react';
-import { useForm } from 'react-hook-form';
 import { MyTheme } from '../../styles/config';
-import AddNewPostForm from './form';
-import blogBgImage from '../../assets/images/post-background.jpeg';
-import { useMutation } from '@apollo/client';
 import { useWindowSize } from '../../hooks/useWindowSize';
-import AddPostEditor from './editor';
-import MyEditor from './draftEditor';
 import RichEditor from './draftEditor';
+import MDEditor from '@uiw/react-md-editor';
+import MarkDownEditor from './markDownEditor';
+import { useMutation } from '@apollo/client';
+import { ADD_POST_MUTATION } from '../../queries/addPost';
+import { useSelector } from 'react-redux';
+import Loader from '../Loader';
 interface Props {}
 
 const useStyles = makeStyles((theme: MyTheme) => ({
    root: {
       backgroundColor: theme.colorPalette.primary.light,
-      height: '100%',
+      minHeight: 'calc(100vh - 60px)',
    },
    leftSection: {
       padding: theme.spacing(4),
@@ -41,21 +41,20 @@ const useStyles = makeStyles((theme: MyTheme) => ({
       color: 'black',
    },
 }));
+
 const AddNewPost: FC<Props> = (props) => {
    const classes = useStyles(props);
-   // const [addPostMutation, {loading}] = useMutation()
-   const onAccept = (data: any) => console.log(data);
+   const user = useSelector((state: any) => state.userReducer.user);
+   const [addPostMutation, { loading }] = useMutation(ADD_POST_MUTATION);
 
-   const { width, height } = useWindowSize();
-   // console.log('asdasd');
+   if (loading) {
+      return <Loader />;
+   }
 
    return (
       <main className={classes.root}>
          <Grid container xs={12} direction='row' style={{ height: '100%' }}>
-            <Grid container xs={12} sm={6} className={classes.leftSection}>
-               <img src={blogBgImage} className={classes.image} />
-            </Grid>
-            <Grid container xs={12} sm={6} className={classes.rightSection} justifyContent='center' alignItems='center'>
+            <Grid container xs={12} className={classes.rightSection} justifyContent='center' alignItems='center'>
                <Grid container justifyContent='center' direction='column'>
                   <Typography variant='h2' align='center' color='textPrimary' className={classes.title}>
                      Yeni Post Oluştur
@@ -64,8 +63,19 @@ const AddNewPost: FC<Props> = (props) => {
                      Yeni bir post paylaşmak için formu doldur
                   </Typography>
                </Grid>
-               <Grid container>
-                  <RichEditor />
+               <Grid container style={{ marginBottom: 50 }}>
+                  <MarkDownEditor
+                     onSubmitPost={(value) => {
+                        addPostMutation({
+                           variables: {
+                              title: value.postTitle,
+                              content: value.editorValue,
+                              userId: user._id,
+                              category: ['programming'],
+                           },
+                        });
+                     }}
+                  />
                </Grid>
             </Grid>
          </Grid>

@@ -1,4 +1,4 @@
-import { indigo, purple } from '@material-ui/core/colors';
+import { blue, indigo } from '@material-ui/core/colors';
 import createTheme, { Theme } from '@material-ui/core/styles/createTheme';
 import { ModuleTheme } from './module.theme';
 
@@ -18,7 +18,7 @@ export const theme: any = createTheme({
    },
    palette: {
       primary: indigo,
-      secondary: purple,
+      secondary: blue,
    },
    colorPalette: {
       primary: {

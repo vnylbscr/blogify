@@ -2,25 +2,32 @@ import { gql } from '@apollo/client';
 
 export const ADD_POST_MUTATION = gql`
    input PostInput {
-      ownerId: ID!
+      userId: ID!
       title: String!
-      subtitle: String
       content: String!
-      media: String!
       cetegory: [String]
-      createdAt: String!
    }
    mutation AddPostMutation($addPostInput: PostInput) {
-      addPost(input: $addPostInput) {
-         id
+      addPost ($input) {
+         _id
          title
-         subtitle
          content
-         createdAt
          author {
-            name
             userID
+            name
          }
+         comments {
+            id
+            author {
+               userID
+               name
+            }
+            likeCount
+            comment
+            createdAt
+         }
+         category
+         createdAt
       }
    }
 `;
