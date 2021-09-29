@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import MDEditor from '@uiw/react-md-editor';
-import { Button, Grid, makeStyles, TextField } from '@material-ui/core';
+import { Button, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import { WithUndefined } from '../../types/utils';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { useTheme } from '@material-ui/styles';
+import { NullLiteral } from 'typescript';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -15,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
    editor: {
       //   padding: 15,
    },
+   mt10: {
+      margin: '15px 0px',
+      padding: '5px 10px',
+   },
 }));
 
 type EditorState = WithUndefined<string>;
@@ -22,6 +29,9 @@ type EditorState = WithUndefined<string>;
 export interface AddPostState {
    editorValue?: EditorState;
    postTitle?: string;
+   image?: File;
+   // imageUrl?: string | null | ArrayBuffer;
+   imageUrl?: any;
 }
 
 interface Props {
@@ -30,9 +40,31 @@ interface Props {
 
 const MarkDownEditor = (props: Props) => {
    const { onSubmitPost } = props;
+   const theme = useTheme();
    const classes = useStyles();
    const [state, setState] = useState<AddPostState>();
-    
+
+   const onClickAddFile = () => {
+      document.getElementById('post_image')?.click();
+   };
+
+   const onChangeFiles = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.files) {
+         const file = event.target.files[0];
+         setState((prevState) => ({
+            ...prevState,
+            image: file,
+         }));
+         const reader = new FileReader();
+         reader.readAsDataURL(file);
+         reader.onloadend = (e) => {
+            setState((prev) => ({
+               ...prev,
+               imageUrl: [reader.result],
+            }));
+         };
+      }
+   };
    return (
       <div className={classes.root}>
          <TextField
@@ -48,6 +80,21 @@ const MarkDownEditor = (props: Props) => {
             fullWidth
             color='primary'
          />
+         <input onChange={onChangeFiles} hidden id='post_image' type='file' accept='image/*' />
+         <Grid container justifyContent='space-between' xs={12} className={classes.mt10}>
+            <Button onClick={onClickAddFile} variant='contained' color='primary' size='medium'>
+               Add Image For Post
+            </Button>
+            {state?.image && (
+               <Fragment>
+                  <Grid container xs={3}>
+                     <CheckCircleIcon style={{ color: theme.palette.success.main }} fontSize='default' />
+                     <Typography color='primary'>{state.image.name}</Typography>
+                     <img src={state?.imageUrl} alt='mert' style={{ width: 300, height: 200, marginTop: 20 }} />
+                  </Grid>
+               </Fragment>
+            )}
+         </Grid>
          <MDEditor
             toolbarHeight={80}
             height={500}

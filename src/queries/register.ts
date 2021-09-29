@@ -5,9 +5,21 @@ export const USER_REGISTER_MUTATION = gql`
       register(input: { username: $username, email: $email, password: $password }) {
          _id
          username
-         token
-         createdAt
          email
+         posts {
+            _id
+            title
+            content
+            comments {
+               _id
+               content
+               likedCount
+               createdAt
+            }
+            category
+            createdAt
+            slug
+         }
       }
    }
 `;

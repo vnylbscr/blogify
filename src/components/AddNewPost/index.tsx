@@ -63,7 +63,7 @@ const AddNewPost: FC<Props> = (props) => {
                      Yeni bir post paylaşmak için formu doldur
                   </Typography>
                </Grid>
-               <Grid container style={{ marginBottom: 50 }}>
+               <Grid container style={{ marginBottom: 5 }}>
                   <MarkDownEditor
                      onSubmitPost={(value) => {
                         addPostMutation({
@@ -72,6 +72,7 @@ const AddNewPost: FC<Props> = (props) => {
                               content: value.editorValue,
                               userId: user._id,
                               category: ['programming'],
+                              image: value.image,
                            },
                         });
                      }}

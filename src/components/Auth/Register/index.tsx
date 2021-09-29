@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core';
 import Input from '../../BaseComponents/Input/Input';
 import { useMutation } from '@apollo/client';
 import { USER_REGISTER_MUTATION } from '../../../queries/register';
-import { RegisterMutation, RegisterMutationVariables } from '../../../queries/__generated__/RegisterMutation';
+// import { RegisterMutation, RegisterMutationVariables } from '../../../queries/__generated__/RegisterMutation';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { EMAIL_REGEX, PASSWORD_MUST_BE_6_CHARACTERS } from '../../../lib/constants';
@@ -43,14 +43,14 @@ const RegisterPage = (props: Props) => {
    const classes = useStyles();
    const dispatch = useDispatch();
    const history = useHistory();
-   const [register, { error, loading }] = useMutation<RegisterMutation>(USER_REGISTER_MUTATION);
+   const [register, { error, loading }] = useMutation(USER_REGISTER_MUTATION);
    const {
       control,
       handleSubmit,
       formState: { errors },
-   } = useForm<RegisterMutationVariables>();
+   } = useForm();
 
-   const onSubmit = (data: RegisterMutationVariables) => {
+   const onSubmit = (data: any) => {
       // TODO run register mutation
       register({
          variables: {

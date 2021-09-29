@@ -7,7 +7,6 @@ import { useMutation } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { CircularProgress } from '@material-ui/core';
 import { useHistory, Link } from 'react-router-dom';
-import { LoginMutation, LoginMutationVariables } from '../../../queries/__generated__/LoginMutation';
 import { USER_LOGIN_MUTATION } from '../../../queries/authorize';
 import { LOGIN } from '../../../redux/actions/user';
 import Input from '../../BaseComponents/Input/Input';
@@ -37,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const LoginPage = (props: Props) => {
    const classes = useStyles();
-   const [login, { error, loading }] = useMutation<LoginMutation>(USER_LOGIN_MUTATION, {
+   const [login, { error, loading }] = useMutation(USER_LOGIN_MUTATION, {
       // onError: (error) => console.log('ULAAA  NOLİY', error),
    });
    const dispatch = useDispatch();
@@ -47,11 +46,11 @@ const LoginPage = (props: Props) => {
       control,
       handleSubmit,
       formState: { errors },
-   } = useForm<LoginMutationVariables>({
+   } = useForm({
       mode: 'all',
    });
 
-   const onSubmit = async (data: LoginMutationVariables) => {
+   const onSubmit = async (data: any) => {
       // TODO run register mutation
       login({ variables: { ...data } })
          .then(({ data }) => {

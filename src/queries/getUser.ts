@@ -1,30 +1,37 @@
 import { gql } from '@apollo/client';
 
 export const GET_ME_WITH_TOKEN = gql`
-   query GetMe($getMeWithTokenToken: String!) {
+   query getMeWithTokenQuery($getMeWithTokenToken: String!) {
       getMeWithToken(token: $getMeWithTokenToken) {
-         id
-         name
+         _id
+         username
          email
-         type
-         createdAt
          posts {
-            id
-            title
-            content
-            subtitle
-            media
+            slug
+            createdAt
+            category
             comments {
-               id
-               author {
-                  userID
-                  name
-               }
-               comment
-               likeCount
+               likedCount
+               content
+               _id
                createdAt
             }
+            content
+            title
+            _id
          }
+         token
+         postCount
+         photo
+         phone
+         aboutMe
+         job
+         school
+         gender
+         instagramUrl
+         twitterUrl
+         githubUrl
+         createdAt
       }
    }
 `;
