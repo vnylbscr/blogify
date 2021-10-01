@@ -13,6 +13,7 @@ import { SET_USER } from '../../redux/actions/user';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import Post from '../Post';
 import { useWindowSize } from '../../hooks/useWindowSize';
+import { GetAllPosts, GetAllPosts_getAllPosts } from '../../queries/__generated__/GetAllPosts';
 
 interface IProps {
    children?: React.ReactNode;
@@ -25,13 +26,8 @@ const useStyles = makeStyles((theme: MyTheme) => ({
 }));
 const Home = (props: IProps) => {
    const dispatch = useDispatch();
-   const { loading } = useQuery(GET_ME_WITH_TOKEN, {
-      variables: { getMeWithTokenToken: localStorage.getItem('token') || '' },
-      onCompleted: ({ getMeWithToken }) => {
-         dispatch({ type: SET_USER, payload: getMeWithToken });
-      },
-   });
-   const { loading: allPostsLoading, data } = useQuery(GET_ALL_POSTS_QUERY);
+   
+   const { loading: allPostsLoading, data } = useQuery<GetAllPosts>(GET_ALL_POSTS_QUERY);
    const user = useSelector((state: any) => state.userReducer.user);
    const { width, height } = useWindowSize();
    const classes = useStyles();

@@ -1,4 +1,9 @@
+.root_loading {
+   height: 100vh;
+   z-index: 999999999;
+}
 .box {
+   z-index: 999999999;
    width: 300px;
    height: 300px;
    background: #1a237e;

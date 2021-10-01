@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { responsiveFontSizes, ThemeProvider } from '@material-ui/core';
 import { theme } from '../src/styles/config';
 import AppBar from './components/Header';
@@ -7,7 +7,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Contributors from './components/Contributors';
 import Footer from './components/Footer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Home from './components/Home';
 import { SnackbarProvider } from 'notistack';
 import Preload from './components/Preload/Content';
@@ -15,22 +15,35 @@ import MyProfile from './components/MyProfile';
 import AddNewPost from './components/AddNewPost';
 import LoginPage from './components/Auth/Login';
 import RegisterPage from './components/Auth/Register';
+import { GET_ME_WITH_TOKEN } from './queries/getUser';
+import { useQuery } from '@apollo/client';
+import { SET_USER } from './redux/actions/user';
+import { getMeWithTokenQuery, getMeWithTokenQueryVariables } from './queries/__generated__/getMeWithTokenQuery';
+
 const App = () => {
    const userToken = localStorage.getItem('token');
    const user = useSelector((state: any) => state.userReducer.user);
-   const [loggedIn, setLoggedIn] = useState<boolean>();
+   const token = useSelector((state: any) => state.userReducer.token);
+   const dispatch = useDispatch();
    const myTheme = responsiveFontSizes(theme);
-   useLayoutEffect(() => {
-      if (user?.token) {
-         setLoggedIn(true);
-      } else {
-         setLoggedIn(false);
+
+   const { loading, refetch } = useQuery<getMeWithTokenQuery, getMeWithTokenQueryVariables>(GET_ME_WITH_TOKEN, {
+      variables: { getMeWithTokenToken: localStorage.getItem('token') || '' },
+      onCompleted: ({ getMeWithToken }) => {
+         dispatch({ type: SET_USER, payload: getMeWithToken });
+      },
+   });
+
+   useEffect(() => {
+      if (token || userToken) {
+         refetch();
       }
-   }, [user]);
+   }, [token, refetch, userToken]);
+
    return (
       <SnackbarProvider maxSnack={4} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
          <ThemeProvider theme={myTheme}>
-            {userToken || loggedIn ? (
+            {user ? (
                <Router>
                   <AppBar />
                   <Switch>

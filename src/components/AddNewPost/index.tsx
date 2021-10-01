@@ -10,6 +10,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_POST_MUTATION } from '../../queries/addPost';
 import { useSelector } from 'react-redux';
 import Loader from '../Loader';
+import { AddPostMutation, AddPostMutationVariables } from '../../queries/__generated__/AddPostMutation';
 interface Props {}
 
 const useStyles = makeStyles((theme: MyTheme) => ({
@@ -45,7 +46,7 @@ const useStyles = makeStyles((theme: MyTheme) => ({
 const AddNewPost: FC<Props> = (props) => {
    const classes = useStyles(props);
    const user = useSelector((state: any) => state.userReducer.user);
-   const [addPostMutation, { loading }] = useMutation(ADD_POST_MUTATION);
+   const [addPostMutation, { loading }] = useMutation<AddPostMutation>(ADD_POST_MUTATION);
 
    if (loading) {
       return <Loader />;

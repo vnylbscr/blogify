@@ -12,6 +12,7 @@ export interface PostInput {
   title: string;
   content: string;
   cetegory?: (string | null)[] | null;
+  image?: any | null;
 }
 
 //==============================================================

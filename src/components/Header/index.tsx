@@ -148,6 +148,7 @@ type ModalConfig = {
 interface Props {
    window?: () => Window;
    children?: React.ReactElement;
+   authorized?: boolean;
 }
 
 function HideOnScroll(props: Props) {
