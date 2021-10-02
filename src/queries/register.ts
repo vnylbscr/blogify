@@ -8,8 +8,10 @@ export const USER_REGISTER_MUTATION = gql`
          email
          posts {
             _id
-            title
             content
+            title
+            image
+            subtitle
             comments {
                _id
                content
@@ -20,6 +22,18 @@ export const USER_REGISTER_MUTATION = gql`
             createdAt
             slug
          }
+         token
+         postCount
+         photo
+         phone
+         aboutMe
+         school
+         job
+         gender
+         instagramUrl
+         twitterUrl
+         githubUrl
+         createdAt
       }
    }
 `;

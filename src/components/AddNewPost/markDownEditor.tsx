@@ -30,8 +30,8 @@ export interface AddPostState {
    editorValue?: EditorState;
    postTitle?: string;
    image?: File;
-   // imageUrl?: string | null | ArrayBuffer;
    imageUrl?: any;
+   subtitle?: string;
 }
 
 interface Props {
@@ -70,7 +70,7 @@ const MarkDownEditor = (props: Props) => {
       <div className={classes.root}>
          <TextField
             variant='outlined'
-            label='Enter your post title'
+            label='enter your post title'
             onChange={(e) =>
                setState((prevState) => ({
                   ...prevState,
@@ -84,7 +84,7 @@ const MarkDownEditor = (props: Props) => {
          <input onChange={onChangeFiles} hidden id='post_image' type='file' accept='image/*' />
          <Grid container justifyContent='space-between' xs={12} className={classes.mt10}>
             <Button onClick={onClickAddFile} variant='contained' color='primary' size='medium'>
-               Add Image For Post
+               add image for post
             </Button>
             {state?.image && (
                <Fragment>
@@ -124,7 +124,7 @@ const MarkDownEditor = (props: Props) => {
                   }}
                   size='large'
                >
-                  Add Post
+                  add post
                </Button>
             </Grid>
          )}

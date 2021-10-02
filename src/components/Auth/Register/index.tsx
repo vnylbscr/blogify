@@ -15,6 +15,9 @@ import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import ButtonSuccess from '../../BaseComponents/Button/ButtonSuccess';
 import FooterText from '../../FooterText';
+import { RegisterMutation, RegisterMutationVariables } from '../../../queries/__generated__/RegisterMutation';
+import Loader from '../../Loader';
+import { useSnackbar } from 'notistack';
 
 interface Props {}
 
@@ -42,8 +45,10 @@ const useStyles = makeStyles((theme) => ({
 const RegisterPage = (props: Props) => {
    const classes = useStyles();
    const dispatch = useDispatch();
-   const history = useHistory();
-   const [register, { error, loading }] = useMutation(USER_REGISTER_MUTATION);
+   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+   const [register, { error, loading }] = useMutation<RegisterMutation, RegisterMutationVariables>(
+      USER_REGISTER_MUTATION
+   );
    const {
       control,
       handleSubmit,
@@ -61,23 +66,27 @@ const RegisterPage = (props: Props) => {
             if (data?.register) {
                localStorage.setItem('token', data?.register.token || '');
                dispatch({ type: REGISTER, payload: data?.register });
-               history.push('/');
             }
          })
-         .catch((error) => console.log({ error }));
+         .catch((error) => {
+            enqueueSnackbar(error.message, {
+               variant: 'error',
+            });
+         });
    };
    return (
       <Grid container className={classes.root}>
          <Hidden xsDown>
             <Grid container sm={8} className={classes.leftSection} />
          </Hidden>
+         {loading && <Loader />}
          <Grid container className={classes.inputContainer} justifyContent='center' alignItems='center' xs={12} sm={4}>
             <Fade in={true} timeout={1000}>
                <form onSubmit={handleSubmit(onSubmit)}>
                   <Grid xs={12} container>
                      <Grid xs={12}>
                         <Typography align='center' variant='h5' color='primary'>
-                           Blogify'a Kayıt Ol
+                           Register to Blogify
                         </Typography>
                      </Grid>
                      <Input
@@ -85,13 +94,13 @@ const RegisterPage = (props: Props) => {
                         error={errors.username}
                         fullWidth
                         startIcon={<AccountCircleIcon />}
-                        label='Kullanıcı Adı'
+                        label='username'
                         control={control}
                         rules={{
-                           required: 'Bu alan gereklidir',
+                           required: 'this field is required.',
                            minLength: {
                               value: 5,
-                              message: 'Kullanıcı adınız en 5 karakterden oluşmalıdır',
+                              message: 'username must be greater than 5 characters.',
                            },
                         }}
                      />
@@ -100,13 +109,13 @@ const RegisterPage = (props: Props) => {
                         error={errors.email}
                         fullWidth
                         startIcon={<EmailIcon />}
-                        label='E-mail'
+                        label='e-mail'
                         control={control}
                         rules={{
-                           required: 'Bu alan gereklidir',
+                           required: 'this field is required.',
                            pattern: {
                               value: EMAIL_REGEX,
-                              message: 'Lütfen geçerli bir e-mail giriniz',
+                              message: 'please provide valid e-mail address.',
                            },
                         }}
                      />
@@ -115,10 +124,10 @@ const RegisterPage = (props: Props) => {
                         error={errors.password}
                         fullWidth
                         startIcon={<LockIcon />}
-                        label='Şifre'
+                        label='password'
                         control={control}
                         rules={{
-                           required: 'Bu alan gereklidir',
+                           required: 'this field is required.',
                            minLength: {
                               value: 6,
                               message: PASSWORD_MUST_BE_6_CHARACTERS,
@@ -134,23 +143,19 @@ const RegisterPage = (props: Props) => {
                         alignItems='center'
                         style={{ padding: 10, marginTop: 20 }}
                      >
-                        <Typography>Zaten hesabın var mı?</Typography>
+                        <Typography>Already have an account?</Typography>
                         <Link to='/sign-in' style={{ marginLeft: 10 }} onClick={() => {}}>
-                           Giriş Yap
+                           Login
                         </Link>
                      </Grid>
                      <ButtonSuccess
                         type='submit'
                         fullWidth
-                        label={loading ? 'Gönderiliyor...' : 'Kayıt Ol'}
+                        label={'Register'}
                         overrideStyles={{ marginTop: 40 }}
                         disabled={loading}
                         size='large'
                      />
-                     {error && <Typography style={{ color: 'red', marginTop: 10 }}>{error.message}</Typography>}
-                     <Backdrop className={classes.backdrop} open={loading}>
-                        <CircularProgress size={60} color='secondary' />
-                     </Backdrop>
                   </Grid>
                </form>
             </Fade>

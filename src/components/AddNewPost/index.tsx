@@ -48,20 +48,14 @@ const AddNewPost: FC<Props> = (props) => {
    const user = useSelector((state: any) => state.userReducer.user);
    const [addPostMutation, { loading }] = useMutation<AddPostMutation>(ADD_POST_MUTATION);
 
-   if (loading) {
-      return <Loader />;
-   }
-
    return (
       <main className={classes.root}>
+         {loading && <Loader />}
          <Grid container xs={12} direction='row' style={{ height: '100%' }}>
             <Grid container xs={12} className={classes.rightSection} justifyContent='center' alignItems='center'>
                <Grid container justifyContent='center' direction='column'>
                   <Typography variant='h2' align='center' color='textPrimary' className={classes.title}>
-                     Yeni Post Oluştur
-                  </Typography>
-                  <Typography variant='h6' align='center' color='textSecondary' className={classes.subtitle}>
-                     Yeni bir post paylaşmak için formu doldur
+                     Create New Post
                   </Typography>
                </Grid>
                <Grid container style={{ marginBottom: 5 }}>

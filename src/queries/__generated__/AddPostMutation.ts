@@ -3,8 +3,6 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { PostInput } from "./../../../__generated__/globalTypes";
-
 // ====================================================
 // GraphQL mutation operation: AddPostMutation
 // ====================================================
@@ -24,5 +22,9 @@ export interface AddPostMutation {
 }
 
 export interface AddPostMutationVariables {
-  addPostInput?: PostInput | null;
+  userId: string;
+  title: string;
+  content: string;
+  category?: (string | null)[] | null;
+  image: any;
 }

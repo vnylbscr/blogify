@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './styles/index.scss';
 import { Provider } from 'react-redux';
-import { ApolloClient, InMemoryCache, ApolloProvider, from, HttpLink, ApolloLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, from } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { API_URL } from './config';
 //@ts-ignore
@@ -30,18 +30,12 @@ const authLink = setContext((_, { headers }) => {
       },
    };
 });
-const httpLink = new HttpLink({
-   uri: API_URL,
-});
 
 const uploadLink = createUploadLink({
    uri: API_URL,
 });
 
-// const links = [httpLink, authLink, errorLink];
 const client = new ApolloClient({
-   // link: authLink.concat(httpLink),
-   // link: httpLink.concat(uploadLink),
    link: from([authLink, errorLink, uploadLink]),
    cache: new InMemoryCache(),
 });

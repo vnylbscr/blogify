@@ -231,7 +231,7 @@ const AppBar = (props: Props) => {
                      key={item.url}
                   >
                      <ListItemIcon className={classes.icon}>{item.icon}</ListItemIcon>
-                     <ListItemText>{item.title}</ListItemText>
+                     <ListItemText>{item.title.toLowerCase()}</ListItemText>
                   </ListItem>
                ))}
             </List>

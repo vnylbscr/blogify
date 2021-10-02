@@ -17,6 +17,7 @@ export const GET_ME_WITH_TOKEN = gql`
                createdAt
             }
             content
+            subtitle
             title
             _id
          }

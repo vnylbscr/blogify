@@ -22,6 +22,7 @@ export interface getMeWithTokenQuery_getMeWithToken_posts {
   category: (string | null)[] | null;
   comments: (getMeWithTokenQuery_getMeWithToken_posts_comments | null)[] | null;
   content: string | null;
+  subtitle: string | null;
   title: string;
   _id: string;
 }

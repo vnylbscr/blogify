@@ -12,6 +12,8 @@ import { LOGIN } from '../../../redux/actions/user';
 import Input from '../../BaseComponents/Input/Input';
 import { EMAIL_REGEX, REQUIRED_FIELD } from '../../../lib/constants';
 import FooterText from '../../FooterText';
+import { LoginMutation, LoginMutationVariables } from '../../../queries/__generated__/LoginMutation';
+import Loader from '../../Loader';
 interface Props {}
 
 const useStyles = makeStyles((theme) => ({
@@ -37,10 +39,9 @@ const useStyles = makeStyles((theme) => ({
 const LoginPage = (props: Props) => {
    const classes = useStyles();
    const [login, { error, loading }] = useMutation(USER_LOGIN_MUTATION, {
-      // onError: (error) => console.log('ULAAA  NOLİY', error),
+      onError: (error) => console.log('ULAAA  NOLİY', error),
    });
    const dispatch = useDispatch();
-   const history = useHistory();
 
    const {
       control,
@@ -60,25 +61,26 @@ const LoginPage = (props: Props) => {
                   type: LOGIN,
                   payload: data?.login,
                });
-               history.push('/');
             }
          })
          .catch((e) => {
             console.log(e);
          });
    };
+
    return (
       <Grid container className={classes.root}>
          <Hidden xsDown>
             <Grid className={classes.leftSection} sm={8} item container />
          </Hidden>
+         {loading && <Loader />}
          <Grid container justifyContent='center' alignItems='center' className={classes.inputContainer} xs={12} sm={4}>
             <Fade in={true} timeout={1000}>
                <Grid xs={12}>
                   <Fragment>
                      <Grid xs={12}>
                         <Typography align='center' variant='h5' color='primary'>
-                           Blogify'a Giriş Yap
+                           Login Blogify
                         </Typography>
                      </Grid>
                      <form onSubmit={handleSubmit(onSubmit)}>
@@ -93,7 +95,7 @@ const LoginPage = (props: Props) => {
                               required: REQUIRED_FIELD,
                               pattern: {
                                  value: EMAIL_REGEX,
-                                 message: 'Lütfen geçerli bir e-mail giriniz',
+                                 message: 'Please provide correct e-mail.',
                               },
                            }}
                         />
@@ -108,15 +110,15 @@ const LoginPage = (props: Props) => {
                               required: REQUIRED_FIELD,
                               minLength: {
                                  value: 6,
-                                 message: 'Şifreniz en az 6 karakterden oluşmalıdır',
+                                 message: 'your password must be greater than 6 characters. ',
                               },
                            }}
                            type='password'
                         />
                         <Grid container justifyContent='center' alignItems='center' style={{ padding: 20 }}>
-                           <Typography>Henüz hesabın yok mu?</Typography>
+                           <Typography>Don't have account?</Typography>
                            <Link style={{ marginLeft: 10 }} to='/sign-up'>
-                              Hemen oluştur
+                              Register now!
                            </Link>
                         </Grid>
                         <Button
@@ -127,7 +129,7 @@ const LoginPage = (props: Props) => {
                            endIcon={loading && <CircularProgress color='primary' size={24} />}
                            style={{ marginTop: 20 }}
                         >
-                           Giriş Yap
+                           Login
                         </Button>
                         {error && (
                            <Typography style={{ color: 'red', marginTop: 10, textAlign: 'center' }} variant='h6'>
