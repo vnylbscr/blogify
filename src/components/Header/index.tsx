@@ -201,13 +201,9 @@ const AppBar = (props: Props) => {
       setOpenDrawer(!openDrawer);
    };
    const handleLogoutUser = () => {
-      localStorage.removeItem('token');
       dispatch({
          type: LOGOUT,
-         payload: {},
       });
-      history.push('/');
-      window.location.reload();
    };
    // drawer for mobile
    const myDrawer = (

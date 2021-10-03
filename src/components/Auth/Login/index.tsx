@@ -14,6 +14,7 @@ import { EMAIL_REGEX, REQUIRED_FIELD } from '../../../lib/constants';
 import FooterText from '../../FooterText';
 import { LoginMutation, LoginMutationVariables } from '../../../queries/__generated__/LoginMutation';
 import Loader from '../../Loader';
+import useLocalStorage from '../../../hooks/useLocalStorage';
 interface Props {}
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const LoginPage = (props: Props) => {
    const classes = useStyles();
-   const [login, { error, loading }] = useMutation(USER_LOGIN_MUTATION, {
+   const [login, { error, loading }] = useMutation<LoginMutation, LoginMutationVariables>(USER_LOGIN_MUTATION, {
       onError: (error) => console.log('ULAAA  NOLİY', error),
    });
    const dispatch = useDispatch();
@@ -56,7 +57,6 @@ const LoginPage = (props: Props) => {
       login({ variables: { ...data } })
          .then(({ data }) => {
             if (data?.login) {
-               localStorage.setItem('token', data?.login.token || '');
                dispatch({
                   type: LOGIN,
                   payload: data?.login,
@@ -121,6 +121,7 @@ const LoginPage = (props: Props) => {
                               Register now!
                            </Link>
                         </Grid>
+
                         <Button
                            variant='contained'
                            fullWidth

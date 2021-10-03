@@ -1,5 +1,5 @@
 import React from 'react';
-import { Backdrop, Grid, Typography, CircularProgress, Hidden, Fade } from '@material-ui/core';
+import { Backdrop, Grid, Typography, CircularProgress, Hidden, Fade, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import Input from '../../BaseComponents/Input/Input';
 import { useMutation } from '@apollo/client';
@@ -148,14 +148,19 @@ const RegisterPage = (props: Props) => {
                            Login
                         </Link>
                      </Grid>
-                     <ButtonSuccess
-                        type='submit'
-                        fullWidth
-                        label={'Register'}
-                        overrideStyles={{ marginTop: 40 }}
-                        disabled={loading}
-                        size='large'
-                     />
+                     <Grid container style={{ marginTop: 20 }}>
+                        <Typography variant='caption' color='textSecondary' style={{ padding: '10px 0px' }}>
+                           By registering Blogify, you agree to our privacy policy.
+                        </Typography>
+                        <ButtonSuccess
+                           type='submit'
+                           fullWidth
+                           label={'Register'}
+                           overrideStyles={{}}
+                           disabled={loading}
+                           size='large'
+                        />
+                     </Grid>
                   </Grid>
                </form>
             </Fade>

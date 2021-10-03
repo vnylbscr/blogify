@@ -11,7 +11,7 @@ const FooterText = (props: Props) => {
          </Typography>
          <Typography color='primary' variant='caption'>
             Made by{' '}
-            <Link component='a' href='https://twitter.com/accurcy'>
+            <Link href='https://twitter.com/accurcy' target='_blank' rel='noopener noreferrer'>
                Mert
             </Link>
          </Typography>

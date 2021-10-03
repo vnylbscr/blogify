@@ -4,7 +4,7 @@ import { Button, Grid, makeStyles, TextField, Typography } from '@material-ui/co
 import { WithUndefined } from '../../types/utils';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { useTheme } from '@material-ui/styles';
-import { NullLiteral } from 'typescript';
+import { useForm } from 'react-hook-form';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 type EditorState = WithUndefined<string>;
 
-export interface AddPostState {
+export interface FormState {
    editorValue?: EditorState;
    postTitle?: string;
    image?: File;
@@ -35,99 +35,120 @@ export interface AddPostState {
 }
 
 interface Props {
-   onSubmitPost: (value: AddPostState) => void;
+   onSubmitPost: (value: FormState) => void;
 }
 
 const MarkDownEditor = (props: Props) => {
    const { onSubmitPost } = props;
    const theme = useTheme();
    const classes = useStyles();
-   const [state, setState] = useState<AddPostState>();
 
+   const {
+      register,
+      setValue,
+      getValues,
+      handleSubmit,
+      watch,
+      formState: { errors, isValid },
+   } = useForm<FormState>({
+      mode: 'onBlur',
+      defaultValues: {},
+   });
    const onClickAddFile = () => {
       document.getElementById('post_image')?.click();
    };
 
+   console.log(watch());
    const onChangeFiles = (event: React.ChangeEvent<HTMLInputElement>) => {
       if (event.target.files) {
          const file = event.target.files[0];
-         setState((prevState) => ({
-            ...prevState,
-            image: file,
-         }));
+         setValue('image', file);
          const reader = new FileReader();
          reader.readAsDataURL(file);
          reader.onloadend = (e) => {
-            setState((prev) => ({
-               ...prev,
-               imageUrl: [reader.result],
-            }));
+            setValue('imageUrl', [reader.result]);
          };
       }
    };
 
+   const onSubmit = (data: FormState) => {
+      console.log(data.subtitle);
+      onSubmitPost(data);
+   };
+
    return (
       <div className={classes.root}>
-         <TextField
-            variant='outlined'
-            label='enter your post title'
-            onChange={(e) =>
-               setState((prevState) => ({
-                  ...prevState,
-                  postTitle: e.target.value,
-               }))
-            }
-            className={classes.titleInput}
-            fullWidth
-            color='primary'
-         />
-         <input onChange={onChangeFiles} hidden id='post_image' type='file' accept='image/*' />
-         <Grid container justifyContent='space-between' xs={12} className={classes.mt10}>
-            <Button onClick={onClickAddFile} variant='contained' color='primary' size='medium'>
-               add image for post
-            </Button>
-            {state?.image && (
-               <Fragment>
-                  <Grid container xs={3}>
-                     <CheckCircleIcon style={{ color: theme.palette.success.main }} fontSize='default' />
-                     <Typography color='primary'>{state.image.name}</Typography>
-                     <img src={state?.imageUrl} alt='mert' style={{ width: 300, height: 200, marginTop: 20 }} />
+         <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container xs={12}>
+               <Grid container item xs={12} sm={6}>
+                  <Grid item xs={12}>
+                     <TextField
+                        variant='outlined'
+                        label='enter your post title*'
+                        {...register('postTitle', {
+                           required: true,
+                        })}
+                        className={classes.titleInput}
+                        fullWidth
+                        color='primary'
+                        error={Boolean(errors.postTitle)}
+                     />
                   </Grid>
-               </Fragment>
-            )}
-         </Grid>
-         <MDEditor
-            toolbarHeight={80}
-            height={500}
-            className={classes.editor}
-            value={state?.editorValue}
-            onChange={(value) =>
-               setState((prevState) => ({
-                  ...prevState,
-                  editorValue: value,
-               }))
-            }
-         />
-         <div style={{ padding: '50px 0 0 0' }} />
-
-         {state?.editorValue?.trim().length !== 0 && (
-            <Grid container xs={12} justifyContent='flex-end' alignItems='center'>
-               <Button
-                  variant='contained'
-                  color='primary'
-                  onClick={() => {
-                     if (state?.editorValue?.trim().length !== 0) {
-                        onSubmitPost({
-                           ...state,
-                        });
-                     }
-                  }}
-                  size='large'
-               >
-                  add post
-               </Button>
+                  <Grid item xs={12}>
+                     <TextField
+                        variant='outlined'
+                        label='enter post subtitle*'
+                        {...register('subtitle', {
+                           required: true,
+                        })}
+                        className={classes.titleInput}
+                        fullWidth
+                        color='primary'
+                        error={Boolean(errors.subtitle)}
+                     />
+                  </Grid>
+               </Grid>
+               <Grid item container xs={6}>
+                  <input onChange={onChangeFiles} hidden id='post_image' type='file' accept='image/*' />
+                  <Button onClick={onClickAddFile} variant='text' color='primary'>
+                     add image for post
+                  </Button>
+                  <Grid container>
+                     {getValues('image') && (
+                        <Fragment>
+                           <Grid container xs={3}>
+                              <CheckCircleIcon style={{ color: theme.palette.success.main }} fontSize='default' />
+                              <Typography color='primary'>{getValues('image')?.name}</Typography>
+                              <img
+                                 src={getValues('imageUrl')}
+                                 alt='mert'
+                                 style={{ width: 300, height: 200, marginTop: 20 }}
+                              />
+                           </Grid>
+                        </Fragment>
+                     )}
+                  </Grid>
+               </Grid>
             </Grid>
-         )}
+
+            <MDEditor
+               toolbarHeight={80}
+               height={500}
+               className={classes.editor}
+               value={getValues('editorValue')}
+               onChange={(value) => {
+                  setValue('editorValue', value);
+               }}
+            />
+            <div style={{ padding: '50px 0 0 0' }} />
+            {getValues().editorValue?.trim.length !== 0 && (
+               <Grid container xs={12} justifyContent='flex-end' alignItems='center'>
+                  <Button type='submit' disabled={!isValid} variant='contained' color='primary' size='large'>
+                     add post
+                  </Button>
+               </Grid>
+            )}
+         </form>
       </div>
    );
 };

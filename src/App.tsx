@@ -20,12 +20,6 @@ const App = () => {
    const user = useSelector((state: any) => state.userReducer.user);
    const myTheme = responsiveFontSizes(theme);
 
-   useEffect(() => {
-      if (!user) {
-         localStorage.removeItem('token');
-      }
-   }, [user]);
-
    return (
       <SnackbarProvider
          maxSnack={4}

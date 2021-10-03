@@ -29,7 +29,6 @@ export const userReducer = (state = INITIAL_STATE, action) => {
       }
       case LOGOUT:
          return {
-            ...state,
             user: null,
             token: null,
          };

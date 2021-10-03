@@ -8,8 +8,9 @@ import { API_URL } from './config';
 //@ts-ignore
 import { createUploadLink } from 'apollo-upload-client';
 import { setContext } from '@apollo/client/link/context';
-import store from './redux/store';
 
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux/store';
 // Error Handling for GRAPH QL
 const errorLink = onError(({ graphQLErrors, networkError }) => {
    if (graphQLErrors)
@@ -39,10 +40,13 @@ const client = new ApolloClient({
    link: from([authLink, errorLink, uploadLink]),
    cache: new InMemoryCache(),
 });
+
 ReactDOM.render(
    <ApolloProvider client={client}>
       <Provider store={store}>
-         <App />
+         <PersistGate persistor={persistor}>
+            <App />
+         </PersistGate>
       </Provider>
    </ApolloProvider>,
    document.getElementById('root')
