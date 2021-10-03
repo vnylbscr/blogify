@@ -14,6 +14,13 @@ export const GET_ALL_POSTS_QUERY = gql`
             likedCount
             createdAt
          }
+         user {
+            username
+            _id
+            photo
+            githubUrl
+            twitterUrl
+         }
          category
          createdAt
          slug

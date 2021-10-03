@@ -14,7 +14,7 @@ export interface MyTheme extends ModuleTheme.RootObject, Theme {}
 
 export const theme: any = createTheme({
    typography: {
-      fontFamily: ['Open Sans', 'MontSerrat', 'sans-serif'].join(','),
+      fontFamily: ['Lato', 'sans-serif'].join(','),
    },
    palette: {
       primary: indigo,

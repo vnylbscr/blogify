@@ -1,19 +1,12 @@
-import React, { useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import React from 'react';
+import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { MyTheme } from '../../styles/config';
-import MyButton from '../BaseComponents/Button/ButtonSuccess';
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
-// import { GetAllPosts, GetAllPosts_getAllPosts } from '../../queries/__generated__/GetAllPosts';
+import { useQuery } from '@apollo/client';
 import { GET_ALL_POSTS_QUERY } from '../../queries/post';
-import { GET_ME_WITH_TOKEN } from '../../queries/getUser';
-import { SET_USER } from '../../redux/actions/user';
-// import { GetMe, GetMeVariables, GetMe_getMeWithToken } from '../../queries/__generated__/GetMe';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import Post from '../Post';
-import { useWindowSize } from '../../hooks/useWindowSize';
-import { GetAllPosts, GetAllPosts_getAllPosts } from '../../queries/__generated__/GetAllPosts';
+import { GetAllPosts } from '../../queries/__generated__/GetAllPosts';
 
 interface IProps {
    children?: React.ReactNode;
@@ -21,25 +14,37 @@ interface IProps {
 const useStyles = makeStyles((theme: MyTheme) => ({
    root: {
       width: '100%',
-      height: 'calc(100vh - 60px)',
+      minHeight: 'calc(100vh - 60px)',
+      background: theme.colorPalette.primary.light,
    },
 }));
 const Home = (props: IProps) => {
-   const dispatch = useDispatch();
-   
-   const { loading: allPostsLoading, data } = useQuery<GetAllPosts>(GET_ALL_POSTS_QUERY);
    const user = useSelector((state: any) => state.userReducer.user);
-   const { width, height } = useWindowSize();
+   const dispatch = useDispatch();
+
+   const { loading: allPostsLoading, data } = useQuery<GetAllPosts>(GET_ALL_POSTS_QUERY);
    const classes = useStyles();
    return (
-      <main className={classes.root}>
-         <Grid xs={12} alignItems='center' justifyContent='center' container style={{ height: '100%' }}>
-            {data?.getAllPosts?.length === 0 && <h1>Henüz bir post yok</h1>}
+      <Grid
+         xs={12}
+         alignItems='center'
+         className={classes.root}
+         justifyContent='center'
+         container
+         style={{ height: '100%' }}
+      >
+         {data?.getAllPosts?.length === 0 && (
+            <Typography variant='h1' align='center' color='textSecondary'>
+               that's all for now 🙏
+            </Typography>
+         )}
+
+         <Grid container xs={9} justifyContent='center' alignItems='center'>
             {data?.getAllPosts?.map((post: any) => {
                return <Post item={post} />;
             })}
          </Grid>
-      </main>
+      </Grid>
    );
 };
 

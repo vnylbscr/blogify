@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Collapse, responsiveFontSizes, ThemeProvider } from '@material-ui/core';
 import { theme } from '../src/styles/config';
 import AppBar from './components/Header';
@@ -23,7 +23,7 @@ const App = () => {
    return (
       <SnackbarProvider
          maxSnack={4}
-         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
          TransitionComponent={Collapse}
       >
          <ThemeProvider theme={myTheme}>

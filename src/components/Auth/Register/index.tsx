@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const RegisterPage = (props: Props) => {
    const classes = useStyles();
    const dispatch = useDispatch();
-   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+   const { enqueueSnackbar } = useSnackbar();
    const [register, { error, loading }] = useMutation<RegisterMutation, RegisterMutationVariables>(
       USER_REGISTER_MUTATION
    );
@@ -64,13 +64,17 @@ const RegisterPage = (props: Props) => {
       })
          .then(({ data }) => {
             if (data?.register) {
-               localStorage.setItem('token', data?.register.token || '');
                dispatch({ type: REGISTER, payload: data?.register });
             }
+            enqueueSnackbar(`hello again 👌 ${data?.register.username}`, {
+               variant: 'success',
+               autoHideDuration: 2000,
+            });
          })
          .catch((error) => {
             enqueueSnackbar(error.message, {
                variant: 'error',
+               autoHideDuration: 3000,
             });
          });
    };
@@ -149,9 +153,16 @@ const RegisterPage = (props: Props) => {
                         </Link>
                      </Grid>
                      <Grid container style={{ marginTop: 20 }}>
-                        <Typography variant='caption' color='textSecondary' style={{ padding: '10px 0px' }}>
-                           By registering Blogify, you agree to our privacy policy.
-                        </Typography>
+                        <Grid item container justifyContent='center' xs={12}>
+                           <Typography
+                              variant='caption'
+                              color='textSecondary'
+                              align='center'
+                              style={{ padding: '10px 0px' }}
+                           >
+                              By registering Blogify, you agree to our privacy policy.
+                           </Typography>
+                        </Grid>
                         <ButtonSuccess
                            type='submit'
                            fullWidth

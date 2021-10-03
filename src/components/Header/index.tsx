@@ -135,16 +135,6 @@ const AUTHORIZED_APP_BAR_ITEMS = [
 ];
 
 // Types
-interface AppBarProps {
-   position?: string;
-   authorized?: boolean;
-}
-
-type ModalConfig = {
-   mode: string;
-   open: boolean;
-};
-
 interface Props {
    window?: () => Window;
    children?: React.ReactElement;
@@ -171,14 +161,10 @@ const AppBar = (props: Props) => {
    console.log('bu tema', theme);
    const classes = useStyles();
    const history = useHistory();
-   const initialState: ModalConfig = {
-      mode: '',
-      open: false,
-   };
+
    console.log(authorized, 'issss');
 
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-   const [modalConfig, setModalConfig] = useState<ModalConfig>(initialState);
    const [openDrawer, setOpenDrawer] = useState<boolean>();
    const handleClickItem = (url: string) => {
       history.push(url);
@@ -194,12 +180,10 @@ const AppBar = (props: Props) => {
       history.push('/sign-up');
    };
 
-   const handleCloseDialog = () => {
-      setModalConfig(initialState);
-   };
    const handleChangeDrawer = () => {
       setOpenDrawer(!openDrawer);
    };
+
    const handleLogoutUser = () => {
       dispatch({
          type: LOGOUT,
@@ -275,9 +259,9 @@ const AppBar = (props: Props) => {
                         className={classes.title}
                         xs={isSmallScreen ? 7 : 3}
                      >
-                        <IconButton className={classes.createIcon}>
+                        {/* <IconButton className={classes.createIcon}>
                            <CreateIcon className={classes.icon} />
-                        </IconButton>
+                        </IconButton> */}
                         <IconButton className={classes.MenuButton} onClick={handleChangeDrawer}>
                            <MenuIcon />
                         </IconButton>
@@ -286,7 +270,7 @@ const AppBar = (props: Props) => {
                               Blogify
                            </Typography>
                            <Typography variant='subtitle2' className={classes.subtitle}>
-                              Blog yaz ve paylaş
+                              share blog and more
                            </Typography>
                         </Grid>
                      </Grid>
@@ -341,13 +325,13 @@ const AppBar = (props: Props) => {
                                                   setAnchorEl(null);
                                                }}
                                                icon={() => <PermIdentityIcon />}
-                                               label='Profilim'
+                                               label='profile'
                                                variant='first'
                                             />
                                             <StyledMenuItem
                                                onClick={handleLogoutUser}
                                                variant='first'
-                                               label='Çıkış Yap'
+                                               label='logout'
                                                icon={() => <ExitToAppIcon />}
                                             />
                                          </Menu>
@@ -375,17 +359,7 @@ const AppBar = (props: Props) => {
                                  xs={3}
                               >
                                  <Button variant='text' onClick={openLoginDialog} className={classes.loginButton}>
-                                    Giriş Yap
-                                 </Button>
-
-                                 <Typography variant='subtitle2'>or</Typography>
-                                 <Button
-                                    variant='text'
-                                    style={{ marginLeft: 5 }}
-                                    className={classes.loginButton}
-                                    onClick={openRegisterDialog}
-                                 >
-                                    Kayıt Ol
+                                    sign in
                                  </Button>
                               </Grid>
                            )}

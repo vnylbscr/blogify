@@ -15,6 +15,7 @@ import FooterText from '../../FooterText';
 import { LoginMutation, LoginMutationVariables } from '../../../queries/__generated__/LoginMutation';
 import Loader from '../../Loader';
 import useLocalStorage from '../../../hooks/useLocalStorage';
+import { useSnackbar } from 'notistack';
 interface Props {}
 
 const useStyles = makeStyles((theme) => ({
@@ -39,9 +40,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 const LoginPage = (props: Props) => {
    const classes = useStyles();
-   const [login, { error, loading }] = useMutation<LoginMutation, LoginMutationVariables>(USER_LOGIN_MUTATION, {
-      onError: (error) => console.log('ULAAA  NOLİY', error),
-   });
+   const { enqueueSnackbar } = useSnackbar();
+   const [login, { error, loading }] = useMutation<LoginMutation, LoginMutationVariables>(USER_LOGIN_MUTATION);
    const dispatch = useDispatch();
 
    const {
@@ -62,9 +62,16 @@ const LoginPage = (props: Props) => {
                   payload: data?.login,
                });
             }
+            enqueueSnackbar(`hello again, 👌 ${data?.login.username} `, {
+               variant: 'success',
+               autoHideDuration: 2000,
+            });
          })
          .catch((e) => {
-            console.log(e);
+            enqueueSnackbar(e.message, {
+               variant: 'error',
+               autoHideDuration: 3000,
+            });
          });
    };
 
@@ -95,7 +102,7 @@ const LoginPage = (props: Props) => {
                               required: REQUIRED_FIELD,
                               pattern: {
                                  value: EMAIL_REGEX,
-                                 message: 'Please provide correct e-mail.',
+                                 message: 'please provide correct e-mail.',
                               },
                            }}
                         />
@@ -116,7 +123,7 @@ const LoginPage = (props: Props) => {
                            type='password'
                         />
                         <Grid container justifyContent='center' alignItems='center' style={{ padding: 20 }}>
-                           <Typography>Don't have account?</Typography>
+                           <Typography>Don't have an account?</Typography>
                            <Link style={{ marginLeft: 10 }} to='/sign-up'>
                               Register now!
                            </Link>

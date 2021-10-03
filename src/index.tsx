@@ -23,7 +23,10 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 const authLink = setContext((_, { headers }) => {
    // get the authentication token from local storage if it exists
-   const token = localStorage.getItem('token');
+
+   const userReducer = JSON.parse(localStorage.getItem('persist:root') || '').userReducer;
+   const token = JSON.parse(userReducer).token;
+   console.log('token', token);
    return {
       headers: {
          ...headers,
