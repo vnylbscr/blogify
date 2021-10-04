@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import {
    AppBar as MaterialAppBar,
    IconButton,
@@ -23,14 +23,12 @@ import {
    Slide,
 } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import CreateIcon from '@material-ui/icons/Create';
 import HeaderItem from './Item';
 import { useHistory } from 'react-router-dom';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
-import Modal from '../BaseComponents/Dialog';
 import MenuIcon from '@material-ui/icons/Menu';
 import { MyTheme } from '../../styles/config';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -128,7 +126,7 @@ const APP_BAR_ITEMS = [
 
 const AUTHORIZED_APP_BAR_ITEMS = [
    {
-      title: 'Add New Post',
+      title: 'add new post 🤠',
       url: '/add-new-post',
       icon: <AccountCircleIcon />,
    },
@@ -173,11 +171,11 @@ const AppBar = (props: Props) => {
       setAnchorEl(e.currentTarget);
    };
 
+   useEffect(() => {
+      setOpenDrawer(false);
+   }, [isSmallScreen]);
    const openLoginDialog = () => {
       history.push('/sign-in');
-   };
-   const openRegisterDialog = () => {
-      history.push('/sign-up');
    };
 
    const handleChangeDrawer = () => {
@@ -193,7 +191,7 @@ const AppBar = (props: Props) => {
    const myDrawer = (
       <Grid container direction='column' justifyContent='space-between' style={{ height: '100%' }}>
          <Grid container item direction='column'>
-            <Typography variant='h6' align='center' style={{ paddingTop: 10 }}>
+            <Typography onClick={() => history.push('/')} variant='h6' align='center' style={{ paddingTop: 10 }}>
                Blogify
             </Typography>
          </Grid>
@@ -220,26 +218,23 @@ const AppBar = (props: Props) => {
          <Grid item container alignItems='center' direction='column'>
             <FormControlLabel
                control={<Switch name='checkedA' color='secondary' />}
-               label='Koyu Tema'
+               label='dark theme'
                color='Primary'
             />
             {authorized && (
                <Grid container alignItems='center' style={{ marginBottom: 10, marginTop: 10, padding: 10 }}>
                   <Button
-                     variant='contained'
+                     variant='text'
                      startIcon={<ExitToAppIcon fontSize='medium' />}
                      fullWidth
-                     color='secondary'
+                     color='inherit'
                      style={{ marginRight: 20 }}
                      onClick={handleLogoutUser}
                   >
-                     Çıkış Yap
+                     logout
                   </Button>
                </Grid>
             )}
-            <Typography style={{ marginTop: 10 }} variant='caption'>
-               Mert Genç 2021
-            </Typography>
          </Grid>
       </Grid>
    );
@@ -259,15 +254,17 @@ const AppBar = (props: Props) => {
                         className={classes.title}
                         xs={isSmallScreen ? 7 : 3}
                      >
-                        {/* <IconButton className={classes.createIcon}>
-                           <CreateIcon className={classes.icon} />
-                        </IconButton> */}
                         <IconButton className={classes.MenuButton} onClick={handleChangeDrawer}>
                            <MenuIcon />
                         </IconButton>
-                        <Grid item direction='column' className={classes.titleContainer}>
+                        <Grid
+                           item
+                           direction='column'
+                           onClick={() => history.push('/')}
+                           className={classes.titleContainer}
+                        >
                            <Typography variant='h6' className={classes.headerTitle}>
-                              Blogify
+                              blogify.
                            </Typography>
                            <Typography variant='subtitle2' className={classes.subtitle}>
                               share blog and more

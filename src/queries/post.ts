@@ -1,6 +1,8 @@
 import { gql } from '@apollo/client';
+import { CORE_USER_FIELDS } from './fragments';
 
 export const GET_ALL_POSTS_QUERY = gql`
+   ${CORE_USER_FIELDS}
    query GetAllPosts {
       getAllPosts {
          _id
@@ -15,11 +17,7 @@ export const GET_ALL_POSTS_QUERY = gql`
             createdAt
          }
          user {
-            username
-            _id
-            photo
-            githubUrl
-            twitterUrl
+            ...CoreUserFields
          }
          category
          createdAt

@@ -73,7 +73,7 @@ const Index = (props: IProps) => {
             <CardHeader
                avatar={
                   <Avatar aria-label='recipe' className={classes.avatar}>
-                     A
+                     {item?.user?.username[0]?.toUpperCase()}
                   </Avatar>
                }
                action={
@@ -82,7 +82,7 @@ const Index = (props: IProps) => {
                   </IconButton>
                }
                title={item?.user?.username}
-               subheader={moment(item.createdAt).format('DD MM YY')}
+               subheader={moment(parseInt(item.createdAt)).fromNow()}
             />
             <CardMedia className={classes.media} image={item?.image || undefined} />
             <CardContent className={classes.subtitleContainer}>
