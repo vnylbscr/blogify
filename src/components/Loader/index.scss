@@ -2,9 +2,11 @@
    height: 100vh;
    z-index: 999999999;
    position: fixed;
-   overflow: show;
+   background-color: #fff;
+   overflow: hidden;
    width: 100vw;
 }
+
 .box {
    z-index: 999999999;
    width: 300px;
