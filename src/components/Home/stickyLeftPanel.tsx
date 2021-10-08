@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Paper, makeStyles, CircularProgress, Card, CardMedia } from '@material-ui/core';
+import { Grid, Paper, makeStyles, CircularProgress, CardMedia } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { MyTheme } from '../../styles/config';
 import { useQuery } from '@apollo/client';

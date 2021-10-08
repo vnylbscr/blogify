@@ -15,6 +15,7 @@ import MyProfile from './components/MyProfile';
 import AddNewPost from './components/AddNewPost';
 import LoginPage from './components/Auth/Login';
 import RegisterPage from './components/Auth/Register';
+import PostContent from './components/SinglePost';
 
 const App = () => {
    const user = useSelector((state: any) => state.userReducer.user);
@@ -37,6 +38,7 @@ const App = () => {
                      <Route path='/contact' component={Contact} />
                      <Route path='/contributors' component={Contributors} />
                      <Route path='/add-new-post' component={AddNewPost} />
+                     <Route path='/post/:_id/:slug' component={PostContent} />
                      <Redirect to='/' />
                   </Switch>
                </Router>

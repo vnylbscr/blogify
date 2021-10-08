@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { MyTheme } from '../../styles/config';
 import { useQuery } from '@apollo/client';
-import { GET_ALL_POSTS_QUERY } from '../../queries/post';
+import { GET_ALL_POSTS_QUERY } from '../../queries/getAllPosts';
 import Post from '../Post';
 import { GetAllPosts } from '../../queries/__generated__/GetAllPosts';
 import StickyLeftPanel from './stickyLeftPanel';
@@ -25,12 +25,7 @@ const Home = (props: IProps) => {
    const user = useSelector((state: any) => state.userReducer.user);
    const dispatch = useDispatch();
 
-   const { loading: allPostsLoading, data } = useQuery<GetAllPosts>(GET_ALL_POSTS_QUERY, {
-      variables: {
-         offSet: 0,
-         limit: 2,
-      },
-   });
+   const { loading: allPostsLoading, data } = useQuery<GetAllPosts>(GET_ALL_POSTS_QUERY);
    const classes = useStyles();
 
    if (allPostsLoading) {
