@@ -12,7 +12,7 @@ const useMutationWithCache = <T = any, U = object>(
    updatedFieldName: string,
    resultFunc: ResultFunc
 ) => {
-   const [mutation, { loading, data }] = useMutation<T, U>(Mutation, {
+   const [mutation, { loading, data, error }] = useMutation<T, U>(Mutation, {
       update: (cache, { data }: Record<string, any>) => {
          if (data) {
             const newData = data[mutationFieldName];
@@ -25,7 +25,7 @@ const useMutationWithCache = <T = any, U = object>(
       },
    });
 
-   return [mutation, { loading, data }];
+   return [mutation, { loading, data, error }];
 };
 
 export default useMutationWithCache;

@@ -1,7 +1,6 @@
-import { AccordionSummary, Grid, Typography, Accordion, AccordionDetails } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { Fragment } from 'react';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme: any) => ({
    root: {

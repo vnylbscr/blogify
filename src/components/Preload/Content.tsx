@@ -1,13 +1,8 @@
 import React from 'react';
-import backgroundImage from '../../assets/images/bg.jpg';
-import Carousel from 'react-material-ui-carousel';
-import { Button, Grid, Link, makeStyles, TextField, Theme, Typography } from '@material-ui/core';
-import CarouselItem from './carouselItem';
-import { useQuery } from '@apollo/client';
-import Footer from '../Footer';
+import { Button, Grid, Link, makeStyles, Typography } from '@material-ui/core';
 import { MyTheme } from '../../styles/config';
-import { Animate, AnimateGroup } from 'react-simple-animate';
 import { useHistory } from 'react-router-dom';
+
 const useStyles = makeStyles((theme: MyTheme) => ({
    root: {
       // padding: theme.spacing(2),
@@ -56,27 +51,6 @@ const useStyles = makeStyles((theme: MyTheme) => ({
    },
 }));
 
-const CARAOUSEL_ITEMS = [
-   {
-      title: 'Blogify ile post paylaşmak çok kolay!',
-      description:
-         'Blogify ile post paylaşmak çok kolaydır. Hemen üye ol ve paylaşmaya başla! Ya da yeni bir hesap oluştur!',
-      imageUrl: 'https://www.rgsyazilim.com/wp-content/uploads/2020/06/blog.png',
-   },
-   {
-      title: 'Blogify ile post paylaşmak çok hızlıdır!',
-      description:
-         'Blogify ile post paylaşmak çok hızlıdır. Hemen üye ol ve paylaşmaya başla! Ya da yeni bir hesap oluştur!',
-      imageUrl: 'https://cdn.pixabay.com/photo/2017/05/30/03/58/blog-2355684_960_720.jpg',
-   },
-   {
-      title: 'Blogify ile post paylaşmak çok ulaşılabilirdir!',
-      description:
-         'Blogify ile post paylaşmak çok kolaydır. Hemen üye ol ve paylaşmaya başla! Ya da yeni bir hesap oluştur!',
-      imageUrl: 'https://sinanhan.com/wp-content/uploads/2019/01/blog-gorsel.jpg',
-   },
-];
-
 const Preload = () => {
    const classes = useStyles();
    const history = useHistory();
@@ -85,28 +59,6 @@ const Preload = () => {
    };
    return (
       <main className={classes.root}>
-         {/* <Grid container direction='column' alignItems='center' justifyContent='center'>
-            <Carousel
-               animation='slide'
-               timeout={500}
-               autoPlay
-               className={classes.caraousel}
-               navButtonsWrapperProps={{
-                  style: {
-                     display: 'none',
-                  },
-               }}
-            >
-               {CARAOUSEL_ITEMS.map((item) => (
-                  <CarouselItem
-                     title={item.title}
-                     description={item.description}
-                     imageUrl={item.imageUrl}
-                     key={item.title}
-                  />
-               ))}
-            </Carousel>
-         </Grid> */}
          <Grid container style={{ height: '100%' }}>
             <Grid item container xs={false} sm={7} className={classes.image} />
             <Grid

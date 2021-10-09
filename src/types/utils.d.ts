@@ -16,7 +16,7 @@ export type Size = {
 
 export type Fn = () => void;
 
-export type VariantSize = 'small' | 'medium' | 'big' | 'huge';
+export type VariantSize = 'small' | 'medium' | 'large' | 'huge';
 
 export type ColorsKey = 'purple' | 'orange' | 'pink' | 'red' | 'blue';
 

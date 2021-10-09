@@ -1,4 +1,4 @@
-import { Button, ButtonBase, makeStyles } from '@material-ui/core';
+import { Button, ButtonProps, makeStyles } from '@material-ui/core';
 import React, { FC } from 'react';
 
 const useStyles = makeStyles((theme: any) => ({
@@ -12,12 +12,11 @@ const useStyles = makeStyles((theme: any) => ({
    },
 }));
 
-interface HeaderItemProps {
+interface HeaderItemProps extends ButtonProps {
    title: string;
    onClick?: () => void | null;
    style?: object;
    icon?: React.ReactNode;
-   [x: string]: any;
 }
 const HeaderItem: FC<HeaderItemProps> = (props) => {
    const classes = useStyles();
@@ -31,6 +30,7 @@ const HeaderItem: FC<HeaderItemProps> = (props) => {
          style={style}
          startIcon={icon}
          disableFocusRipple
+         {...rest}
       >
          {title}
       </Button>

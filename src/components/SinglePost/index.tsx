@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 
 const PostContent = (props: Props) => {
-   const { _id, slug }: any = useParams();
+   const { _id }: any = useParams();
    const { enqueueSnackbar } = useSnackbar();
 
    const {

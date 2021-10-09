@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import Footer from '../Footer';
 import { Grid, Slide, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import { MyTheme } from '../../styles/config';

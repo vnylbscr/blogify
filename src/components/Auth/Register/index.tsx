@@ -1,11 +1,11 @@
 import React from 'react';
-import { Backdrop, Grid, Typography, CircularProgress, Hidden, Fade, Box } from '@material-ui/core';
+import { Grid, Typography, Hidden, Fade } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import Input from '../../BaseComponents/Input/Input';
 import { useMutation } from '@apollo/client';
 import { USER_REGISTER_MUTATION } from '../../../queries/register';
 // import { RegisterMutation, RegisterMutationVariables } from '../../../queries/__generated__/RegisterMutation';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { EMAIL_REGEX, PASSWORD_MUST_BE_6_CHARACTERS } from '../../../lib/constants';
 import { useForm } from 'react-hook-form';
@@ -46,9 +46,7 @@ const RegisterPage = (props: Props) => {
    const classes = useStyles();
    const dispatch = useDispatch();
    const { enqueueSnackbar } = useSnackbar();
-   const [register, { error, loading }] = useMutation<RegisterMutation, RegisterMutationVariables>(
-      USER_REGISTER_MUTATION
-   );
+   const [register, { loading }] = useMutation<RegisterMutation, RegisterMutationVariables>(USER_REGISTER_MUTATION);
    const {
       control,
       handleSubmit,

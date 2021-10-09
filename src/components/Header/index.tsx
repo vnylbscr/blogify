@@ -7,20 +7,14 @@ import {
    makeStyles,
    Grid,
    Button,
-   List,
-   ListItem,
-   ListItemText,
-   ListItemIcon,
-   Divider,
    Hidden,
    useMediaQuery,
    Drawer,
-   FormControlLabel,
-   Switch,
    Menu,
    useScrollTrigger,
    CssBaseline,
    Slide,
+   MenuItem,
 } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import HeaderItem from './Item';
@@ -31,13 +25,12 @@ import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import MenuIcon from '@material-ui/icons/Menu';
 import { MyTheme } from '../../styles/config';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT } from '../../redux/actions/user';
-import PersonIcon from '@material-ui/icons/Person';
-import StyledMenuItem from '../BaseComponents/MenuItem';
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import SearchBar from '../BaseComponents/SearchBar';
+import MyDrawer from './drawer';
+import CustomAvatar from '../BaseComponents/Avatar';
 
 const useStyles = makeStyles((theme: MyTheme) => ({
    root: {
@@ -59,10 +52,7 @@ const useStyles = makeStyles((theme: MyTheme) => ({
       flexGrow: 1,
       fontWeight: 'bold',
    },
-   icon: {
-      fontSize: '1.5rem',
-      color: '#C6B4CE',
-   },
+
    createIcon: {
       fontSize: '1.3rem',
       color: '#fff',
@@ -188,56 +178,6 @@ const AppBar = (props: Props) => {
       });
    };
    // drawer for mobile
-   const myDrawer = (
-      <Grid container direction='column' justifyContent='space-between' style={{ height: '100%' }}>
-         <Grid container item direction='column'>
-            <Typography onClick={() => history.push('/')} variant='h6' align='center' style={{ paddingTop: 10 }}>
-               Blogify
-            </Typography>
-         </Grid>
-         <Divider style={{ width: '100%', color: '#fff' }} />
-         <Grid container item xs={9}>
-            <List>
-               {APP_BAR_ITEMS.map((item) => (
-                  <ListItem
-                     button
-                     onClick={() => {
-                        handleClickItem(item.url);
-                        // * when change route, close the drawer
-                        handleChangeDrawer();
-                     }}
-                     key={item.url}
-                  >
-                     <ListItemIcon className={classes.icon}>{item.icon}</ListItemIcon>
-                     <ListItemText>{item.title.toLowerCase()}</ListItemText>
-                  </ListItem>
-               ))}
-            </List>
-         </Grid>
-
-         <Grid item container alignItems='center' direction='column'>
-            <FormControlLabel
-               control={<Switch name='checkedA' color='secondary' />}
-               label='dark theme'
-               color='Primary'
-            />
-            {authorized && (
-               <Grid container alignItems='center' style={{ marginBottom: 10, marginTop: 10, padding: 10 }}>
-                  <Button
-                     variant='text'
-                     startIcon={<ExitToAppIcon fontSize='medium' />}
-                     fullWidth
-                     color='inherit'
-                     style={{ marginRight: 20 }}
-                     onClick={handleLogoutUser}
-                  >
-                     logout
-                  </Button>
-               </Grid>
-            )}
-         </Grid>
-      </Grid>
-   );
 
    return (
       <Fragment>
@@ -283,8 +223,15 @@ const AppBar = (props: Props) => {
                            paper: classes.paper,
                         }}
                      >
-                        {myDrawer}
+                        <MyDrawer
+                           authorized={authorized}
+                           handleChangeDrawer={handleChangeDrawer}
+                           handleClickItem={handleClickItem}
+                           handleLogoutUser={handleLogoutUser}
+                           items={APP_BAR_ITEMS}
+                        />
                      </Drawer>
+
                      <Hidden xsDown smDown>
                         <Fragment>
                            <Grid
@@ -299,6 +246,14 @@ const AppBar = (props: Props) => {
                               {authorized
                                  ? AUTHORIZED_APP_BAR_ITEMS.map((item) => (
                                       <Fragment>
+                                         <Grid xs={3} container>
+                                            <SearchBar
+                                               fullWidth
+                                               onChange={(e) => console.log(e.target.value)}
+                                               color='secondary'
+                                               size='small'
+                                            />
+                                         </Grid>
                                          <HeaderItem
                                             title={item.title}
                                             onClick={() => handleClickItem(item.url)}
@@ -307,30 +262,24 @@ const AppBar = (props: Props) => {
                                             disableRipple
                                          />
                                          <IconButton onClick={handleProfileMenu}>
-                                            <PersonIcon fontSize='large' style={{ color: '#fff' }} />
+                                            <CustomAvatar size='medium' color='orange'>
+                                               A
+                                            </CustomAvatar>
                                          </IconButton>
                                          <Menu
-                                            id='simple-menu'
                                             anchorEl={anchorEl}
                                             keepMounted
                                             open={Boolean(anchorEl)}
                                             onClose={() => setAnchorEl(null)}
+                                            anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+                                            transformOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                                          >
-                                            <StyledMenuItem
-                                               onClick={() => {
-                                                  handleClickItem('/profile');
-                                                  setAnchorEl(null);
-                                               }}
-                                               icon={() => <PermIdentityIcon />}
-                                               label='profile'
-                                               variant='first'
-                                            />
-                                            <StyledMenuItem
-                                               onClick={handleLogoutUser}
-                                               variant='first'
-                                               label='logout'
-                                               icon={() => <ExitToAppIcon />}
-                                            />
+                                            <MenuItem>Selam</MenuItem>
+                                            <MenuItem>Selam</MenuItem>
+                                            <MenuItem>Selam</MenuItem>
+                                            <MenuItem>Selam</MenuItem>
+                                            <MenuItem>Selam</MenuItem>
+                                            <MenuItem>Selam</MenuItem>
                                          </Menu>
                                       </Fragment>
                                    ))
