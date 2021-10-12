@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: MyTheme) => ({
       fontSize: '1.2rem',
    },
    icon: {
-      color: theme.colorPalette.secondary,
+      color: '#5C7AEA',
    },
    focused: {
       transition: 'all .5s',

@@ -22,16 +22,16 @@ const getColorFromKey = (color?: ColorsKey) => {
       case 'red':
          return red[500];
       case 'pink':
-         return pink['500'];
+         return pink[500];
       default:
-         return purple['500'];
+         return purple[500];
    }
 };
 
 const useStyles = makeStyles<MyTheme, CustomAvatarProps>((theme: MyTheme) => ({
    root: {
-      width: (props) => (props.size === 'small' ? 45 : 60),
-      height: (props) => (props.size === 'small' ? 45 : 60),
+      width: (props) => (props.size === 'small' ? 40 : 65),
+      height: (props) => (props.size === 'small' ? 40 : 65),
       backgroundColor: (props) => getColorFromKey(props.color),
    },
 }));

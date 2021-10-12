@@ -110,7 +110,7 @@ const LoginPage = (props: Props) => {
                            error={errors.password}
                            fullWidth
                            startIcon={<LockIcon />}
-                           label='Şifre'
+                           label='Password'
                            control={control}
                            rules={{
                               required: REQUIRED_FIELD,

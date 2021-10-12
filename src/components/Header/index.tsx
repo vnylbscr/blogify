@@ -14,7 +14,7 @@ import {
    useScrollTrigger,
    CssBaseline,
    Slide,
-   MenuItem,
+   ListItemIcon,
 } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import HeaderItem from './Item';
@@ -31,6 +31,9 @@ import { LOGOUT } from '../../redux/actions/user';
 import SearchBar from '../BaseComponents/SearchBar';
 import MyDrawer from './drawer';
 import CustomAvatar from '../BaseComponents/Avatar';
+
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import StyledMenuItem from '../BaseComponents/MenuItem';
 
 const useStyles = makeStyles((theme: MyTheme) => ({
    root: {
@@ -77,6 +80,10 @@ const useStyles = makeStyles((theme: MyTheme) => ({
          transform: 'scale(1.04)',
          cursor: 'pointer',
       },
+   },
+   menuPaper: {
+      backgroundColor: theme.colorPalette.secondary,
+      minWidth: 140,
    },
    loginButton: {
       fontSize: '1rem',
@@ -146,17 +153,16 @@ const AppBar = (props: Props) => {
    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
    const dispatch = useDispatch();
    const authorized = useSelector((state: any) => state.userReducer.token);
-   console.log('bu tema', theme);
+   const user = useSelector((state: any) => state.userReducer.user);
    const classes = useStyles();
    const history = useHistory();
-
-   console.log(authorized, 'issss');
-
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
    const [openDrawer, setOpenDrawer] = useState<boolean>();
+
    const handleClickItem = (url: string) => {
       history.push(url);
    };
+
    const handleProfileMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(e.currentTarget);
    };
@@ -177,7 +183,6 @@ const AppBar = (props: Props) => {
          type: LOGOUT,
       });
    };
-   // drawer for mobile
 
    return (
       <Fragment>
@@ -246,7 +251,7 @@ const AppBar = (props: Props) => {
                               {authorized
                                  ? AUTHORIZED_APP_BAR_ITEMS.map((item) => (
                                       <Fragment>
-                                         <Grid xs={3} container>
+                                         <Grid xs={6} container>
                                             <SearchBar
                                                fullWidth
                                                onChange={(e) => console.log(e.target.value)}
@@ -262,8 +267,8 @@ const AppBar = (props: Props) => {
                                             disableRipple
                                          />
                                          <IconButton onClick={handleProfileMenu}>
-                                            <CustomAvatar size='medium' color='orange'>
-                                               A
+                                            <CustomAvatar size='small' color='red'>
+                                               {user.username[0].toUpperCase()}
                                             </CustomAvatar>
                                          </IconButton>
                                          <Menu
@@ -271,15 +276,27 @@ const AppBar = (props: Props) => {
                                             keepMounted
                                             open={Boolean(anchorEl)}
                                             onClose={() => setAnchorEl(null)}
-                                            anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-                                            transformOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                            transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                            PaperProps={{
+                                               className: classes.menuPaper,
+                                               elevation: 4,
+                                            }}
                                          >
-                                            <MenuItem>Selam</MenuItem>
-                                            <MenuItem>Selam</MenuItem>
-                                            <MenuItem>Selam</MenuItem>
-                                            <MenuItem>Selam</MenuItem>
-                                            <MenuItem>Selam</MenuItem>
-                                            <MenuItem>Selam</MenuItem>
+                                            <StyledMenuItem
+                                               onClick={() => {
+                                                  setAnchorEl(null);
+                                                  history.push('/profile');
+                                               }}
+                                            >
+                                               my profile
+                                            </StyledMenuItem>
+                                            <StyledMenuItem onClick={handleLogoutUser}>
+                                               logout
+                                               <ListItemIcon>
+                                                  <ExitToAppIcon></ExitToAppIcon>
+                                               </ListItemIcon>
+                                            </StyledMenuItem>
                                          </Menu>
                                       </Fragment>
                                    ))

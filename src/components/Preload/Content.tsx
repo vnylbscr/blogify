@@ -80,19 +80,19 @@ const Preload = () => {
                      style={{ marginTop: 28 }}
                      className='home-subtitle'
                   >
-                     Blog paylaşmak hiç bu kadar kolay olmamıştı.
+                     sharing blog is easy with blogify now!
                   </Typography>
                </Grid>
                <Grid item xs={9} spacing={3}>
                   <Button fullWidth variant='contained' onClick={handleClick} className={classes.getStartedButton}>
-                     Başlarken
+                     get started
                   </Button>
                </Grid>
 
                <Grid item xs={12}>
                   <Link href='https://github.com/vnylbscr'>
                      <Typography align='center' color='textSecondary'>
-                        Blogify(c) 2021
+                        blogify(c) 2021
                      </Typography>
                   </Link>
                </Grid>
