@@ -59,8 +59,7 @@ const About = () => {
          <Grid container alignItems='center' justifyContent='center' className={classes.root}>
             <Grid container className={classes.section} alignItems='center' justifyContent='center'>
                <Typography variant='h5' align='center' className={classes.title}>
-                  Blogify bir blog paylaşma platformudur. Hemen hesap oluşturarak yeni bir hesap oluşturabilir,
-                  arkadaşlarınla blog'larını paylaşaabilirsin.
+                  blogify is a web platform that you can share stories with other people.
                </Typography>
             </Grid>
          </Grid>

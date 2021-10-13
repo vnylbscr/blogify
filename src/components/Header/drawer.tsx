@@ -6,13 +6,40 @@ import MyDivider from '../BaseComponents/Divider';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core';
 import { Fn } from '../../types/utils';
+import HomeIcon from '@material-ui/icons/Home';
+import InfoIcon from '@material-ui/icons/Info';
+import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+const ITEMS = [
+   {
+      title: 'Home',
+      url: '/',
+      icon: <HomeIcon />,
+   },
+   {
+      title: 'Profile',
+      url: '/profile',
+      icon: <PermIdentityIcon />,
+   },
+   {
+      title: 'Add new post',
+      url: '/add-new-post',
+      icon: <ContactSupportIcon />,
+   },
+   {
+      title: 'Contributors',
+      url: '/contributors',
+      icon: <AllInclusiveIcon />,
+   },
+];
 
 interface Props {
-   items: Array<any>;
    handleClickItem: (item: string) => void;
    handleChangeDrawer: Fn;
    handleLogoutUser: Fn;
    authorized: boolean;
+   authorizedItems: Array<any>;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -25,8 +52,9 @@ const useStyles = makeStyles((theme) => ({
 
 const MyDrawer = (props: Props) => {
    const history = useHistory();
-   const { items, handleClickItem, handleChangeDrawer, authorized, handleLogoutUser } = props;
+   const { authorizedItems, handleClickItem, handleChangeDrawer, authorized, handleLogoutUser } = props;
    const classes = useStyles();
+   const arrayKey = authorized ? ITEMS : authorizedItems;
 
    return (
       <Grid container direction='column' justifyContent='space-between' style={{ height: '100%' }}>
@@ -38,7 +66,7 @@ const MyDrawer = (props: Props) => {
          <MyDivider dashed />
          <Grid container item xs={9}>
             <List>
-               {items.map((item) => (
+               {arrayKey.map((item: any) => (
                   <ListItem
                      button
                      onClick={() => {

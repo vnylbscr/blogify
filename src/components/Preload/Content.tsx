@@ -80,7 +80,7 @@ const Preload = () => {
                      style={{ marginTop: 28 }}
                      className='home-subtitle'
                   >
-                     sharing blog is easy with blogify now!
+                     sharing blog and stories is easy with blogify now!
                   </Typography>
                </Grid>
                <Grid item xs={9} spacing={3}>
@@ -90,7 +90,7 @@ const Preload = () => {
                </Grid>
 
                <Grid item xs={12}>
-                  <Link href='https://github.com/vnylbscr'>
+                  <Link href='https://github.com/vnylbscr/blogify'>
                      <Typography align='center' color='textSecondary'>
                         blogify(c) 2021
                      </Typography>

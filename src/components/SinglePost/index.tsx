@@ -7,10 +7,12 @@ import { GET_SINGLE_POST } from '../../queries/getSinglePost';
 import { useSnackbar } from 'notistack';
 import MyTypography from '../BaseComponents/Typography';
 import Loader from '../Loader';
+import ReactMarkDown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Props {}
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles((theme) => ({
    root: {
       minHeight: 'calc(100vh - 60px)',
    },
@@ -19,7 +21,7 @@ const useStyles = makeStyles((theme: any) => ({
       width: '100%',
       transition: 'all linear 1s',
       filter: 'brightness(0.8)',
-      backgroundSize: 'cover',
+      backgroundSize: 'auto',
       backgroundRepeat: 'no-repeat',
       background: (props: any) => `url(${props.image})`,
       '&:hover': {
@@ -27,17 +29,26 @@ const useStyles = makeStyles((theme: any) => ({
          transform: 'scale(1)',
       },
    },
+   image: {
+      width: '100%',
+      height: 'auto',
+   },
+   markDownContainer: {
+      background: '#5C7AEA',
+   },
+   markDown: {
+      whiteSpace: 'pre-wrap',
+      backgroundColor: '#A2D2FF',
+      padding: theme.spacing(3),
+      width: '100%',
+   },
 }));
 
 const PostContent = (props: Props) => {
    const { _id }: any = useParams();
    const { enqueueSnackbar } = useSnackbar();
 
-   const {
-      data: { getPost: data },
-      loading,
-      error,
-   } = useQuery(GET_SINGLE_POST, {
+   const { data, loading, error } = useQuery(GET_SINGLE_POST, {
       variables: {
          _id,
       },
@@ -49,7 +60,7 @@ const PostContent = (props: Props) => {
       },
    });
 
-   const classes = useStyles(data);
+   const classes = useStyles(data?.getPost);
 
    if (loading) {
       return <Loader />;
@@ -63,8 +74,26 @@ const PostContent = (props: Props) => {
       <Grid container xs={12} justifyContent='flex-start' alignItems='flex-start' className={classes.root}>
          <Grid xs={12} container justifyContent='center' alignItems='center' className={classes.imageSection}>
             <MyTypography variant='h1' color='textPrimary'>
-               {data?.title}
+               {data?.getPost?.title}
             </MyTypography>
+         </Grid>
+         <Grid container className={classes.markDownContainer} justifyContent='center' xs={12}>
+            <Grid sm={3} container item style={{ backgroundColor: 'red' }}>
+               
+            </Grid>
+            <Grid justifyContent='center' alignItems='center' container xs={false} sm={6}>
+               <ReactMarkDown
+                  className={classes.markDown}
+                  children={data?.getPost?.content}
+                  remarkPlugins={remarkGfm as any}
+                  components={{
+                     img: (props) => <img {...props} alt={props['aria-label']} className={classes.image} />,
+                  }}
+               />
+            </Grid>
+            <Grid sm={3} xs={false}>
+               merto
+            </Grid>
          </Grid>
       </Grid>
    );

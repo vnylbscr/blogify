@@ -25,7 +25,9 @@ const Home = (props: IProps) => {
    const user = useSelector((state: any) => state.userReducer.user);
    const dispatch = useDispatch();
 
-   const { loading: allPostsLoading, data } = useQuery<GetAllPosts>(GET_ALL_POSTS_QUERY);
+   const { loading: allPostsLoading, data } = useQuery<GetAllPosts>(GET_ALL_POSTS_QUERY, {
+      fetchPolicy: 'cache-and-network',
+   });
    const classes = useStyles();
 
    if (allPostsLoading) {

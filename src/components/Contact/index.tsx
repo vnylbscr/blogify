@@ -12,19 +12,17 @@ import './index.scss';
 //    },
 // }));
 
-const DESC_WHO_WE_ARE =
-   'Blogify ile blog yazılarını paylaşabilir, diğer insanların, arkadaşlarının görmesini sağlayabilirsin. Blog yazılarını düzenleyebilir ve daha binlerce şey yapabilirsin.';
+const DESC_WHO_WE_ARE = 'blogify is a web platform that you can share stories and posts with people.';
 
-const DESC_WHAT_WE_DO =
-   'Blogify ekibi olarak birinci önceliğimiz, her türlü sorun için bir blog oluşturmak. Sizler için elimizden gelenin en iyisini yapacağız.';
+const DESC_WHAT_WE_DO = 'i created blogify with react, apollo, and material-ui. need help? get in touch.';
 
 const MOCKS_MENU = [
    {
-      title: 'Biz kimiz?',
+      title: 'what is blogify?',
       description: DESC_WHO_WE_ARE,
    },
    {
-      title: 'Ne yapıyoruz?',
+      title: 'what does it do?',
       description: DESC_WHAT_WE_DO,
    },
 ];
@@ -33,13 +31,6 @@ const Contact = () => {
    return (
       <Fragment>
          <main className='contact-container'>
-            <div className='contact-top-section'>
-               <p>Blogify</p>
-               <div className='contact-title-container'>
-                  <p>Hızlı.</p>
-                  <p>Güvenilir</p>
-               </div>
-            </div>
             <div className='contact-bottom-section'>
                {MOCKS_MENU.map((item, index) => (
                   <Fragment key={item.title + index}>

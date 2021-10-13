@@ -233,7 +233,7 @@ const AppBar = (props: Props) => {
                            handleChangeDrawer={handleChangeDrawer}
                            handleClickItem={handleClickItem}
                            handleLogoutUser={handleLogoutUser}
-                           items={APP_BAR_ITEMS}
+                           authorizedItems={APP_BAR_ITEMS}
                         />
                      </Drawer>
 
@@ -246,7 +246,7 @@ const AppBar = (props: Props) => {
                               justifyContent={authorized ? 'flex-end' : 'center'}
                               item
                               className={classes.title}
-                              xs={authorized ? 9 : 6}
+                              xs={6}
                            >
                               {authorized
                                  ? AUTHORIZED_APP_BAR_ITEMS.map((item) => (

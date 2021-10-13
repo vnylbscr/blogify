@@ -6,8 +6,9 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { useTheme } from '@material-ui/styles';
 import { Controller, useForm } from 'react-hook-form';
 import PublishIcon from '@material-ui/icons/Publish';
-import ReactSelect from 'react-select';
+import ReactSelect from 'react-select/creatable';
 import BackupIcon from '@material-ui/icons/Backup';
+import MyTypography from '../BaseComponents/Typography';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -158,8 +159,6 @@ const MarkDownEditor = (props: Props) => {
       });
    };
 
-   console.log(watch('category'));
-
    return (
       <div className={classes.root}>
          <form onSubmit={handleSubmit(onSubmit)}>
@@ -198,13 +197,13 @@ const MarkDownEditor = (props: Props) => {
                      />
                   </Grid>
                   <Grid item xs={12}>
-                     <Typography
+                     <MyTypography
                         variant='body2'
                         color='textSecondary'
                         style={{ padding: '8px 0px', color: errors?.category && 'red' }}
                      >
                         select category
-                     </Typography>
+                     </MyTypography>
                      <Controller
                         control={control}
                         name='category'
@@ -227,6 +226,13 @@ const MarkDownEditor = (props: Props) => {
                               {...field}
                               isMulti
                               isSearchable
+                              onCreateOption={(newValue) => {
+                                 const newOption = {
+                                    label: newValue,
+                                    value: newValue,
+                                 };
+                                 setValue('category', [...watch('category'), newOption]);
+                              }}
                            />
                         )}
                      />
@@ -295,7 +301,7 @@ const MarkDownEditor = (props: Props) => {
                height={500}
                className={classes.editor}
                value={watch('content')}
-               onChange={(value) => setValue('content', value, { shouldDirty: true })}
+               onChange={(value) => setValue('content', value, { shouldValidate: true })}
                tabSize={3}
             />
             <div style={{ padding: '50px 0 0 0' }} />
