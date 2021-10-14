@@ -9,6 +9,8 @@ import MyTypography from '../BaseComponents/Typography';
 import Loader from '../Loader';
 import ReactMarkDown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import LeftSide from './leftSide';
+import RightSide from './rightSide';
 
 interface Props {}
 
@@ -78,8 +80,8 @@ const PostContent = (props: Props) => {
             </MyTypography>
          </Grid>
          <Grid container className={classes.markDownContainer} justifyContent='center' xs={12}>
-            <Grid sm={3} container item style={{ backgroundColor: 'red' }}>
-               
+            <Grid sm={3} container item>
+               <LeftSide post={data.getPost} />
             </Grid>
             <Grid justifyContent='center' alignItems='center' container xs={false} sm={6}>
                <ReactMarkDown
@@ -92,7 +94,7 @@ const PostContent = (props: Props) => {
                />
             </Grid>
             <Grid sm={3} xs={false}>
-               merto
+               <RightSide post={data.getPost} />
             </Grid>
          </Grid>
       </Grid>

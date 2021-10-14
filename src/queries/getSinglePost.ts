@@ -19,6 +19,7 @@ export const GET_SINGLE_POST = gql`
          user {
             _id
             username
+            email
          }
          slug
          likedCount
