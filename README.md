@@ -1,1 +1,17 @@
-Blogify is a Web App that you share blog posts. This project still developing by me using TypeScript and React. 
+# Welcome to My Blogify App!
+
+*Hi! My name is Mert 💪 and I'm a software engineer from Istanbul, Turkey. * 
+
+In this project, I've implemented a platform called with Blogify that you can share posts and stories with other people. I'm still developing this project. I've written backend and frontend for this app.
+
+**I used:**
+ 1.  TypeScript 
+ 2. React, 
+ 3. Material UI
+ 4.  Apollo GraphQL,
+ 5.  Storybook
+ 6. Redux
+
+ in this project. I hope you will like it. 
+ 
+  *For now, I haven't deploy yet I'm still working on it.*
