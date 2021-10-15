@@ -42,6 +42,7 @@ const uploadLink = createUploadLink({
 const client = new ApolloClient({
    link: from([authLink, errorLink, uploadLink]),
    cache: new InMemoryCache(),
+   connectToDevTools: true,
 });
 
 ReactDOM.render(
