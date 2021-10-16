@@ -1,10 +1,9 @@
-import React from 'react';
-import { Grid, Paper, makeStyles, CircularProgress, CardMedia } from '@material-ui/core';
-import { useSelector } from 'react-redux';
-import { MyTheme } from '../../styles/config';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_USER_POSTS } from '../../queries/getUserPosts';
-import { getUserPostsQuery, getUserPostsQueryVariables } from '../../queries/__generated__/getUserPostsQuery';
+import { CardMedia, CircularProgress, Grid, makeStyles, Paper } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { GET_ALL_POSTS_WITH_PAGINATE_QUERY } from '../../queries/getPostWithPaginate';
+import { MyTheme } from '../../styles/config';
 import MyTypography from '../BaseComponents/Typography';
 
 interface Props {}
@@ -28,9 +27,17 @@ const useStyles = makeStyles((theme: MyTheme) => ({
 const StickyLeftPanel = (props: Props) => {
    const user = useSelector((state: any) => state.userReducer.user);
    const classes = useStyles(props);
-   const { data: userPosts, loading } = useQuery<getUserPostsQuery, getUserPostsQueryVariables>(GET_USER_POSTS, {
+   const [recentsPosts, setRecentPosts] = useState([]);
+
+   const { loading } = useQuery(GET_ALL_POSTS_WITH_PAGINATE_QUERY, {
       variables: {
-         getUserPostsUser: user._id,
+         limit: 2,
+         page: 1,
+      },
+      onCompleted: (data) => {
+         if (data) {
+            setRecentPosts(data?.getAllPostsByPage?.docs);
+         }
       },
    });
 
@@ -50,8 +57,8 @@ const StickyLeftPanel = (props: Props) => {
                <MyTypography bold margin variant='h6'>
                   your recent posts.
                </MyTypography>
-               {userPosts?.getUserPosts?.map((post) => (
-                  <Grid container alignItems='center' spacing={2} xs={12}>
+               {recentsPosts.map((post: any) => (
+                  <Grid key={post._id} container alignItems='center' spacing={2} xs={12}>
                      <Grid item xs={3}>
                         <CardMedia component='img' height='50' image={post?.image || undefined} alt='merto posts' />
                      </Grid>
