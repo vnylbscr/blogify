@@ -7,6 +7,8 @@ export type WithUndefined<T> = T | undefined;
 
 export type Maybe<T> = T | null;
 
+export type GetArrayType<T> = T extends Array<infer U> ? U : never;
+
 export type Await<T> = T extends Promise<infer U> ? U : T;
 
 export type Size = {

@@ -24,7 +24,7 @@ interface IProps<T> extends RequireField<UseControllerProps<T>, 'control'> {
 
 const useStyles = makeStyles((theme: MyTheme) => ({
    root: {
-      marginTop: 20,
+      marginTop: theme.spacing(3),
    },
    labelColor: {
       fontSize: '15px',

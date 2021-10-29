@@ -7,7 +7,6 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core';
 import { Fn } from '../../types/utils';
 import HomeIcon from '@material-ui/icons/Home';
-import InfoIcon from '@material-ui/icons/Info';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
