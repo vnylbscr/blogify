@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Grid, Hidden } from '@material-ui/core';
+import { Box, CircularProgress, Grid, Hidden } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -40,8 +40,6 @@ const Home = (props: IProps) => {
    const classes = useStyles();
 
    const fetchMoreData = async () => {
-      console.log('cagrildi');
-
       await fetchMore({
          variables: {
             page: data?.getAllPostsByPage.page + 1,
@@ -77,7 +75,19 @@ const Home = (props: IProps) => {
                dataLength={data?.getAllPostsByPage?.page * pageState.limit}
                next={fetchMoreData}
                hasMore={data?.getAllPostsByPage?.hasNextPage}
-               loader={<h4>Loading...</h4>}
+               loader={
+                  <Grid
+                     style={{
+                        height: 100,
+                     }}
+                     container
+                     justifyContent='center'
+                     alignItems='center'
+                     xs={12}
+                  >
+                     <CircularProgress size={24} color='secondary' />
+                  </Grid>
+               }
                endMessage={
                   <MyTypography bold margin variant='h6'>
                      thats all for now.
@@ -89,7 +99,6 @@ const Home = (props: IProps) => {
                })}
             </InfiniteScroll>
          </Grid>
-
          <Grid xs={3}>its amazing.</Grid>
       </Grid>
    );
