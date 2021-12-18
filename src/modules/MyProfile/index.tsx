@@ -1,7 +1,7 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getUser } from '../../redux/reducers/userReducer';
+import { getUser } from '../../store/reducers/userReducer';
 import LeftPanel from './leftPanel';
 import RightPanel from './rightPanel';
 

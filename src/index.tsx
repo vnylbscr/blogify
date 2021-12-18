@@ -10,7 +10,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import { setContext } from '@apollo/client/link/context';
 
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './redux/store';
+import { store, persistor } from './store/store';
 // Error Handling for GRAPH QL
 const errorLink = onError(({ graphQLErrors, networkError }) => {
    if (graphQLErrors)

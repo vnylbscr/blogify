@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { EMAIL_REGEX, PASSWORD_MUST_BE_6_CHARACTERS } from '../../../lib/constants';
 import { USER_REGISTER_MUTATION } from '../../../queries/register';
 import { RegisterMutation, RegisterMutationVariables } from '../../../queries/__generated__/RegisterMutation';
-import { REGISTER } from '../../../redux/actions/user';
+import { REGISTER } from '../../../store/actions/user';
 import ButtonSuccess from '../../../components/Button/ButtonSuccess';
 import FooterText from '../../../components/FooterText';
 import Input from '../../../components/Input/Input';

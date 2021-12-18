@@ -27,7 +27,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { MyTheme } from '../../styles/config';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useDispatch, useSelector } from 'react-redux';
-import { LOGOUT } from '../../redux/actions/user';
+import { LOGOUT } from '../../store/actions/user';
 import SearchBar from '../../components/SearchBar';
 import MyDrawer from './drawer';
 import CustomAvatar from '../../components/Avatar';

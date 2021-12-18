@@ -10,7 +10,7 @@ export default {
          control: { type: 'radio' },
       },
       showBadge: {
-         type: 'boolean',
+         control: { type: 'radio' },
       },
    },
 } as Meta;
