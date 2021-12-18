@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, makeStyles, Avatar, Typography } from '@material-ui/core';
-import { GetAllPosts_getAllPosts as Post } from '../../../queries/__generated__/GetAllPosts';
+import { GetAllPosts_getAllPosts as Post } from '../../queries/__generated__/GetAllPosts';
 
 interface Props {
    post: Post;

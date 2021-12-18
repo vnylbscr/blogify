@@ -4,7 +4,7 @@ import { CardMedia, CircularProgress, Grid, makeStyles, Paper } from '@material-
 import { useSelector } from 'react-redux';
 import { GET_ALL_POSTS_WITH_PAGINATE_QUERY } from '../../queries/getPostWithPaginate';
 import { MyTheme } from '../../styles/config';
-import MyTypography from '../BaseComponents/Typography';
+import MyTypography from '../../components/Typography';
 
 interface Props {}
 const useStyles = makeStyles((theme: MyTheme) => ({

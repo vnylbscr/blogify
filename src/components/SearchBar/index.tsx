@@ -2,8 +2,8 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { InputBaseProps } from '@material-ui/core';
-import { MyTheme } from '../../../styles/config';
-import { VariantSize } from '../../../types/utils';
+import { MyTheme } from '../../styles/config';
+import { VariantSize } from '../../types/utils';
 
 interface Props extends InputBaseProps {
    size?: Exclude<VariantSize, 'huge' | 'large'>;

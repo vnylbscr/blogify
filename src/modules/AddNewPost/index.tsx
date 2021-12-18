@@ -6,7 +6,7 @@ import MarkDownEditor, { FormState } from './markDownEditor';
 import { useMutation } from '@apollo/client';
 import { ADD_POST_MUTATION } from '../../queries/addPost';
 import { useSelector } from 'react-redux';
-import Loader from '../Loader';
+import Loader from '../../components/Loader';
 import { AddPostMutation } from '../../queries/__generated__/AddPostMutation';
 import { useSnackbar } from 'notistack';
 interface Props {}

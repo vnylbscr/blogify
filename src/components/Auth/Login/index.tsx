@@ -9,12 +9,13 @@ import { CircularProgress } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { USER_LOGIN_MUTATION } from '../../../queries/authorize';
 import { LOGIN } from '../../../redux/actions/user';
-import Input from '../../BaseComponents/Input/Input';
 import { EMAIL_REGEX, REQUIRED_FIELD } from '../../../lib/constants';
 import FooterText from '../../FooterText';
 import { LoginMutation, LoginMutationVariables } from '../../../queries/__generated__/LoginMutation';
 import Loader from '../../Loader';
 import { useSnackbar } from 'notistack';
+import Input from '../../Input/Input';
+
 interface Props {}
 
 const useStyles = makeStyles((theme) => ({

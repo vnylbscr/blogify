@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react';
-import MyDivider from '../../components/BaseComponents/Divider';
+import MyDivider from '../../components/Divider';
 
 export default {
    title: 'MyDivider',

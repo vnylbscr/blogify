@@ -1,23 +1,22 @@
-import React from 'react';
-import { Grid, Typography, Hidden, Fade } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
-import Input from '../../BaseComponents/Input/Input';
 import { useMutation } from '@apollo/client';
-import { USER_REGISTER_MUTATION } from '../../../queries/register';
-// import { RegisterMutation, RegisterMutationVariables } from '../../../queries/__generated__/RegisterMutation';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { EMAIL_REGEX, PASSWORD_MUST_BE_6_CHARACTERS } from '../../../lib/constants';
-import { useForm } from 'react-hook-form';
-import { REGISTER } from '../../../redux/actions/user';
+import { Fade, Grid, Hidden, makeStyles, Typography } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
-import ButtonSuccess from '../../BaseComponents/Button/ButtonSuccess';
-import FooterText from '../../FooterText';
-import { RegisterMutation, RegisterMutationVariables } from '../../../queries/__generated__/RegisterMutation';
-import Loader from '../../Loader';
 import { useSnackbar } from 'notistack';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+// import { RegisterMutation, RegisterMutationVariables } from '../../../queries/__generated__/RegisterMutation';
+import { Link } from 'react-router-dom';
+import { EMAIL_REGEX, PASSWORD_MUST_BE_6_CHARACTERS } from '../../../lib/constants';
+import { USER_REGISTER_MUTATION } from '../../../queries/register';
+import { RegisterMutation, RegisterMutationVariables } from '../../../queries/__generated__/RegisterMutation';
+import { REGISTER } from '../../../redux/actions/user';
+import ButtonSuccess from '../../Button/ButtonSuccess';
+import FooterText from '../../FooterText';
+import Input from '../../Input/Input';
+import Loader from '../../Loader';
 
 interface Props {}
 

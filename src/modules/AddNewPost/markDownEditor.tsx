@@ -8,7 +8,7 @@ import { Controller, useForm } from 'react-hook-form';
 import PublishIcon from '@material-ui/icons/Publish';
 import ReactSelect from 'react-select/creatable';
 import BackupIcon from '@material-ui/icons/Backup';
-import MyTypography from '../BaseComponents/Typography';
+import MyTypography from '../../components/Typography';
 
 const useStyles = makeStyles((theme) => ({
    root: {

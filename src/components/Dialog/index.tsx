@@ -2,7 +2,7 @@ import React from 'react';
 import { FC } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
-import useResponsiveScreenVariables from '../../../hooks/useResponsiveScreenVariables';
+import useResponsiveScreenVariables from '../../hooks/useResponsiveScreenVariables';
 
 interface IModalProps {
    open: boolean;

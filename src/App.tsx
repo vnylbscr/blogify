@@ -1,21 +1,21 @@
 import React from 'react';
 import { Collapse, responsiveFontSizes, ThemeProvider } from '@material-ui/core';
 import { theme } from '../src/styles/config';
-import AppBar from './components/Header';
+import AppBar from './modules/Header';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import About from './components/About';
-import Contact from './components/Contact';
-import Contributors from './components/Contributors';
+import About from './modules/About';
+import Contact from './modules/Contact';
+import Contributors from './modules/Contributors';
 import Footer from './components/Footer';
 import { useSelector } from 'react-redux';
-import Home from './components/Home';
+import Home from './modules/Home';
 import { SnackbarProvider } from 'notistack';
-import Preload from './components/Preload/Content';
-import MyProfile from './components/MyProfile';
-import AddNewPost from './components/AddNewPost';
+import Preload from './modules/Preload/Content';
+import MyProfile from './modules/MyProfile';
+import AddNewPost from './modules/AddNewPost';
 import LoginPage from './components/Auth/Login';
 import RegisterPage from './components/Auth/Register';
-import PostContent from './components/SinglePost';
+import PostContent from './modules/SinglePost';
 
 const App = () => {
    const user = useSelector((state: any) => state.userReducer.user);

@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { GET_ALL_POSTS_WITH_PAGINATE_QUERY } from '../../queries/getPostWithPaginate';
 import { MyTheme } from '../../styles/config';
-import MyTypography from '../BaseComponents/Typography';
-import Loader from '../Loader';
+import MyTypography from '../../components/Typography';
+import Loader from '../../components/Loader';
 import Post from '../Post';
 import StickyLeftPanel from './stickyLeftPanel';
 

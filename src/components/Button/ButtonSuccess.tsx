@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
-import { MyTheme } from '../../../styles/config';
+import { MyTheme } from '../../styles/config';
 import { Button, Typography } from '@material-ui/core';
 interface IProps {
    fullWidth?: boolean;

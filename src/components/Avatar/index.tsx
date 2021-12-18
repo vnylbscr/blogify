@@ -1,8 +1,8 @@
 import React, { FC, Fragment } from 'react';
 import { makeStyles, styled } from '@material-ui/styles';
 import { Avatar, Badge } from '@material-ui/core';
-import { MyTheme } from '../../../styles/config';
-import { ColorsKey, VariantSize } from '../../../types/utils';
+import { MyTheme } from '../../styles/config';
+import { ColorsKey, VariantSize } from '../../types/utils';
 import { blue, orange, pink, purple, red } from '@material-ui/core/colors';
 
 export interface CustomAvatarProps {

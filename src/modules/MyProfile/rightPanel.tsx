@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
-import PostItem from '../BaseComponents/PostItem';
+import PostItem from '../../components/PostItem';
 import { GetAllPosts_getAllPosts as Post } from '../../queries/__generated__/GetAllPosts';
 
 interface Props {

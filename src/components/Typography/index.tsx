@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { TypographyProps, Typography, Slide } from '@material-ui/core';
-import { WithUndefined } from '../../../types/utils';
+import { WithUndefined } from '../../types/utils';
 
 import { makeStyles } from '@material-ui/core';
-import { MyTheme } from '../../../styles/config';
+import { MyTheme } from '../../styles/config';
 
 type MultipleChildren = WithUndefined<string> | null | WithUndefined<string>[];
 

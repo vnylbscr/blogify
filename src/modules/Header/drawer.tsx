@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, FormControlLabel, Grid, List, ListItem, ListItemIcon, ListItemText, Switch } from '@material-ui/core';
 import { useHistory } from 'react-router';
-import MyTypography from '../BaseComponents/Typography';
-import MyDivider from '../BaseComponents/Divider';
+import MyTypography from '../../components/Typography';
+import MyDivider from '../../components/Divider';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core';
 import { Fn } from '../../types/utils';

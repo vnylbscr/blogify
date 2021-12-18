@@ -28,12 +28,11 @@ import { MyTheme } from '../../styles/config';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT } from '../../redux/actions/user';
-import SearchBar from '../BaseComponents/SearchBar';
+import SearchBar from '../../components/SearchBar';
 import MyDrawer from './drawer';
-import CustomAvatar from '../BaseComponents/Avatar';
-
+import CustomAvatar from '../../components/Avatar';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import StyledMenuItem from '../BaseComponents/MenuItem';
+import StyledMenuItem from '../../components/MenuItem';
 
 const useStyles = makeStyles((theme: MyTheme) => ({
    root: {

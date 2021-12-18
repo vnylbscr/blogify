@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, DividerProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
-import { MyTheme } from '../../../styles/config';
+import { MyTheme } from '../../styles/config';
 
 interface Props extends DividerProps {
    dashed?: boolean;

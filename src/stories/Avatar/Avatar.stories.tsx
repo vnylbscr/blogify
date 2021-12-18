@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react';
-import CustomAvatar from '../../components/BaseComponents/Avatar';
+import CustomAvatar from '../../components/Avatar';
 
 export default {
    title: 'CustomAvatar',
