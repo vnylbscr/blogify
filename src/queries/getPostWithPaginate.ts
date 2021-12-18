@@ -23,6 +23,7 @@ export const GET_ALL_POSTS_WITH_PAGINATE_QUERY = gql`
             user {
                ...CoreUserFields
             }
+            createdAt
          }
       }
    }

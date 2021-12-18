@@ -1,9 +1,8 @@
-import React, { FC } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core';
+import { getUser } from '../../redux/reducers/userReducer';
 import LeftPanel from './leftPanel';
-import { useQuery } from '@apollo/client';
 import RightPanel from './rightPanel';
 
 interface IProps {}
@@ -16,8 +15,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MyProfile = (props: IProps) => {
-   const user = useSelector((state: any) => state.userReducer.user);
+   const user = useSelector(getUser);
    const classes = useStyles(props);
+   console.log('user is ', user);
 
    return (
       <Grid container spacing={1} xs={12} className={classes.root}>

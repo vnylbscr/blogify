@@ -13,10 +13,10 @@ import { EMAIL_REGEX, PASSWORD_MUST_BE_6_CHARACTERS } from '../../../lib/constan
 import { USER_REGISTER_MUTATION } from '../../../queries/register';
 import { RegisterMutation, RegisterMutationVariables } from '../../../queries/__generated__/RegisterMutation';
 import { REGISTER } from '../../../redux/actions/user';
-import ButtonSuccess from '../../Button/ButtonSuccess';
-import FooterText from '../../FooterText';
-import Input from '../../Input/Input';
-import Loader from '../../Loader';
+import ButtonSuccess from '../../../components/Button/ButtonSuccess';
+import FooterText from '../../../components/FooterText';
+import Input from '../../../components/Input/Input';
+import Loader from '../../../components/Loader';
 
 interface Props {}
 

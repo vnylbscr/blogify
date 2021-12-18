@@ -6,6 +6,9 @@ const INITIAL_STATE = {
    token: token ? token : '',
 };
 
+export const getUser = (state) => state.userReducer.user;
+export const getToken = (state) => state.userReducer.token;
+
 export const userReducer = (state = INITIAL_STATE, action) => {
    const { type, payload } = action;
    switch (type) {

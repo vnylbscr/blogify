@@ -13,8 +13,8 @@ import { SnackbarProvider } from 'notistack';
 import Preload from './modules/Preload/Content';
 import MyProfile from './modules/MyProfile';
 import AddNewPost from './modules/AddNewPost';
-import LoginPage from './components/Auth/Login';
-import RegisterPage from './components/Auth/Register';
+import LoginPage from './modules/Auth/Login';
+import RegisterPage from './modules/Auth/Register';
 import PostContent from './modules/SinglePost';
 
 const App = () => {

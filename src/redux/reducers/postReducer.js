@@ -1,17 +1,19 @@
-import { GET_POSTS } from "../actions/posts";
+import { GET_POSTS } from '../actions/posts';
 
 const initialState = {
-  posts: [],
+   posts: [],
 };
 
 export const postReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case GET_POSTS:
-      return {
-        ...state,
-        posts: [...state.posts, action.payload],
-      };
-    default:
-      return state;
-  }
+   switch (action.type) {
+      case GET_POSTS:
+         return {
+            ...state,
+            posts: [...state.posts, action.payload],
+         };
+      default:
+         return state;
+   }
 };
+
+export const getPosts = (state) => state.postReducer.posts;

@@ -1,23 +1,19 @@
 import { useQuery } from '@apollo/client';
-import { Box, CircularProgress, Grid, Hidden } from '@material-ui/core';
+import { CircularProgress, Grid, Hidden } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import React, { useState } from 'react';
+import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Loader from '../../components/Loader';
+import MyTypography from '../../components/Typography';
 import { GET_ALL_POSTS_WITH_PAGINATE_QUERY } from '../../queries/getPostWithPaginate';
 import { MyTheme } from '../../styles/config';
-import MyTypography from '../../components/Typography';
-import Loader from '../../components/Loader';
-import Post from '../Post';
+import Post from '../../components/Post';
 import StickyLeftPanel from './stickyLeftPanel';
 
 interface IProps {
    children?: React.ReactNode;
 }
 
-interface PageState {
-   limit: number;
-   page: number;
-}
 const useStyles = makeStyles((theme: MyTheme) => ({
    root: {
       width: '100%',
@@ -27,14 +23,10 @@ const useStyles = makeStyles((theme: MyTheme) => ({
 }));
 
 const Home = (props: IProps) => {
-   const [pageState, setPageState] = useState<PageState>({
-      limit: 2,
-      page: 1,
-   });
-
    const { loading: allPostsLoading, data, fetchMore } = useQuery(GET_ALL_POSTS_WITH_PAGINATE_QUERY, {
       variables: {
-         ...pageState,
+         page: 1,
+         limit: 10,
       },
    });
    const classes = useStyles();
@@ -72,7 +64,7 @@ const Home = (props: IProps) => {
          </Hidden>
          <Grid container sm={6} xs={12} justifyContent='center' alignItems='center'>
             <InfiniteScroll
-               dataLength={data?.getAllPostsByPage?.page * pageState.limit}
+               dataLength={data?.getAllPostsByPage?.page * 20}
                next={fetchMoreData}
                hasMore={data?.getAllPostsByPage?.hasNextPage}
                loader={

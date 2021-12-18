@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
       transition: 'all linear 1s',
       filter: 'brightness(0.8)',
       backgroundSize: 'auto',
+      opacity: 0.4,
       backgroundRepeat: 'no-repeat',
       background: (props: any) => `url(${props.image})`,
       '&:hover': {
@@ -61,6 +62,12 @@ const PostContent = (props: Props) => {
          });
       },
    });
+
+   React.useEffect(() => {
+      if (data?.getPost) {
+         document.title = data.getPost.title;
+      }
+   }, [data?.getPost]);
 
    const classes = useStyles(data?.getPost);
 
