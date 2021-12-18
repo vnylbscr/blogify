@@ -38,7 +38,7 @@ const App = () => {
                      <Route path='/contact' component={Contact} />
                      <Route path='/contributors' component={Contributors} />
                      <Route path='/add-new-post' component={AddNewPost} />
-                     <Route path='/post/:_id/:slug' component={PostContent} />
+                     <Route path='/post/:_id' component={PostContent} />
                      <Redirect to='/' />
                   </Switch>
                </Router>

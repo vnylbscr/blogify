@@ -1,4 +1,3 @@
-import React, { FC } from 'react';
 import {
    Avatar,
    Card,
@@ -9,20 +8,19 @@ import {
    Collapse,
    Grid,
    IconButton,
-   Typography,
    Link,
+   makeStyles,
+   Typography,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ShareIcon from '@material-ui/icons/Share';
 import clsx from 'clsx';
-import { GetAllPosts_getAllPosts as Post } from '../../queries/__generated__/GetAllPosts';
-import { MyTheme } from '../../styles/config';
 import moment from 'moment';
+import React from 'react';
 import { useHistory } from 'react-router';
+import { MyTheme } from '../../styles/config';
 interface IProps {
    // item: GetAllPosts_getAllPosts;
    item: any;
@@ -113,7 +111,7 @@ const Index = (props: IProps) => {
             <Collapse in={expanded} timeout='auto' unmountOnExit>
                <CardContent>
                   <Typography paragraph>{item?.content?.substring(0, 50)}</Typography>
-                  <Link color='secondary' onClick={() => history.push(`/post/${item?._id}/${item?.slug}`)}>
+                  <Link color='secondary' onClick={() => history.push(`/post/${item?._id}`)}>
                      see more
                   </Link>
                </CardContent>
