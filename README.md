@@ -12,6 +12,14 @@ In this project, I've implemented a platform called with Blogify that you can sh
  5.  Storybook
  6. Redux
 
- in this project. I hope you will like it. 
- 
-  *For now, I haven't deploy yet I'm still working on it.*
+ in this project.
+
+# Scripts 
+
+Start development server `yarn start`
+
+Start storybook for testing components `yarn storybook`
+
+To running tests `yarn test`
+
+
