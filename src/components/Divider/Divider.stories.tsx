@@ -1,11 +1,11 @@
 import { Meta, Story } from '@storybook/react';
-import MyDivider from '../../components/Divider';
+import MyDivider from '.';
 
 export default {
    title: 'MyDivider',
    component: MyDivider,
    argTypes: {
-      dashed: { type: 'boolean' },
+      dashed: { type: 'radio', options: [true, false] },
    },
 } as Meta;
 

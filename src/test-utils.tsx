@@ -1,15 +1,24 @@
 import { ThemeProvider } from '@material-ui/styles';
 import { render } from '@testing-library/react';
 import { theme } from './styles/config';
+import { Provider } from 'react-redux';
+import { store, persistor } from './store/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
-export const MaterialThemeProvider: React.FC = ({ children }) => {
-   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+const ReduxThemeProvider: React.FC = ({ children }) => {
+   return (
+      <Provider store={store}>
+         <PersistGate persistor={persistor} loading={<div>loading...</div>}>
+            <ThemeProvider theme={theme}>{children}</ThemeProvider>
+         </PersistGate>
+      </Provider>
+   );
 };
 
-function materialRender(ui: any, options?: any) {
-   return render(ui, { wrapper: MaterialThemeProvider, ...options });
+function providerRender(ui: any, options?: any) {
+   return render(ui, { wrapper: ReduxThemeProvider, ...options });
 }
 
 export * from '@testing-library/react';
 
-export { materialRender };
+export { providerRender };

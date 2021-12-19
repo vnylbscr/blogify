@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
 import PostItem from './index';
 import faker from 'faker';
-import { materialRender } from '../../test-utils';
+import { providerRender } from '../../test-utils';
 
 describe('single post item test', () => {
    const mockData = {
@@ -18,14 +18,14 @@ describe('single post item test', () => {
    test('should render post item properly', () => {
       const onClickMoreButton = jest.fn();
       const onClickLikeButton = jest.fn();
-      const { debug } = materialRender(
+      const { debug } = providerRender(
          <PostItem item={mockData} onClickLikeButton={onClickLikeButton} onClickMoreButton={onClickMoreButton} />
       );
 
       debug();
 
-      const moreVertBtn = screen.getByTestId('more-vert-icon');
-      const favoriteBtn = screen.getByTestId('favorites-button');
+      const moreVertBtn = screen.getByTestId(/more-vert-button/i);
+      const favoriteBtn = screen.getByTestId(/favorites-button/i);
 
       userEvent.click(moreVertBtn);
       userEvent.click(favoriteBtn);

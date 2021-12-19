@@ -65,6 +65,8 @@ const Input = (props: IProps<ExtendsField>) => {
       minRows,
    } = props;
 
+   console.log('name is', name);
+
    const classes = useStyles(props);
    const [showPassword, setShowPassword] = useState(false);
    return (
