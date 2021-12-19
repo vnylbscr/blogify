@@ -5,24 +5,15 @@ export default {
    title: 'PostItem',
    component: PostItem,
    argTypes: {
-      item: {},
+      item: {
+         type: 'object',
+      },
    },
 } as Meta;
 
-export const PostItemStory: Story<typeof PostItem> = (args) => (
-   <PostItem
-      item={{
-         user: {
-            username: 'mert',
-         },
-         createdAt: new Date(),
-         content: 'merto lasdlalsdlasdn ajnsdjan snjd',
-      }}
-      {...args}
-   />
-);
+export const Template: Story = (args: any) => <PostItem {...args} />;
 
-export const PrimaryPostItem = PostItemStory.bind({});
+export const PrimaryPostItem = Template.bind({});
 
 PrimaryPostItem.args = {
    ...PrimaryPostItem.args,
@@ -32,5 +23,6 @@ PrimaryPostItem.args = {
       },
       createdAt: new Date(),
       content: 'merto lasdlalsdlasdn ajnsdjan snjd',
+      image: 'https://i.pinimg.com/originals/af/8d/63/af8d63a477078732b79ff9d9fc60873f.jpg',
    },
 };

@@ -24,6 +24,8 @@ import { MyTheme } from '../../styles/config';
 interface IProps {
    // item: GetAllPosts_getAllPosts;
    item: any;
+   onClickMoreButton?: () => void;
+   onClickLikeButton?: () => void;
 }
 
 const useStyles = makeStyles((theme: MyTheme) => ({
@@ -56,8 +58,7 @@ const useStyles = makeStyles((theme: MyTheme) => ({
    },
 }));
 
-const Index = (props: IProps) => {
-   const { item } = props;
+const Index: React.FC<IProps> = ({ item, onClickLikeButton, onClickMoreButton }) => {
    const history = useHistory();
    const classes = useStyles();
 
@@ -77,12 +78,12 @@ const Index = (props: IProps) => {
                   </Avatar>
                }
                action={
-                  <IconButton aria-label='settings'>
+                  <IconButton data-testid='more-vert-button' onClick={onClickMoreButton} aria-label='settings'>
                      <MoreVertIcon />
                   </IconButton>
                }
                title={item?.user?.username}
-               subheader={moment(parseInt(item.createdAt)).fromNow()}
+               subheader={moment(item.createdAt).fromNow()}
             />
             <CardMedia className={classes.media} image={item?.image || undefined} />
             <CardContent className={classes.subtitleContainer}>
@@ -91,7 +92,7 @@ const Index = (props: IProps) => {
                </Typography>
             </CardContent>
             <CardActions disableSpacing>
-               <IconButton aria-label='add to favorites'>
+               <IconButton data-testid='favorites-button' aria-label='add to favorites'>
                   <FavoriteIcon />
                </IconButton>
                <IconButton aria-label='share'>

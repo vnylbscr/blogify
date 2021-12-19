@@ -19,4 +19,10 @@ export default {
    },
 } as Meta;
 
-export const ButtonSuccessStory: Story = (args) => <ButtonSuccess {...args} />;
+export const Template: Story = (args) => <ButtonSuccess {...args} />;
+
+export const PrimaryButtonSuccess = Template.bind({});
+
+PrimaryButtonSuccess.args = {
+   label: 'This is an primary success buttons',
+};

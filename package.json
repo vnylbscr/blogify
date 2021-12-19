@@ -102,11 +102,13 @@
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.3.10",
     "@types/apollo-upload-client": "^14.1.0",
+    "@types/faker": "^5.5.9",
     "@types/graphql": "^14.5.0",
     "@types/material-ui": "^0.21.9",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
     "apollo": "^2.33.4",
-    "eslint-plugin-react": "^7.24.0"
+    "eslint-plugin-react": "^7.24.0",
+    "faker": "^5.5.3"
   }
 }
