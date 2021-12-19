@@ -22,7 +22,7 @@ PrimaryPostItem.args = {
          username: 'mert',
       },
       createdAt: new Date(),
-      content: 'merto lasdlalsdlasdn ajnsdjan snjd',
+      content: 'example lasdlalsdlasdn ajnsdjan snjd',
       image: 'https://i.pinimg.com/originals/af/8d/63/af8d63a477078732b79ff9d9fc60873f.jpg',
    },
 };

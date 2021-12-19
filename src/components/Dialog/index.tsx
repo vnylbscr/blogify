@@ -1,14 +1,13 @@
-import React from 'react';
-import { FC } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
+import React, { FC } from 'react';
 import useResponsiveScreenVariables from '../../hooks/useResponsiveScreenVariables';
 
 interface IModalProps {
    open: boolean;
    onClose?: () => void;
    style?: React.CSSProperties;
-   dialogTitle?: string;
+   dialogTitle?: string | React.ReactNode;
    dialogContentTitle?: string;
    className?: string;
    fullWidth?: boolean;
@@ -29,11 +28,11 @@ const useStyles = makeStyles((theme: any) => ({
    },
 }));
 const Modal: FC<IModalProps> = (props) => {
-   const { open, onClose, style, dialogTitle, className, fullWidth, fullScreen } = props;
+   const { open, onClose, style, dialogTitle } = props;
    const { isSmallScreen } = useResponsiveScreenVariables();
    const classes = useStyles(props);
    return (
-      <Dialog open={open} onClose={onClose} style={style} fullScreen={isSmallScreen}>
+      <Dialog open={open} className={classes.root} onClose={onClose} style={style} fullScreen={isSmallScreen}>
          <DialogTitle>{dialogTitle}</DialogTitle>
          <DialogContent>{props.children}</DialogContent>
       </Dialog>

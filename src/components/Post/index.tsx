@@ -92,7 +92,7 @@ const Index: React.FC<IProps> = ({ item, onClickLikeButton, onClickMoreButton })
                </Typography>
             </CardContent>
             <CardActions disableSpacing>
-               <IconButton data-testid='favorites-button' aria-label='add to favorites'>
+               <IconButton data-testid='favorites-button' onClick={onClickLikeButton} aria-label='add to favorites'>
                   <FavoriteIcon />
                </IconButton>
                <IconButton aria-label='share'>
