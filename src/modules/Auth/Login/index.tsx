@@ -61,11 +61,12 @@ const LoginPage = (props: Props) => {
                   type: LOGIN,
                   payload: data?.login,
                });
+               localStorage.setItem('token', data?.login.token || '');
+               enqueueSnackbar(`hello again, 👌 ${data?.login.username} `, {
+                  variant: 'success',
+                  autoHideDuration: 2000,
+               });
             }
-            enqueueSnackbar(`hello again, 👌 ${data?.login.username} `, {
-               variant: 'success',
-               autoHideDuration: 2000,
-            });
          })
          .catch((e) => {
             enqueueSnackbar(e.message, {

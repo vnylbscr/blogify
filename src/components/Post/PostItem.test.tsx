@@ -1,10 +1,9 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import userEvent from '@testing-library/user-event';
-import { screen, fireEvent } from '@testing-library/react';
-import PostItem from './index';
+import { fireEvent, screen } from '@testing-library/react';
 import faker from 'faker';
+import React from 'react';
 import { providerRender } from '../../test-utils';
+import PostItem from './index';
 
 describe('single post item test', () => {
    const mockData = {
@@ -23,19 +22,15 @@ describe('single post item test', () => {
          console.log('called like button');
       });
 
-      const { debug } = providerRender(
+      providerRender(
          <PostItem item={mockData} onClickLikeButton={onClickLikeButton} onClickMoreButton={onClickMoreButton} />
       );
-
-      debug();
 
       const moreVertBtn = screen.getByTestId(/more-vert-button/i);
       const favoriteBtn = screen.getByTestId(/favorites-button/i);
 
       fireEvent.click(moreVertBtn);
       fireEvent.click(favoriteBtn);
-      // userEvent.click(moreVertBtn);
-      // userEvent.click(favoriteBtn);
 
       expect(onClickMoreButton).toHaveBeenCalled();
       expect(onClickLikeButton).toHaveBeenCalled();

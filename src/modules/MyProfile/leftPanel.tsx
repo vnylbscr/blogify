@@ -8,9 +8,8 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 const LeftPanel = (props: Props) => {
-   return <Grid container xs={12}>
-       
-   </Grid>;
+   const classes = useStyles();
+   return <Grid container className={classes.root} xs={12}></Grid>;
 };
 
 export default LeftPanel;

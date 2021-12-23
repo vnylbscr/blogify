@@ -11,7 +11,19 @@ export default {
    },
 } as Meta;
 
-export const Template: Story = (args: any) => <PostItem {...args} />;
+export const Template: Story = (args: any) => (
+   <PostItem
+      {...args}
+      item={{
+         user: {
+            username: 'mert',
+         },
+         createdAt: new Date(),
+         content: 'example lasdlalsdlasdn ajnsdjan snjd',
+         image: 'https://i.pinimg.com/originals/af/8d/63/af8d63a477078732b79ff9d9fc60873f.jpg',
+      }}
+   />
+);
 
 export const PrimaryPostItem = Template.bind({});
 

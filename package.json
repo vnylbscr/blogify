@@ -109,6 +109,7 @@
     "@typescript-eslint/parser": "^4.28.5",
     "apollo": "^2.33.4",
     "eslint-plugin-react": "^7.24.0",
-    "faker": "^5.5.3"
+    "faker": "^5.5.3",
+    "history": "^5.2.0"
   }
 }
