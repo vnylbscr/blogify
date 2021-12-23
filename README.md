@@ -22,4 +22,12 @@ Start storybook for testing components `yarn storybook`
 
 To running tests `yarn test`
 
+# Images from App
+
+![home](https://www.mertgenc.dev/images/blogify.png)
+
+![enter image description here](https://www.mertgenc.dev/images/blogify_register.png)
+![enter image description here](https://www.mertgenc.dev/images/blogify_contact.png)![enter image description here](https://www.mertgenc.dev/images/blogify_login.png)
+![enter image description here](https://i.ibb.co/mD98DtB/Screen-Shot-2021-12-21-at-22-11-53.png)
+
 
