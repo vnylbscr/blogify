@@ -1,49 +1,33 @@
-import React from 'react';
-import { Grid } from '@material-ui/core';
-import { useParams } from 'react-router';
-import { makeStyles } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
-import { GET_SINGLE_POST } from '../../queries/getSinglePost';
+import { Container, Grid, makeStyles, Divider } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
-import MyTypography from '../../components/Typography';
-import Loader from '../../components/Loader';
+import React from 'react';
 import ReactMarkDown from 'react-markdown';
+import { useParams } from 'react-router';
 import remarkGfm from 'remark-gfm';
-import LeftSide from './leftSide';
-import RightSide from './rightSide';
+import Loader from '../../components/Loader';
+import { GET_SINGLE_POST } from '../../queries/getSinglePost';
+import MyTypography from '../../components/Typography/index';
 
 interface Props {}
 
 const useStyles = makeStyles((theme) => ({
    root: {
-      minHeight: 'calc(100vh - 60px)',
-   },
-   imageSection: {
-      height: '500px',
-      width: '100%',
-      transition: 'all linear 1s',
-      filter: 'brightness(0.8)',
-      backgroundSize: 'auto',
-      opacity: 0.4,
-      backgroundRepeat: 'no-repeat',
-      background: (props: any) => `url(${props.image})`,
-      '&:hover': {
-         filter: 'brightness(1)',
-         transform: 'scale(1)',
-      },
+      // height: 'calc(100vh - 60px)',
    },
    image: {
       width: '100%',
       height: 'auto',
+      maxWidth: '40%',
+      maxHeight: '40%',
+      opacity: 0.8,
    },
-   markDownContainer: {
-      background: '#5C7AEA',
-   },
+   markDownContainer: {},
    markDown: {
       whiteSpace: 'pre-wrap',
-      backgroundColor: '#A2D2FF',
       padding: theme.spacing(3),
       width: '100%',
+      fontSize: 24,
    },
 }));
 
@@ -80,32 +64,43 @@ const PostContent = (props: Props) => {
    }
 
    return (
-      <Grid container xs={12} justifyContent='flex-start' alignItems='flex-start' className={classes.root}>
-         <Grid xs={12} container justifyContent='center' alignItems='center' className={classes.imageSection}>
-            <MyTypography variant='h1' color='textPrimary'>
-               {data?.getPost?.title}
-            </MyTypography>
-         </Grid>
-         <Grid container className={classes.markDownContainer} justifyContent='center' xs={12}>
-            <Grid sm={3} container item>
-               <LeftSide post={data.getPost} />
+      <Grid container xs={12} justifyContent='center' alignItems='center' className={classes.root}>
+         <Container maxWidth={'md'}>
+            <Grid container justifyContent={'center'} alignItems='center'>
+               <img src={data?.getPost?.image} className={classes.image} alt={'merto'} />
+               <Divider style={{ width: '100%', marginTop: 24 }} />
             </Grid>
-            <Grid justifyContent='center' alignItems='center' container xs={false} sm={6}>
+            <Grid container className={classes.markDownContainer} justifyContent='center' xs={12}>
+               <MyTypography align={'center'} variant='h2'>
+                  {data?.getPost?.title}
+               </MyTypography>
+
                <ReactMarkDown
                   className={classes.markDown}
-                  children={data?.getPost?.content}
+                  children={markdown}
                   remarkPlugins={remarkGfm as any}
                   components={{
                      img: (props) => <img {...props} alt={props['aria-label']} className={classes.image} />,
                   }}
                />
             </Grid>
-            <Grid sm={3} xs={false}>
-               <RightSide post={data.getPost} />
-            </Grid>
-         </Grid>
+         </Container>
       </Grid>
    );
 };
+
+const markdown = `A paragraph with *emphasis* and **strong importance**.
+
+> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
+
+* Lists
+* [ ] todo
+* [x] done
+
+A table:
+
+| a | b |
+| - | - |
+`;
 
 export default PostContent;

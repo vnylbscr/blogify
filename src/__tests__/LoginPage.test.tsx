@@ -12,7 +12,7 @@ describe('Login Page Test', () => {
 
    test('should validate inputs and click to submit button', () => {
       const history = createMemoryHistory();
-        
+
       const { container } = providerRender(
          <MockedProvider mocks={mockData}>
             <Router history={history}>

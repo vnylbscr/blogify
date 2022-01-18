@@ -57,12 +57,12 @@ const Home = (props: IProps) => {
 
    return (
       <Grid xs={12} className={classes.root} container style={{ height: '100%' }}>
-         <Hidden smDown>
+         {/* <Hidden smDown>
             <Grid container xs={3}>
                <StickyLeftPanel />
             </Grid>
-         </Hidden>
-         <Grid container sm={6} xs={12} justifyContent='center' alignItems='center'>
+         </Hidden> */}
+         <Grid container xs={12} justifyContent='center' alignItems='center'>
             <InfiniteScroll
                dataLength={data?.getAllPostsByPage?.page * 20}
                next={fetchMoreData}

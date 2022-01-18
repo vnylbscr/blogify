@@ -76,7 +76,7 @@ const Footer = () => {
                </form>
             </div>
          </div>
-         <p className='footer-bottom-title'>Mert Genç 2021. All rights reserved.</p>
+         <p className='footer-bottom-title'> Blogify 2021. All rights reserved.</p>
       </footer>
    );
 };
