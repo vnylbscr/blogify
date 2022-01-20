@@ -13,7 +13,7 @@ export const GET_ALL_POSTS_QUERY = gql`
          comments {
             _id
             content
-            likedCount
+
             createdAt
          }
          user {

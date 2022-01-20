@@ -9,16 +9,15 @@
 
 export interface getMeWithTokenQuery_getMeWithToken_posts_comments {
   __typename: "Comment";
-  likedCount: number | null;
   content: string | null;
   _id: string | null;
-  createdAt: string | null;
+  createdAt: any | null;
 }
 
 export interface getMeWithTokenQuery_getMeWithToken_posts {
   __typename: "Post";
   slug: string | null;
-  createdAt: string | null;
+  createdAt: any | null;
   category: (string | null)[] | null;
   comments: (getMeWithTokenQuery_getMeWithToken_posts_comments | null)[] | null;
   content: string | null;
@@ -44,7 +43,7 @@ export interface getMeWithTokenQuery_getMeWithToken {
   instagramUrl: string | null;
   twitterUrl: string | null;
   githubUrl: string | null;
-  createdAt: string | null;
+  createdAt: any | null;
 }
 
 export interface getMeWithTokenQuery {

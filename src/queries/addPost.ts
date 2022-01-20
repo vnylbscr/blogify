@@ -27,7 +27,7 @@ export const ADD_POST_MUTATION = gql`
          comments {
             _id
             content
-            likedCount
+             
             createdAt
          }
          category

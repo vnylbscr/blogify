@@ -11,8 +11,7 @@ export interface getUserPostsQuery_getUserPosts_comments {
   __typename: "Comment";
   _id: string | null;
   content: string | null;
-  likedCount: number | null;
-  createdAt: string | null;
+  createdAt: any | null;
 }
 
 export interface getUserPostsQuery_getUserPosts {
@@ -24,7 +23,7 @@ export interface getUserPostsQuery_getUserPosts {
   subtitle: string | null;
   comments: (getUserPostsQuery_getUserPosts_comments | null)[] | null;
   category: (string | null)[] | null;
-  createdAt: string | null;
+  createdAt: any | null;
   slug: string | null;
 }
 

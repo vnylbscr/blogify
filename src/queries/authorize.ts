@@ -15,7 +15,7 @@ export const USER_LOGIN_MUTATION = gql`
             comments {
                _id
                content
-               likedCount
+
                createdAt
             }
             category

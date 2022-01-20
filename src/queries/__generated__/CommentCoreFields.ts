@@ -4,20 +4,12 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: getCommentOfPostQuery
+// GraphQL fragment: CommentCoreFields
 // ====================================================
 
-export interface getCommentOfPostQuery_getComments {
+export interface CommentCoreFields {
   __typename: "Comment";
   _id: string | null;
   content: string | null;
   createdAt: any | null;
-}
-
-export interface getCommentOfPostQuery {
-  getComments: (getCommentOfPostQuery_getComments | null)[] | null;
-}
-
-export interface getCommentOfPostQueryVariables {
-  getCommentsPostId: string;
 }

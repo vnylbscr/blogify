@@ -5,7 +5,7 @@ export const GET_COMMENTS_OF_POST_QUERY = gql`
       getComments(postId: $getCommentsPostId) {
          _id
          content
-         likedCount
+
          createdAt
       }
    }

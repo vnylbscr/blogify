@@ -1,4 +1,5 @@
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
+import * as GetSinglePostQueryTypes from './__generated__/getSinglePostQuery';
 
 export const COMMENT_CORE_FIELDS = gql`
    fragment CommentCoreFields on Comment {
@@ -29,7 +30,7 @@ export const GET_SINGLE_POST = gql`
             email
          }
          slug
-         likedCount
+
          commentCount
          likedUsers {
             _id
@@ -45,3 +46,14 @@ export const GET_SINGLE_POST = gql`
       }
    }
 `;
+
+export const useGetSinglePostQuery = (variables: GetSinglePostQueryTypes.getSinglePostQueryVariables) => {
+   const data = useQuery<
+      GetSinglePostQueryTypes.getSinglePostQuery,
+      GetSinglePostQueryTypes.getSinglePostQueryVariables
+   >(GET_SINGLE_POST, {
+      variables,
+   });
+
+   return data;
+};

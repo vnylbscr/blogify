@@ -11,7 +11,6 @@ export const GET_ME_WITH_TOKEN = gql`
             createdAt
             category
             comments {
-               likedCount
                content
                _id
                createdAt

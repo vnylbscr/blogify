@@ -7,13 +7,23 @@
 // GraphQL mutation operation: AddPostMutation
 // ====================================================
 
+export interface AddPostMutation_addPost_comments {
+  __typename: "Comment";
+  _id: string | null;
+  content: string | null;
+  createdAt: any | null;
+}
+
 export interface AddPostMutation_addPost {
   __typename: "Post";
   _id: string;
   title: string;
+  subtitle: string | null;
   content: string | null;
+  image: string | null;
+  comments: (AddPostMutation_addPost_comments | null)[] | null;
   category: (string | null)[] | null;
-  createdAt: string | null;
+  createdAt: any | null;
   slug: string | null;
 }
 
@@ -26,5 +36,6 @@ export interface AddPostMutationVariables {
   title: string;
   content: string;
   category?: (string | null)[] | null;
+  subtitle: string;
   image: any;
 }

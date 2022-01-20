@@ -1,5 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { CORE_USER_FIELDS } from './fragments';
+import * as GetAllPostQueryTypes from './__generated__/getAllPostsByPageQuery';
 
 export const GET_ALL_POSTS_WITH_PAGINATE_QUERY = gql`
    ${CORE_USER_FIELDS}
@@ -28,3 +29,12 @@ export const GET_ALL_POSTS_WITH_PAGINATE_QUERY = gql`
       }
    }
 `;
+
+export const useGetAllPostWithPaginateQuery = (variables: GetAllPostQueryTypes.getAllPostsByPageQueryVariables) => {
+   const data = useQuery<
+      GetAllPostQueryTypes.getAllPostsByPageQuery,
+      GetAllPostQueryTypes.getAllPostsByPageQueryVariables
+   >(GET_ALL_POSTS_WITH_PAGINATE_QUERY, { variables });
+
+   return data;
+};
